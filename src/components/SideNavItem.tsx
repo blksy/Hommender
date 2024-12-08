@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { IconType } from "react-icons";
 
-const SideNavItem = ({ to, icon: Icon, label }) => {
+interface SideNavItemProps {
+  to: string;
+  icon: IconType;
+  label: string;
+}
+
+const SideNavItem: React.FC<SideNavItemProps> = ({ to, icon: Icon, label }) => {
   return (
     <li className="side-nav-item">
       <Link to={to} className="px-3">
