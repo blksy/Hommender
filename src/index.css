@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .side-nav-item {
+    @apply mb-4 rounded hover:shadow hover:bg-blue-200 py-2 transition duration-500 cursor-pointer;
+  }
+}
