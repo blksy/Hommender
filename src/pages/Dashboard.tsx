@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="w-full">
       <Navbar />
     </div>
   );

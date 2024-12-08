@@ -7,14 +7,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SingleRequest from "./pages/SingleRequest";
 import SingleService from "./pages/SingleService";
-import ClientProfile from "./pages/ClientProfile";
-import SpecialistProfile from "./pages/SpecialistProfile";
 import Specialists from "./pages/Specialists";
 import ClientDetails from "./pages/ClientDetails";
 import Clients from "./pages/Clients";
 import SpecialistDetails from "./pages/SpecialistDetails";
 import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/Contact";
+import UserProfile from "./pages/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -43,12 +42,8 @@ const router = createBrowserRouter([
         element: <SingleService />,
       },
       {
-        path: "/client-profile",
-        element: <ClientProfile />,
-      },
-      {
-        path: "/specialist-profile",
-        element: <SpecialistProfile />,
+        path: "/profile",
+        element: <UserProfile />,
       },
       {
         path: "/specialists",
