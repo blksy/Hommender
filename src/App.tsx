@@ -1,6 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
-import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Requests from "./pages/Requests";
 import Services from "./pages/Services";
@@ -14,6 +13,8 @@ import Specialists from "./pages/Specialists";
 import ClientDetails from "./pages/ClientDetails";
 import Clients from "./pages/Clients";
 import SpecialistDetails from "./pages/SpecialistDetails";
+import Dashboard from "./pages/Dashboard";
+import Contact from "./pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />,
+        element: <Dashboard />,
       },
       { path: "/about", element: <About /> },
       {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "/specialists/:id",
         element: <SpecialistDetails />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

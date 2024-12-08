@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
+import SideNav from "../components/SideNav";
 
 const HomeLayout = () => {
   return (
-    <div>
-      <nav>navbar</nav>
-      <p>Home Page</p>
+    <div className="flex ">
+      <SideNav />
+      <div className="align-element py-20"></div>
       <Outlet />
     </div>
   );
