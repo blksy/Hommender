@@ -53,3 +53,13 @@ export const serviceSchema = yup.object({
   specialistId: yup.string().required(),
   type_of_service: yup.string().required(),
 });
+
+//Review Schema
+export const reviewSchema = yup.object({
+  client_id: yup.string().required(),
+  comment: yup.string().required(),
+  created_at: yup.string().required(),
+  id: yup.number().required(),
+  rating: yup.number().nullable(),
+  specialist_id: yup.string().required(),
+});
