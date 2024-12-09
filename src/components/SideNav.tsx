@@ -7,12 +7,15 @@ import { GrUserWorker, GrLogout } from "react-icons/gr";
 import { FaHome, FaPhoneSquare, FaUserCircle } from "react-icons/fa";
 import SideNavItem from "./SideNavItem";
 
-const SideNav = () => {
+interface SideNavProps {
+  sideNavToggle: boolean;
+}
+
+const SideNav: React.FC<SideNavProps> = () => {
   return (
-    <div className="w-64 bg-gradient-to-l from-cyan-500 via-purple-300 to-blue-500 fixed h-full px-4 py-2">
+    <div className={"w-64 bg-lime-800 fixed h-full px-4 py-2"}>
       <div className="my-2 mb-4">
         <img src={Logo} alt="Logo" className="w-20 h-20 ml-20" />
-        {/* <h1 className="text-2xl text-white font-bold ml-12 ">Hommender</h1> */}
       </div>
       <hr />
       <ul className="mt-3 text-white font-bold">

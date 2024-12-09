@@ -1,11 +1,23 @@
 import { FaSearch } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 
-const Navbar = () => {
+interface NavbarProps {
+  sideNavToggle: boolean;
+  setSideNavToggle: (toggle: boolean) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ sideNavToggle, setSideNavToggle }) => {
   return (
-    <div className="bg-gradient-to-l from-blue-500 via-purple-300 to-cyan-500 px-4 py-3 flex justify-between ml-64">
+    <div
+      className={`bg-lime-700 px-4 py-3 flex justify-between ${
+        sideNavToggle ? "ml-64" : "w-full"
+      }`}
+    >
       <div className="flex items-center text-x1">
-        <FaBars className="text-white me-4 cursor-pointer" />
+        <FaBars
+          className="text-white me-4 cursor-pointer"
+          onClick={() => setSideNavToggle(!sideNavToggle)}
+        />
         <span className="text-white font-bold text-3xl">Hommender</span>
       </div>
       <div className="flex items-center gap-x-5">
