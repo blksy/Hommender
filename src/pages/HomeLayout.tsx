@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import SideNav from "../components/SideNav";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
-import Dashboard from "./Dashboard";
 
 const HomeLayout = () => {
   const [sideNavToggle, setSideNavToggle] = useState(false);
@@ -15,7 +14,6 @@ const HomeLayout = () => {
           sideNavToggle={sideNavToggle}
           setSideNavToggle={setSideNavToggle}
         />
-        <Dashboard />
         <Outlet />
       </div>
     </div>

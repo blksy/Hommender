@@ -9,8 +9,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ sideNavToggle, setSideNavToggle }) => {
   return (
     <div
-      className={`bg-lime-700 px-4 py-3 flex justify-between ${
-        sideNavToggle ? "ml-64" : "w-full"
+      className={`bg-blue-700 px-4 py-3 flex justify-between transition-all duration-300 ${
+        sideNavToggle ? "ml-64" : "ml-0"
       }`}
     >
       <div className="flex items-center text-x1">
