@@ -3,7 +3,7 @@ import Logo from "../assets/Logo.png";
 const About = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400">
-      <img src={Logo} alt="Logo" className="w-96 h-96 mb-8" />
+      <img src={Logo} alt="Logo" className="w-72 h-72 mb-8" />
       <p className="text-center px-6 max-w-2xl text-xl text-white">
         Our app is your ultimate portal for home services, connecting skilled
         specialists with clients in need of quality solutions. Whether you're
