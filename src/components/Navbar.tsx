@@ -29,7 +29,8 @@ const Navbar: React.FC<NavbarProps> = ({ sideNavToggle, setSideNavToggle }) => {
           </span>
           <input
             type="text"
-            className="w-full px-4 py-1 pl-12 rounded shadow outline-none hidden md:block"
+            className="w-full px-4 py-1 mr-32 pl-12 rounded shadow outline-none hidden md:block"
+            placeholder="type the service you're looking for.."
           />
         </div>
       </div>

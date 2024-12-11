@@ -27,6 +27,12 @@ const Dashboard = () => {
           to="/"
           className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
         >
+          Post a Request
+        </Link>
+        <Link
+          to="/"
+          className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
+        >
           Contact Specialists
         </Link>
       </div>
