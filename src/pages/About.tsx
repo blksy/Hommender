@@ -1,13 +1,22 @@
 import Logo from "../assets/Logo.png";
+import Bg from "../assets/Plan.bg.jpg";
 
 const About = () => {
   return (
-    <div className="flex flex-row items-center justify-center h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400 px-6">
+    <div
+      className="flex flex-row items-center justify-center h-screen"
+      style={{
+        backgroundImage: `url(${Bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="flex-1 flex justify-center">
         <img src={Logo} alt="Logo" className="w-90 h-90 " />
       </div>
       <div className="flex-1 text-right max-w-2xl">
-        <p className="text-xl text-white pr-72">
+        <p className="text-xl text-black bg-white bg-opacity-70 mr-72 p-6 font-bold">
           Our app is your ultimate portal for home services, connecting skilled
           specialists with clients in need of quality solutions. Whether you're
           looking to book a professional for cleaning, renovation, repairs, or

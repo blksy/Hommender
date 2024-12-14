@@ -14,7 +14,7 @@ interface SideNavProps {
 const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
   return (
     <div
-      className={`fixed h-full bg-blue-800 px-4 py-2 transition-transform duration-500 ${
+      className={`fixed h-full bg-blue-700 px-4 py-2 transition-transform duration-500 ${
         sideNavToggle ? "translate-x-0" : "-translate-x-full"
       }`}
       style={{ width: "16rem" }}
