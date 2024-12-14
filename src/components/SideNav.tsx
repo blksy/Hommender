@@ -24,22 +24,26 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
       </div>
       <hr />
       <ul className="mt-3 text-white font-bold">
-        <SideNavItem to="/" icon={FaHome} label="Home" />
-        <SideNavItem to="/profile" icon={FaUserCircle} label="Profile" />
-        <SideNavItem to="/services" icon={GiMonkeyWrench} label="Services" />
+        <SideNavItem to="/app" icon={FaHome} label="Home" />
+        <SideNavItem to="/app/profile" icon={FaUserCircle} label="Profile" />
         <SideNavItem
-          to="/specialists"
+          to="/app/services"
+          icon={GiMonkeyWrench}
+          label="Services"
+        />
+        <SideNavItem
+          to="/app/specialists"
           icon={GrUserWorker}
           label="Specialists"
         />
-        <SideNavItem to="/requests" icon={MdTask} label="Requests" />
-        <SideNavItem to="/clients" icon={FaPeopleGroup} label="Clients" />
+        <SideNavItem to="/app/requests" icon={MdTask} label="Requests" />
+        <SideNavItem to="/app/clients" icon={FaPeopleGroup} label="Clients" />
         <SideNavItem
-          to="/about"
+          to="/app/about"
           icon={BsFillQuestionSquareFill}
           label="About"
         />
-        <SideNavItem to="/contact" icon={FaPhoneSquare} label="Contact" />
+        <SideNavItem to="/app/contact" icon={FaPhoneSquare} label="Contact" />
         <SideNavItem to="/" icon={GrLogout} label="Logout" />
       </ul>
     </div>

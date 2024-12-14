@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
-const Dashboard = () => {
+const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400 text-white">
       <img src={Logo} alt="Logo" className="w-48 h-48 mb-8" />
@@ -46,4 +46,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
