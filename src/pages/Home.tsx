@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
-import Bg from "../assets/Bathroom.bg.jpg";
+import Bg from "../assets/Home.bg.jpg";
 
 const Home = () => {
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400 text-white"
+      className="page-container-col"
       style={{
         backgroundImage: `url(${Bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <img src={Logo} alt="Logo" className="w-48 h-48 mb-8" />

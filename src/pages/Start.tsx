@@ -1,16 +1,13 @@
 import { Link } from "react-router-dom";
-import StartBg from "../assets/Start.bg.jpg";
+import Bg from "../assets/Start.bg.jpg";
 import { FcGoogle } from "react-icons/fc";
 
 const Start = () => {
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screens h-screen"
+      className="page-container-col"
       style={{
-        backgroundImage: `url(${StartBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundImage: `url(${Bg})`,
       }}
     >
       <div

@@ -8,6 +8,9 @@ export default {
   variants: {
     extend: {
       display: ["focus-group"],
+      backgroundImage: {
+        "page-bg": 'url("../assets/Start.bg.jpg")',
+      },
     },
   },
 };

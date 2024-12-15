@@ -1,15 +1,12 @@
 import Logo from "../assets/Logo.png";
-import Bg from "../assets/Plan.bg.jpg";
+import Bg from "../assets/About.bg.jpg";
 
 const About = () => {
   return (
     <div
-      className="flex flex-row items-center justify-center h-screen"
+      className="page-container"
       style={{
         backgroundImage: `url(${Bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="flex-1 flex justify-center">
