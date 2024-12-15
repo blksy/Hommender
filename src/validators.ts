@@ -63,3 +63,53 @@ export const reviewSchema = yup.object({
   rating: yup.number().nullable(),
   specialist_id: yup.string().required(),
 });
+
+//Login Schema
+export const loginSchema = yup.object({
+  email: yup
+    .string()
+    .required("Please provide an username for exisiting account"),
+  password: yup.string().required("Please provide a password for Your account"),
+});
+
+//Register Schema
+export const registerSchema = yup.object({
+  full_name: yup.string().required("Please state your full name"),
+  email: yup.string().required("Please provide an existing email"),
+  password: yup.string().required("Please provide a new password"),
+
+  role: yup
+    .string()
+    .required("Please select an account type (client or specialist)")
+    .oneOf(["client", "specialist"], "Invalid account type"),
+
+  address: yup.string().when("role", {
+    is: "specialist",
+    then: yup.string().required("Please provide your address"),
+    otherwise: yup.string().nullable(),
+  }),
+
+  description: yup.string().when("role", {
+    is: "specialist",
+    then: yup.string().required("Please provide a description of yourself"),
+    otherwise: yup.string().nullable(),
+  }),
+
+  phone: yup.string().when("role", {
+    is: "specialist",
+    then: yup.string().nullable(),
+    otherwise: yup.string().required("Please provide your phone number"),
+  }),
+
+  services: yup
+    .array()
+    .of(yup.string())
+    .when("role", {
+      is: "specialist",
+      then: yup
+        .array()
+        .of(yup.string())
+        .required("Please provide services offered"),
+      otherwise: yup.array().of(yup.string()).nullable(),
+    }),
+});

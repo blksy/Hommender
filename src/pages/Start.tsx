@@ -20,6 +20,8 @@ const Start = () => {
 
         <div className="flex flex-col space-y-4">
           <h2 className="text-center font-bold">
+            In order to access the portal
+            <br />
             Login if you have an existing account
           </h2>
           <Link
@@ -41,13 +43,6 @@ const Start = () => {
           </button>
         </div>
       </div>
-      {/* For testing purposes tbd */}
-      <Link
-        to="/app"
-        className="bg-indigo-600 text-white text-center px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-indigo-500"
-      >
-        Go to Home
-      </Link>
     </div>
   );
 };

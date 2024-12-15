@@ -1,4 +1,4 @@
-import Bg from "../assets/Clients.bg.jpg";
+import Bg from "../assets/Client.bg.jpg";
 
 const Clients = () => {
   return (
