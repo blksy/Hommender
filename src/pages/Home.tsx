@@ -5,7 +5,7 @@ import Bg from "../assets/Home.bg.jpg";
 const linkItems = [
   { to: "/", label: "Post a Service" },
   { to: "/", label: "Post a Request" },
-  { to: "/", label: "Contact Specialists" },
+  { to: "/app/specialists", label: "Contact Specialists" },
 ];
 
 const Home = () => {
