@@ -30,4 +30,7 @@
   .scroll-container {
     @apply bg-white bg-opacity-75 p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-10 mb-10 h-[80vh] overflow-y-auto;
   }
+  .contact-label {
+    @apply mt-1 p-2 w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500;
+  }
 }

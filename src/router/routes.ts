@@ -43,7 +43,7 @@ export const ROUTES = {
 export const router = createBrowserRouter([
   {
     path: ROUTES.START,
-    element: <Start>,
+    element: <Start />,
   },
   {
     path: ROUTES.LOGIN,

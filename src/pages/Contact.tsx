@@ -55,7 +55,7 @@ const Contact = () => {
             value={formData.fullName}
             onChange={handleChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="contact-label"
             placeholder="Enter your full name"
           />
         </div>
@@ -74,7 +74,7 @@ const Contact = () => {
             value={formData.phoneNumber}
             onChange={handleChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="contact-label"
             placeholder="Enter your phone number"
           />
         </div>
@@ -92,16 +92,13 @@ const Contact = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            className="contact-label"
             placeholder="Write your message here..."
             rows="4"
           ></textarea>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
+        <button type="submit" className="btn-primary w-full ">
           Send Message
         </button>
       </form>
