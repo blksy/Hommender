@@ -24,10 +24,7 @@ const Start = () => {
             <br />
             Login if you have an existing account
           </h2>
-          <Link
-            to="/login"
-            className="bg-blue-600 text-white text-center px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
-          >
+          <Link to="/login" className="btn-primary text-center">
             Login
           </Link>
           <h2 className="text-center font-bold">Or register a new account</h2>

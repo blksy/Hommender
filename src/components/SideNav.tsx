@@ -11,6 +11,18 @@ interface SideNavProps {
   sideNavToggle: boolean;
 }
 
+const navItems = [
+  { to: "/app", icon: FaHome, label: "Home" },
+  { to: "/app/profile", icon: FaUserCircle, label: "Profile" },
+  { to: "/app/services", icon: GiMonkeyWrench, label: "Services" },
+  { to: "/app/specialists", icon: GrUserWorker, label: "Specialists" },
+  { to: "/app/requests", icon: MdTask, label: "Requests" },
+  { to: "/app/clients", icon: FaPeopleGroup, label: "Clients" },
+  { to: "/app/about", icon: BsFillQuestionSquareFill, label: "About" },
+  { to: "/app/contact", icon: FaPhoneSquare, label: "Contact" },
+  { to: "/", icon: GrLogout, label: "Logout" },
+];
+
 const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
   return (
     <div
@@ -24,27 +36,14 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
       </div>
       <hr />
       <ul className="mt-3 text-white font-bold">
-        <SideNavItem to="/app" icon={FaHome} label="Home" />
-        <SideNavItem to="/app/profile" icon={FaUserCircle} label="Profile" />
-        <SideNavItem
-          to="/app/services"
-          icon={GiMonkeyWrench}
-          label="Services"
-        />
-        <SideNavItem
-          to="/app/specialists"
-          icon={GrUserWorker}
-          label="Specialists"
-        />
-        <SideNavItem to="/app/requests" icon={MdTask} label="Requests" />
-        <SideNavItem to="/app/clients" icon={FaPeopleGroup} label="Clients" />
-        <SideNavItem
-          to="/app/about"
-          icon={BsFillQuestionSquareFill}
-          label="About"
-        />
-        <SideNavItem to="/app/contact" icon={FaPhoneSquare} label="Contact" />
-        <SideNavItem to="/" icon={GrLogout} label="Logout" />
+        {navItems.map((item) => (
+          <SideNavItem
+            key={item.to}
+            to={item.to}
+            icon={item.icon}
+            label={item.label}
+          />
+        ))}
       </ul>
     </div>
   );

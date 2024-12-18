@@ -1,10 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
-
-interface NavbarProps {
-  sideNavToggle: boolean;
-  setSideNavToggle: (toggle: boolean) => void;
-}
+import { NavbarProps } from "../../types/types";
 
 const Navbar: React.FC<NavbarProps> = ({ sideNavToggle, setSideNavToggle }) => {
   return (

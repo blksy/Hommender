@@ -2,6 +2,12 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import Bg from "../assets/Home.bg.jpg";
 
+const linkItems = [
+  { to: "/", label: "Post a Service" },
+  { to: "/", label: "Post a Request" },
+  { to: "/", label: "Contact Specialists" },
+];
+
 const Home = () => {
   return (
     <div
@@ -23,24 +29,11 @@ const Home = () => {
       </p>
 
       <div className="flex flex-col items-center space-y-4">
-        <Link
-          to="/"
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
-        >
-          Post a Service
-        </Link>
-        <Link
-          to="/"
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
-        >
-          Post a Request
-        </Link>
-        <Link
-          to="/"
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg transition duration-300 ease-in-out hover:bg-blue-500"
-        >
-          Contact Specialists
-        </Link>
+        {linkItems.map((item) => (
+          <Link key={item.label} to={item.to} className="btn-primary">
+            {item.label}
+          </Link>
+        ))}
       </div>
 
       <div className="mt-12 text-center">

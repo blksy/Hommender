@@ -1,11 +1,5 @@
 import { Link } from "react-router-dom";
-import { IconType } from "react-icons";
-
-interface SideNavItemProps {
-  to: string;
-  icon: IconType;
-  label: string;
-}
+import { SideNavItemProps } from "../../types/types";
 
 const SideNavItem: React.FC<SideNavItemProps> = ({ to, icon: Icon, label }) => {
   return (

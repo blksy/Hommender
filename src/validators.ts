@@ -1,10 +1,17 @@
 import * as yup from "yup";
 
+//Enum for Role
+const roles = ["client", "specialist", "admin"] as const;
+type Role = (typeof roles)[number];
+
 // User Schema
 export const userSchema = yup.object({
   created_at: yup.string().required(),
   id: yup.number().required(),
-  role: yup.string().required(),
+  role: yup
+    .string()
+    .oneOf(roles, "Role must be one of: client, specialist, admin")
+    .required(),
 });
 
 // Specialist Schema
@@ -15,7 +22,10 @@ export const specialistSchema = yup.object({
   id: yup.string().required(),
   phone: yup.string().nullable(),
   reviews: yup.array().of(yup.string()).nullable(),
-  role: yup.string().required(),
+  role: yup
+    .string()
+    .oneOf(roles, "Role must be one of: client, specialist, admin")
+    .required(),
   services: yup.array().of(yup.string()).nullable(),
 });
 
@@ -27,7 +37,10 @@ export const clientSchema = yup.object({
   orders: yup.array().of(yup.string()).nullable(),
   phone: yup.string().required(),
   reviews: yup.array().of(yup.string()).nullable(),
-  role: yup.string().required(),
+  role: yup
+    .string()
+    .oneOf(roles, "Role must be one of: client, specialist, admin")
+    .required(),
 });
 
 // Request Schema
@@ -54,7 +67,7 @@ export const serviceSchema = yup.object({
   type_of_service: yup.string().required(),
 });
 
-//Review Schema
+// Review Schema
 export const reviewSchema = yup.object({
   client_id: yup.string().required(),
   comment: yup.string().required(),
@@ -64,24 +77,28 @@ export const reviewSchema = yup.object({
   specialist_id: yup.string().required(),
 });
 
-//Login Schema
+// Login Schema
 export const loginSchema = yup.object({
   email: yup
     .string()
-    .required("Please provide an username for exisiting account"),
-  password: yup.string().required("Please provide a password for Your account"),
+    .email("Invalid email format")
+    .required("Please provide an username for existing account"),
+  password: yup.string().required("Please provide a password for your account"),
 });
 
-//Register Schema
+// Register Schema
 export const registerSchema = yup.object({
   full_name: yup.string().required("Please state your full name"),
-  email: yup.string().required("Please provide an existing email"),
+  email: yup
+    .string()
+    .email("Invalid email format")
+    .required("Please provide an existing email"),
   password: yup.string().required("Please provide a new password"),
 
   role: yup
     .string()
-    .required("Please select an account type (client or specialist)")
-    .oneOf(["client", "specialist"], "Invalid account type"),
+    .oneOf(roles, "Invalid account type")
+    .required("Please select an account type (client or specialist)"),
 
   address: yup.string().when("role", {
     is: "specialist",
