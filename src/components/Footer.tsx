@@ -28,10 +28,10 @@ const Footer = () => {
           </a>
         </div>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 mt-4 md:mt-0">
-          <a href="/rules-and-regulations" className="hover:underline">
+          <a href="/app/rules" className="hover:underline">
             Rules and Regulations
           </a>
-          <a href="/privacy-policy" className="hover:underline">
+          <a href="/app/privacy_policy" className="hover:underline">
             Privacy Policy
           </a>
         </div>

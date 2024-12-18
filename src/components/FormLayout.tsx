@@ -18,7 +18,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({ title, children }) => {
       }}
     >
       <form
-        className="p-6 rounded-lg space-y-4"
+        className="p-6 rounded-lg space-y-4 "
         style={{
           backgroundColor: "#ffffff",
           borderRadius: "10px",

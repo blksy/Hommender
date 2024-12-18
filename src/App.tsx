@@ -1,8 +1,4 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  Navigate,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
 import About from "./pages/About";
 import Requests from "./pages/Requests";
@@ -19,6 +15,8 @@ import Contact from "./pages/Contact";
 import UserProfile from "./pages/UserProfile";
 import Home from "./pages/Home";
 import Start from "./pages/Start";
+import RulesAndRegulations from "./pages/RulesAndRegulations";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +39,8 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> }, // Relative path
       { path: "requests", element: <Requests /> },
       { path: "services", element: <Services /> },
+      { path: "rules", element: <RulesAndRegulations /> },
+      { path: "privacy_policy", element: <PrivacyPolicy /> },
       { path: "requests/:id", element: <SingleRequest /> },
       { path: "services/:id", element: <SingleService /> },
       { path: "profile", element: <UserProfile /> },
