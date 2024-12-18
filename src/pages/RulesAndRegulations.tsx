@@ -8,7 +8,7 @@ const RulesAndRegulations = () => {
         backgroundImage: `url(${Bg})`,
       }}
     >
-      <div className="bg-white bg-opacity-75 p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-10 mb-10 h-[80vh] overflow-y-auto">
+      <div className="scroll-container">
         <h2 className="header-two">1. User Responsibilities</h2>
         <ul className="rules-list">
           <li className="text-gray-700">
@@ -101,7 +101,7 @@ const RulesAndRegulations = () => {
         </ul>
 
         <h2 className="header-two">5. Service Categories</h2>
-        <h3 className="text-xl font-semibold text-gray-700 mb-4">
+        <h3 className="header-three">
           Our platform covers a wide range of services related to home
           renovation, including but not limited to:
         </h3>
