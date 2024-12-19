@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import Bg from "../assets/Contact.bg.jpg";
+import { toast, Toaster } from "react-hot-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -36,12 +37,12 @@ const Contact = () => {
       .then(
         (response) => {
           console.log("Email successfully sent!", response);
-          alert("Your message has been sent!");
+          toast.success("Your message has been sent!");
           setFormData({ fullName: "", phoneNumber: "", message: "" });
         },
         (error) => {
           console.error("Error sending email:", error);
-          alert("Failed to send message. Please try again later.");
+          toast.error("Failed to send message. Please try again later.");
         }
       );
   };
@@ -55,6 +56,7 @@ const Contact = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <Toaster position="top-center" reverseOrder={false} />
       <form
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
         onSubmit={handleSubmit}
