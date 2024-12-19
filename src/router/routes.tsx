@@ -4,7 +4,7 @@ import About from "../pages/About";
 import Requests from "../pages/Requests";
 import Services from "../pages/Services";
 import Login from "../pages/Login";
-import Register from "./pages/Register";
+import Register from "../pages/Register";
 import SingleRequest from "../pages/SingleRequest";
 import SingleService from "../pages/SingleService";
 import Specialists from "../pages/Specialists";

@@ -20,7 +20,7 @@ const Start = () => {
 
         <div className="flex flex-col space-y-4">
           <h2 className="text-center font-bold">
-            In order to access the portal
+            In order to access the portal You should:
             <br />
             Login if you have an existing account
           </h2>

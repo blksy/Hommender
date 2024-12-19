@@ -35,3 +35,59 @@ export interface FormLayoutProps {
   title: string;
   children: React.ReactNode;
 }
+
+export interface User {
+  created_at: string;
+  id: number;
+  role: string;
+}
+
+export interface Specialist {
+  address: string | null;
+  description: string | null;
+  full_name: string;
+  id: string;
+  phone: string | null;
+  role: string;
+  services: string[] | null;
+}
+
+export interface Client {
+  address: string;
+  full_name: string;
+  id: string;
+  orders: string[] | null;
+  phone: string;
+  role: string;
+}
+
+export interface Request {
+  additional_info: string | null;
+  client_id: string;
+  contact: string;
+  description: string;
+  id: string;
+  location: string;
+  type_of_request: string;
+}
+
+export interface Service {
+  additional_info: string | null;
+  contact: string | null;
+  description: string | null;
+  id: string;
+  location: string | null;
+  price: string | null;
+  specialist_id: string;
+  specialist_name: string | null;
+  type_of_service: string | null;
+}
+
+export interface Review {
+  client_id: string;
+  comment: string;
+  created_at: string;
+  id: number;
+  rating: number | null;
+  specialist_id: string;
+}
