@@ -17,6 +17,7 @@ import Home from "../pages/Home";
 import Start from "../pages/Start";
 import RulesAndRegulations from "../pages/RulesAndRegulations";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
+import { Suspense } from "react";
 
 // Path Constants
 export const ROUTES = {
@@ -39,38 +40,155 @@ export const ROUTES = {
   CONTACT: "/app/contact",
 };
 
+// Fallback loader for lazy-loaded components
+const Loader = () => <div>Loading...</div>;
+
 // Router
 export const router = createBrowserRouter([
   {
     path: ROUTES.START,
-    element: <Start />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Start />
+      </Suspense>
+    ),
   },
   {
     path: ROUTES.LOGIN,
-    element: <Login />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: ROUTES.REGISTER,
-    element: <Register />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Register />
+      </Suspense>
+    ),
   },
   {
     path: ROUTES.APP,
-    element: <HomeLayout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <HomeLayout />
+      </Suspense>
+    ),
     children: [
-      { index: true, element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "requests", element: <Requests /> },
-      { path: "services", element: <Services /> },
-      { path: "rules", element: <RulesAndRegulations /> },
-      { path: "privacy_policy", element: <PrivacyPolicy /> },
-      { path: "requests/:id", element: <SingleRequest /> },
-      { path: "services/:id", element: <SingleService /> },
-      { path: "profile", element: <UserProfile /> },
-      { path: "specialists", element: <Specialists /> },
-      { path: "clients", element: <Clients /> },
-      { path: "clients/:id", element: <ClientDetails /> },
-      { path: "specialists/:id", element: <SpecialistDetails /> },
-      { path: "contact", element: <Contact /> },
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: "requests",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Requests />
+          </Suspense>
+        ),
+      },
+      {
+        path: "services",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Services />
+          </Suspense>
+        ),
+      },
+      {
+        path: "rules",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <RulesAndRegulations />
+          </Suspense>
+        ),
+      },
+      {
+        path: "privacy_policy",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <PrivacyPolicy />
+          </Suspense>
+        ),
+      },
+      {
+        path: "requests/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SingleRequest />
+          </Suspense>
+        ),
+      },
+      {
+        path: "services/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SingleService />
+          </Suspense>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <UserProfile />
+          </Suspense>
+        ),
+      },
+      {
+        path: "specialists",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Specialists />
+          </Suspense>
+        ),
+      },
+      {
+        path: "clients",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Clients />
+          </Suspense>
+        ),
+      },
+      {
+        path: "clients/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ClientDetails />
+          </Suspense>
+        ),
+      },
+      {
+        path: "specialists/:id",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <SpecialistDetails />
+          </Suspense>
+        ),
+      },
+      {
+        path: "contact",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Contact />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);
