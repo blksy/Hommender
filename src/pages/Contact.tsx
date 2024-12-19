@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "emailjs-com";
 import Bg from "../assets/Contact.bg.jpg";
 
 const Contact = () => {
@@ -18,11 +19,32 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    alert("Your message has been sent!");
-    setFormData({ fullName: "", phoneNumber: "", message: "" });
-  };
 
+    const emailData = {
+      from_name: formData.fullName,
+      phone_number: formData.phoneNumber,
+      message: formData.message,
+    };
+
+    emailjs
+      .send(
+        "service_oxyaz2r",
+        "template_1gcuelr",
+        emailData,
+        "2Blz82Tt3FQt7WT0F"
+      )
+      .then(
+        (response) => {
+          console.log("Email successfully sent!", response);
+          alert("Your message has been sent!");
+          setFormData({ fullName: "", phoneNumber: "", message: "" });
+        },
+        (error) => {
+          console.error("Error sending email:", error);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
+  };
   return (
     <div
       className="flex flex-col items-center justify-center h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400"

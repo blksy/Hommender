@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import { registerSchema } from "../validators";
 import { FormInput } from "../components/FormInput";
-import Bg from "../assets/Form.bg.jpg";
 import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
 import { Link } from "react-router-dom";
 import { RegisterFormValues } from "../../types/types";
