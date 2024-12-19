@@ -48,12 +48,11 @@ const Contact = () => {
   };
   return (
     <div
-      className="flex flex-col items-center justify-center h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400"
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400 p-6"
       style={{
         backgroundImage: `url(${Bg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <Toaster position="top-center" reverseOrder={false} />
@@ -61,8 +60,8 @@ const Contact = () => {
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          If you have any questions, fell free to contact our developers
+        <h2 className="text-lg lg:text-2xl font-bold mb-4 text-center">
+          If you have any questions, feel free to contact our developers
         </h2>
 
         <div className="mb-4">
@@ -79,7 +78,7 @@ const Contact = () => {
             value={formData.fullName}
             onChange={handleChange}
             required
-            className="contact-label"
+            className="contact-label w-full"
             placeholder="Enter your full name"
           />
         </div>
@@ -98,7 +97,7 @@ const Contact = () => {
             value={formData.phoneNumber}
             onChange={handleChange}
             required
-            className="contact-label"
+            className="contact-label w-full"
             placeholder="Enter your phone number"
           />
         </div>
@@ -116,13 +115,13 @@ const Contact = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="contact-label"
+            className="contact-label w-full"
             placeholder="Write your message here..."
             rows="4"
           ></textarea>
         </div>
 
-        <button type="submit" className="btn-primary w-full ">
+        <button type="submit" className="btn-primary w-full">
           Send Message
         </button>
       </form>

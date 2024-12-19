@@ -4,16 +4,18 @@ import Bg from "../assets/About.bg.jpg";
 const About = () => {
   return (
     <div
-      className="page-container"
+      className="page-container flex flex-col lg:flex-row items-center justify-center lg:justify-between p-6"
       style={{
         backgroundImage: `url(${Bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <div className="flex-1 flex justify-center">
-        <img src={Logo} alt="Logo" className="w-90 h-90 " />
+      <div className="flex-1 flex justify-center mb-6 lg:mb-0">
+        <img src={Logo} alt="Logo" className="w-40 h-40 lg:w-60 lg:h-60" />
       </div>
-      <div className="flex-1 text-right max-w-2xl">
-        <p className="text-xl text-black bg-white bg-opacity-70 mr-72 p-6 font-bold">
+      <div className="flex-1 max-w-xl lg:max-w-2xl">
+        <p className="text-lg lg:text-xl text-black bg-white bg-opacity-70 p-6 font-bold">
           Our app is your ultimate portal for home services, connecting skilled
           specialists with clients in need of quality solutions. Whether you're
           looking to book a professional for cleaning, renovation, repairs, or
