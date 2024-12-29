@@ -5,8 +5,6 @@ import Requests from "../pages/Requests";
 import Services from "../pages/Services";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import SingleRequest from "../pages/SingleRequest";
-import SingleService from "../pages/SingleService";
 import Specialists from "../pages/Specialists";
 import ClientDetails from "../pages/ClientDetails";
 import Clients from "../pages/Clients";
@@ -18,6 +16,8 @@ import Start from "../pages/Start";
 import RulesAndRegulations from "../pages/RulesAndRegulations";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import { Suspense } from "react";
+import RequestDetails from "../pages/RequestDetails";
+import ServiceDetails from "../pages/ServiceDetails";
 
 // Path Constants
 export const ROUTES = {
@@ -30,8 +30,8 @@ export const ROUTES = {
   SERVICES: "/app/services",
   RULES: "/app/rules",
   PRIVACY_POLICY: "/app/privacy_policy",
-  SINGLE_REQUEST: (id: string) => `/app/requests/${id}`,
-  SINGLE_SERVICE: (id: string) => `/app/services/${id}`,
+  REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
+  SINGLE_DETAILS: (id: string) => `/app/services/${id}`,
   PROFILE: "/app/profile",
   SPECIALISTS: "/app/specialists",
   CLIENTS: "/app/clients",
@@ -129,7 +129,7 @@ export const router = createBrowserRouter([
         path: "requests/:id",
         element: (
           <Suspense fallback={<Loader />}>
-            <SingleRequest />
+            <RequestDetails />
           </Suspense>
         ),
       },
@@ -137,7 +137,7 @@ export const router = createBrowserRouter([
         path: "services/:id",
         element: (
           <Suspense fallback={<Loader />}>
-            <SingleService />
+            <ServiceDetails />
           </Suspense>
         ),
       },
