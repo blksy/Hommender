@@ -31,6 +31,12 @@ export interface NavbarProps {
   setSideNavToggle: (toggle: boolean) => void;
 }
 
+export interface UserProfileProps {
+  user: User & (Specialist | Client);
+  reviews?: Review[];
+  overallRating?: number;
+}
+
 export interface FormLayoutProps {
   title: string;
   children: React.ReactNode;
