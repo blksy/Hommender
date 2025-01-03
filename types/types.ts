@@ -1,5 +1,41 @@
 import { IconType } from "react-icons";
 
+export interface SpecialistCardProps {
+  specialist: {
+    profilePic: string;
+    fullName: string;
+    services: string;
+    phone: string;
+  };
+}
+
+export interface ServiceCardProps {
+  service: {
+    type: string;
+    specialistName: string;
+    location: string;
+    priceRange: string;
+    contact: string;
+  };
+}
+
+export interface RequestCardProps {
+  request: {
+    type: string;
+    location: string;
+    contact: string;
+  };
+}
+
+export interface ClientCardProps {
+  client: {
+    profilePic: string;
+    fullName: string;
+    address: string;
+    phone: string;
+  };
+}
+
 export interface routerType {
   path: string;
   element: JSX.Element;

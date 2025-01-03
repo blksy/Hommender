@@ -1,5 +1,5 @@
 import Bg from "../assets/Clients.bg.jpg";
-import { ClientCard } from "../components/ClientCard";
+import ClientCard from "../components/ClientCard";
 
 const clients = [
   {
