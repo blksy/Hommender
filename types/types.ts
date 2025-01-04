@@ -1,5 +1,28 @@
 import { IconType } from "react-icons";
 
+export type Role = "client" | "specialist";
+
+export type HandleSupabaseError = (error: any) => void;
+
+export type ClientInsert = {
+  id?: string;
+  full_name: string;
+  address: string;
+  phone: string;
+  role: string;
+  orders?: string[] | null;
+};
+
+export type SpecialistInsert = {
+  id?: string;
+  full_name: string;
+  address: string | null;
+  phone: string | null;
+  role: string;
+  description?: string | null;
+  services?: string[] | null;
+};
+
 export interface SpecialistCardProps {
   specialist: {
     profilePic: string;
