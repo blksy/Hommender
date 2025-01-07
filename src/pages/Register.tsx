@@ -2,11 +2,17 @@ import { useFormik } from "formik";
 import { registerSchema } from "../validators";
 import { FormInput } from "../components/FormInput";
 import { RadioGroup, Radio, FormControlLabel } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RegisterFormValues } from "../../types/types";
 import FormLayout from "../components/FormLayout";
+import { ROUTES } from "../router/routes";
+import { useAuth } from "../hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { signUp } = useAuth();
+
   const formik = useFormik<RegisterFormValues>({
     initialValues: {
       email: "",
@@ -19,10 +25,34 @@ const Register = () => {
       services: [],
     },
     validationSchema: registerSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      const additionalInfo = {
+        address: values.address,
+        phone: values.phone,
+        description:
+          values.role === "specialist" ? values.description : undefined,
+      };
+
+      try {
+        await signUp(
+          values.full_name,
+          values.email.trim(),
+          values.password,
+          values.role,
+          additionalInfo
+        );
+        toast.success(
+          "Registration successful! Please check your email for confirmation."
+        );
+        navigate(ROUTES.APP);
+      } catch (err) {
+        toast.error("Error registering: " + (err as Error).message);
+      }
+    },
   });
   return (
-    <FormLayout title="Create an Account">
+    <FormLayout title="Create an Account" onSubmit={formik.handleSubmit}>
+      <Toaster position="top-center" reverseOrder={false} />
       <FormInput formik={formik} accessor="full_name" label="Full Name" />
       <FormInput formik={formik} accessor="email" label="Email" />
       <FormInput formik={formik} accessor="password" label="Password" />
@@ -71,15 +101,11 @@ const Register = () => {
 
       <div
         className="flex flex-col gap-4 mt-4"
-        style={{
-          alignItems: "center",
-        }}
+        style={{ alignItems: "center" }}
       >
-        <Link to={"/app"}>
-          <button type="submit" className="btn-primary">
-            Register
-          </button>
-        </Link>
+        <button type="submit" className="btn-primary">
+          Register
+        </button>
         <Link to={"/"}>
           <button type="button" className="btn-secondary">
             Back

@@ -1,7 +1,11 @@
 import { FormLayoutProps } from "../../types/types";
 import Bg from "../assets/Form.bg.jpg";
 
-const FormLayout: React.FC<FormLayoutProps> = ({ title, children }) => {
+const FormLayout: React.FC<FormLayoutProps> = ({
+  title,
+  children,
+  onSubmit,
+}) => {
   return (
     <div
       className="page-container-col"
@@ -18,6 +22,7 @@ const FormLayout: React.FC<FormLayoutProps> = ({ title, children }) => {
       }}
     >
       <form
+        onSubmit={onSubmit}
         className="p-6 rounded-lg space-y-4 "
         style={{
           backgroundColor: "#ffffff",

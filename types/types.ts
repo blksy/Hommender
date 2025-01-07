@@ -99,6 +99,7 @@ export interface UserProfileProps {
 export interface FormLayoutProps {
   title: string;
   children: React.ReactNode;
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
 }
 
 export interface User {

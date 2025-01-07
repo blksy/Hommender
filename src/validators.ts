@@ -100,33 +100,29 @@ export const registerSchema = yup.object({
     .oneOf(roles, "Invalid account type")
     .required("Please select an account type (client or specialist)"),
 
-  address: yup.string().when("role", {
-    is: "specialist",
-    then: yup.string().required("Please provide your address"),
-    otherwise: yup.string().nullable(),
+  address: yup.string().when("role", (role: string, schema) => {
+    return role === "specialist"
+      ? schema.required("Please provide your address")
+      : schema.nullable();
   }),
-
-  description: yup.string().when("role", {
-    is: "specialist",
-    then: yup.string().required("Please provide a description of yourself"),
-    otherwise: yup.string().nullable(),
+  description: yup.string().when("role", (role: string, schema) => {
+    return role === "specialist"
+      ? schema.required("Please provide a description of yourself")
+      : schema.nullable();
   }),
-
-  phone: yup.string().when("role", {
-    is: "specialist",
-    then: yup.string().nullable(),
-    otherwise: yup.string().required("Please provide your phone number"),
+  phone: yup.string().when("role", (role: string, schema) => {
+    return role === "specialist"
+      ? schema.required("Please provide your phone number")
+      : schema.nullable();
   }),
-
   services: yup
     .array()
     .of(yup.string())
-    .when("role", {
-      is: "specialist",
-      then: yup
-        .array()
-        .of(yup.string())
-        .required("Please provide services offered"),
-      otherwise: yup.array().of(yup.string()).nullable(),
+    .when("role", (role: string, schema) => {
+      return role === "specialist"
+        ? schema
+            .min(1, "Please provide at least one service offered")
+            .required("Please provide services offered")
+        : schema.nullable();
     }),
 });
