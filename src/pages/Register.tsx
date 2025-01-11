@@ -22,7 +22,7 @@ const Register = () => {
       phone: "",
       address: "",
       description: "",
-      services: [],
+      services: "",
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
@@ -31,6 +31,10 @@ const Register = () => {
         phone: values.phone,
         description:
           values.role === "specialist" ? values.description : undefined,
+          services:
+          values.role === "specialist"
+            ? values.services.split(",").map((service) => service.trim())
+            : undefined, 
       };
 
       try {

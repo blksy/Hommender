@@ -38,15 +38,6 @@ export const useAuth = () => {
       if (data?.user) {
         const userId = data.user.id;
 
-        const { error: userError } = await supabase.from("users").insert({
-          id: userId,
-          role,
-        });
-
-        if (userError) {
-          handleSupabaseError(userError);
-        }
-
         if (role === "client") {
           const clientData: ClientInsert = {
             id: userId,
@@ -55,6 +46,7 @@ export const useAuth = () => {
             phone: additionalInfo.phone,
             role: "client",
           };
+
           const { error: clientError } = await supabase
             .from("clients")
             .insert(clientData);
@@ -71,6 +63,7 @@ export const useAuth = () => {
             role: "specialist",
             description: additionalInfo.description || null,
           };
+
           const { error: specialistError } = await supabase
             .from("specialists")
             .insert(specialistData);
@@ -78,6 +71,17 @@ export const useAuth = () => {
           if (specialistError) {
             handleSupabaseError(specialistError);
           }
+        }
+
+        const { error: userError } = await supabase.from("users").insert({
+          id: userId,
+          email,
+          name,
+          role,
+        });
+
+        if (userError) {
+          handleSupabaseError(userError);
         }
       }
     } catch (error) {

@@ -4,24 +4,30 @@ export type Role = "client" | "specialist";
 
 export type HandleSupabaseError = (error: any) => void;
 
-export type ClientInsert = {
+export type BasicInsert = {
   id?: string;
   full_name: string;
   address: string;
   phone: string;
-  role: string;
+  role: Role;
+};
+
+export type ClientSpecific = BasicInsert & {
+  role: "client";
   orders?: string[] | null;
 };
 
-export type SpecialistInsert = {
-  id?: string;
-  full_name: string;
-  address: string | null;
-  phone: string | null;
-  role: string;
+export type SpecialistSpecific = BasicInsert & {
+  role: "specialist";
   description?: string | null;
   services?: string[] | null;
 };
+
+export type ClientInsert = BasicInsert & ClientSpecific & { role: "client" };
+export type SpecialistInsert = BasicInsert &
+  SpecialistSpecific & { role: "specialist" };
+
+export type UserInsert = ClientInsert | SpecialistInsert;
 
 export interface SpecialistCardProps {
   specialist: {
