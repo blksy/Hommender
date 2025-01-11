@@ -73,6 +73,7 @@ export interface SideNavItemProps {
   to: string;
   icon: IconType;
   label: string;
+  onClick?: () => void;
 }
 
 export type RegisterFormValues = {

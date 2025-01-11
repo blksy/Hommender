@@ -6,6 +6,8 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { GrUserWorker, GrLogout } from "react-icons/gr";
 import { FaHome, FaPhoneSquare, FaUserCircle } from "react-icons/fa";
 import SideNavItem from "./SideNavItem";
+import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 interface SideNavProps {
   sideNavToggle: boolean;
@@ -24,6 +26,17 @@ const navItems = [
 ];
 
 const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("Logged out successfully!");
+    } catch (error) {
+      toast.error("Logout failed. Please try again.");
+    }
+  };
+
   return (
     <div
       className={`fixed h-full bg-blue-700 px-4 py-2 transition-transform duration-500 z-10 ${
@@ -42,6 +55,7 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
             to={item.to}
             icon={item.icon}
             label={item.label}
+            onClick={item.label === "Logout" ? handleLogout : undefined}
           />
         ))}
       </ul>
