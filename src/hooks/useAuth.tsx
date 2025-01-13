@@ -23,7 +23,12 @@ export const useAuth = () => {
     email: string,
     password: string,
     role: Role,
-    additionalInfo: { address: string; phone: string; description?: string }
+    additionalInfo: {
+      address: string;
+      phone: string;
+      description?: string;
+      services?: string[];
+    }
   ) => {
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -47,12 +52,13 @@ export const useAuth = () => {
             phone: additionalInfo.phone,
             role: "client",
           };
-
+          console.log("Inserting client data:", clientData);
           const { error: clientError } = await supabase
             .from("clients")
             .insert(clientData);
 
           if (clientError) {
+            console.error("Client insertion error:", clientError);
             handleSupabaseError(clientError);
           }
         } else if (role === "specialist") {
@@ -63,6 +69,7 @@ export const useAuth = () => {
             phone: additionalInfo.phone,
             role: "specialist",
             description: additionalInfo.description || null,
+            services: additionalInfo.services || null,
           };
 
           const { error: specialistError } = await supabase
@@ -81,6 +88,7 @@ export const useAuth = () => {
         });
 
         if (userError) {
+          console.error("User insertion error:", userError);
           handleSupabaseError(userError);
         }
       }
