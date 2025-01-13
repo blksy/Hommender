@@ -26,6 +26,8 @@ const Register = () => {
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
+      console.log("Form submitted with values:", values);
+      console.log("Formik Errors:", formik.errors);
       const additionalInfo = {
         address: values.address,
         phone: values.phone,
@@ -48,6 +50,7 @@ const Register = () => {
         toast.success(
           "Registration successful! Please check your email for confirmation."
         );
+        console.log("Navigating to:", ROUTES.APP);
         navigate(ROUTES.APP);
       } catch (err) {
         toast.error("Error registering: " + (err as Error).message);

@@ -35,7 +35,7 @@ export const useAuth = () => {
         email,
         password,
       });
-
+      console.log("Supabase signUp response:", { data, error });
       if (error) {
         handleSupabaseError(error);
       }
@@ -56,7 +56,6 @@ export const useAuth = () => {
           const { error: clientError } = await supabase
             .from("clients")
             .insert(clientData);
-
           if (clientError) {
             console.error("Client insertion error:", clientError);
             handleSupabaseError(clientError);
