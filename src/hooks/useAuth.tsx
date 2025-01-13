@@ -37,6 +37,7 @@ export const useAuth = () => {
 
       if (data?.user) {
         const userId = data.user.id;
+        const createdAt = new Date().toISOString();
 
         if (role === "client") {
           const clientData: ClientInsert = {
@@ -75,8 +76,7 @@ export const useAuth = () => {
 
         const { error: userError } = await supabase.from("users").insert({
           id: userId,
-          email,
-          name,
+          created_at: createdAt,
           role,
         });
 

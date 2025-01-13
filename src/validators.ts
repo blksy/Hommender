@@ -115,14 +115,11 @@ export const registerSchema = yup.object({
       ? schema.required("Please provide your phone number")
       : schema.nullable();
   }),
-  services: yup
-    .array()
-    .of(yup.string())
-    .when("role", (role: string, schema) => {
-      return role === "specialist"
-        ? schema
-            .min(1, "Please provide at least one service offered")
-            .required("Please provide services offered")
-        : schema.nullable();
-    }),
+  services: yup.string().when("role", (role: string, schema) => {
+    return role === "specialist"
+      ? schema
+          .min(1, "Please provide at least one service offered")
+          .required("Please provide services offered")
+      : schema.nullable();
+  }),
 });
