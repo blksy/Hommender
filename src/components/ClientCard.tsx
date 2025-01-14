@@ -12,7 +12,9 @@ const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
         />
       </div>
       <div className="flex-1">
-        <h3 className="text-xl font-semibold mb-2">{client.fullName}</h3>
+        <h3 className="text-xl text-black font-semibold mb-2">
+          {client.full_name}
+        </h3>
         <p className="text-gray-600 mb-2">{client.address}</p>
         <p className="text-gray-600 mb-4">{client.phone}</p>
         <button
