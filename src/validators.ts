@@ -88,36 +88,45 @@ export const loginSchema = yup.object({
 
 // Register Schema
 export const registerSchema = yup.object({
-  full_name: yup.string().required("Please state your full name"),
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Please provide an existing email"),
-  password: yup.string().required("Please provide a new password"),
   role: yup
     .string()
-    .oneOf(roles, "Invalid account type")
-    .required("Please select an account type (client or specialist)"),
-  address: yup.string().when("role", (role: string, schema) => {
-    return role === "specialist" || role === "client"
-      ? schema.required("Please provide your address")
-      : schema.nullable();
-  }),
-  description: yup.string().when("role", (role: string, schema) => {
-    return role === "specialist"
-      ? schema.required("Please provide a description of yourself")
-      : schema.notRequired();
-  }),
-  phone: yup.string().when("role", (role: string, schema) => {
-    return role === "specialist" || role === "client"
-      ? schema.required("Please provide your phone number")
-      : schema.nullable();
-  }),
+    .required("Role is required")
+    .oneOf(
+      ["client", "specialist"],
+      "Role must be either 'client' or 'specialist'"
+    ),
+  full_name: yup
+    .string()
+    .required("Full name is required")
+    .min(2, "Full name must be at least 2 characters long"),
+  phone: yup
+    .string()
+    .required("Phone number is required")
+    .matches(/^\+?[0-9]{7,15}$/, "Phone number must be valid"),
+  address: yup.string().required("Address is required"),
+  description: yup
+    .string()
+    .nullable()
+    .when("role", {
+      is: "specialist",
+      then: (schema) =>
+        schema.required("Description is required for specialists"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  orders: yup
+    .array()
+    .of(yup.string())
+    .nullable()
+    .when("role", {
+      is: "client",
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   services: yup.string().when("role", (role: string, schema) => {
     return role === "specialist"
       ? schema
           .min(1, "Please provide at least one service offered")
           .required("Please provide services offered")
-      : schema.notRequired();
+      : schema.nullable();
   }),
 });
