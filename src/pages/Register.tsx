@@ -35,7 +35,7 @@ const Register = () => {
           values.role === "specialist" ? values.description : undefined,
         services:
           values.role === "specialist"
-            ? values.services.split(",").map((service) => service.trim())
+            ? values.servicesc.map((service) => service.trim())
             : undefined,
       };
 
