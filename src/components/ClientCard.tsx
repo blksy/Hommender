@@ -1,11 +1,12 @@
 import { ClientCardProps } from "../../types/types";
+import DefPic from "../assets/Profile.def.jpg";
 
 const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
   return (
     <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex items-center space-x-4">
       <div className="flex-shrink-0">
         <img
-          src={client.profilePic}
+          src={DefPic}
           alt="profile"
           className="w-28 h-28 rounded-full object-cover"
         />
