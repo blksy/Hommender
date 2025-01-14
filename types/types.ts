@@ -32,7 +32,7 @@ export type UserInsert = ClientInsert | SpecialistInsert;
 export interface SpecialistCardProps {
   specialist: {
     profilePic: string;
-    fullName: string;
+    full_name: string;
     services: string;
     phone: string;
   };
@@ -40,10 +40,10 @@ export interface SpecialistCardProps {
 
 export interface ServiceCardProps {
   service: {
-    type: string;
-    specialistName: string;
+    type_of_service: string;
+    specialist_name: string;
     location: string;
-    priceRange: string;
+    pricse: string;
     contact: string;
   };
 }
@@ -59,7 +59,7 @@ export interface RequestCardProps {
 export interface ClientCardProps {
   client: {
     profilePic: string;
-    fullName: string;
+    full_name: string;
     address: string;
     phone: string;
   };

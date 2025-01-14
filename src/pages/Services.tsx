@@ -1,42 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import Bg from "../assets/Services.bg.jpg";
 import ServiceCard from "../components/ServiceCard";
-
-const services = [
-  {
-    id: 1,
-    type: "Plumbing",
-    contact: "plumbing@example.com",
-    specialistName: "John Plumber",
-    priceRange: "$50 - $200",
-    location: "New York, NY",
-  },
-  {
-    id: 2,
-    type: "Electrical",
-    contact: "electrician@example.com",
-    specialistName: "Jane Electrician",
-    priceRange: "$100 - $500",
-    location: "San Francisco, CA",
-  },
-  {
-    id: 3,
-    type: "Landscaping",
-    contact: "landscape@example.com",
-    specialistName: "Mike Landscaper",
-    priceRange: "$30 - $150",
-    location: "Seattle, WA",
-  },
-  {
-    id: 4,
-    type: "Cleaning",
-    contact: "cleaning@example.com",
-    specialistName: "Alice Cleaner",
-    priceRange: "$20 - $100",
-    location: "Chicago, IL",
-  },
-];
+import { fetchAllServices } from "../api/serviceRequests";
 
 const Services = () => {
+  const {
+    data: services,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["service"],
+    queryFn: fetchAllServices,
+  });
+
+  if (error) {
+    return <p>Cannot get services</p>;
+  }
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div
       className="page-container bg-cover bg-center text-white py-8"
