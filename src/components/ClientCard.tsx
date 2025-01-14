@@ -15,8 +15,8 @@ const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
         <h3 className="text-xl text-black font-semibold mb-2">
           {client.full_name}
         </h3>
-        <p className="text-gray-600 mb-2">{client.address}</p>
-        <p className="text-gray-600 mb-4">{client.phone}</p>
+        <p className="text-gray-600 mb-2">Address: {client.address}</p>
+        <p className="text-gray-600 mb-4">Phone: {client.phone}</p>
         <button
           className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
           onClick={() => alert("Profile to be implemented")}

@@ -13,7 +13,7 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
       </div>
       <div className="flex-1 text-center sm:text-left">
         <h3 className="text-lg sm:text-xl text-black font-semibold mb-2">
-          {specialist.fullName}
+          {specialist.full_name}
         </h3>
         <p className="text-gray-600 mb-2">
           Services:{" "}
