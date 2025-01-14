@@ -94,24 +94,22 @@ export const registerSchema = yup.object({
     .email("Invalid email format")
     .required("Please provide an existing email"),
   password: yup.string().required("Please provide a new password"),
-
   role: yup
     .string()
     .oneOf(roles, "Invalid account type")
     .required("Please select an account type (client or specialist)"),
-
   address: yup.string().when("role", (role: string, schema) => {
-    return role === "specialist"
+    return role === "specialist" || role === "client"
       ? schema.required("Please provide your address")
       : schema.nullable();
   }),
   description: yup.string().when("role", (role: string, schema) => {
     return role === "specialist"
       ? schema.required("Please provide a description of yourself")
-      : schema.nullable();
+      : schema.notRequired();
   }),
   phone: yup.string().when("role", (role: string, schema) => {
-    return role === "specialist"
+    return role === "specialist" || role === "client"
       ? schema.required("Please provide your phone number")
       : schema.nullable();
   }),
@@ -120,6 +118,6 @@ export const registerSchema = yup.object({
       ? schema
           .min(1, "Please provide at least one service offered")
           .required("Please provide services offered")
-      : schema.nullable();
+      : schema.notRequired();
   }),
 });
