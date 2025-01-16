@@ -1,4 +1,18 @@
+import { Service } from "../../types/types";
 import { supabase } from "../database/supabase";
+
+export const addService = async (newService: Service) => {
+  const { data, error } = await supabase
+    .from("service")
+    .insert([newService])
+    .select();
+
+  if (error) {
+    console.error("Failed to add new service", error);
+    throw error;
+  }
+  return data;
+};
 
 export const fetchAllServices = async () => {
   const { data: services, error } = await supabase.from("service").select("*");
