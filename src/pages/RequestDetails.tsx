@@ -1,7 +1,5 @@
-import React from "react";
-
 const RequestDetails = () => {
-  return <div></div>;
+  return <div>Details of the Request</div>;
 };
 
 export default RequestDetails;

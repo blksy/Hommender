@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { ServiceCardProps } from "../../types/types";
+import { ROUTES } from "../router/routes";
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
@@ -15,12 +17,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
         <p className="text-gray-600 mb-2">Location: {service.location}</p>
         <p className="text-gray-600 mb-2">Price: {service.price}</p>
         <p className="text-gray-600 mb-4">Contact: {service.contact}</p>
-        <button
+        <Link
+          to={ROUTES.SERVICE_DETAILS(service.id)}
           className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-          onClick={() => alert("Service details to be implemented")}
         >
           View Details
-        </button>
+        </Link>
       </div>
     </div>
   );

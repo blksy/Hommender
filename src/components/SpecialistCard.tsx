@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { SpecialistCardProps } from "../../types/types";
 import DefPic from "../assets/Profile.def.jpg";
+import { ROUTES } from "../router/routes";
 
 const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
   return (
@@ -22,12 +24,12 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
             : "None"}
         </p>
         <p className="text-gray-600 mb-4">Phone: {specialist.phone}</p>
-        <button
-          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-          onClick={() => alert("Specialist details to be implemented")}
+        <Link
+          to={ROUTES.SPECIALIST_DETAILS(specialist.id)}
+          className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 text-center"
         >
-          View Details
-        </button>
+          View Specialist Details
+        </Link>
       </div>
     </div>
   );

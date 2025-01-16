@@ -1,7 +1,5 @@
-import React from "react";
-
 const ServiceDetails = () => {
-  return <div></div>;
+  return <div>Sevice details</div>;
 };
 
 export default ServiceDetails;

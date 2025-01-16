@@ -37,6 +37,7 @@ export const ROUTES = {
   CLIENTS: "/app/clients",
   CLIENT_DETAILS: (id: string) => `/app/clients/${id}`,
   SPECIALIST_DETAILS: (id: string) => `/app/specialists/${id}`,
+  SERVICE_DETAILS: (id: string) => `/app/services/${id}`,
   CONTACT: "/app/contact",
 };
 

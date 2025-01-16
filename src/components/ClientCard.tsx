@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { ClientCardProps } from "../../types/types";
 import DefPic from "../assets/Profile.def.jpg";
+import { ROUTES } from "../router/routes";
 
 const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
   return (
@@ -17,12 +19,12 @@ const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
         </h3>
         <p className="text-gray-600 mb-2">Address: {client.address}</p>
         <p className="text-gray-600 mb-4">Phone: {client.phone}</p>
-        <button
+        <Link
+          to={ROUTES.CLIENT_DETAILS(client.id)}
           className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-          onClick={() => alert("Profile to be implemented")}
         >
           View Profile
-        </button>
+        </Link>
       </div>
     </div>
   );
