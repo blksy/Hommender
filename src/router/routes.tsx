@@ -18,6 +18,8 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import { Suspense } from "react";
 import RequestDetails from "../pages/RequestDetails";
 import ServiceDetails from "../pages/ServiceDetails";
+import AddRequest from "../pages/AddRequest";
+import AddService from "../pages/AddService";
 
 // Path Constants
 export const ROUTES = {
@@ -27,17 +29,18 @@ export const ROUTES = {
   APP: "/app",
   ABOUT: "/app/about",
   REQUESTS: "/app/requests",
+  REQUESTS_ADD: "/app/requests/add_request",
+  SERVICES_ADD: "/app/services/add_service",
+  REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
   SERVICES: "/app/services",
+  SERVICE_DETAILS: (id: string) => `/app/services/${id}`,
   RULES: "/app/rules",
   PRIVACY_POLICY: "/app/privacy_policy",
-  REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
-  SINGLE_DETAILS: (id: string) => `/app/services/${id}`,
   PROFILE: "/app/profile",
-  SPECIALISTS: "/app/specialists",
   CLIENTS: "/app/clients",
   CLIENT_DETAILS: (id: string) => `/app/clients/${id}`,
+  SPECIALISTS: "/app/specialists",
   SPECIALIST_DETAILS: (id: string) => `/app/specialists/${id}`,
-  SERVICE_DETAILS: (id: string) => `/app/services/${id}`,
   CONTACT: "/app/contact",
 };
 
@@ -96,19 +99,61 @@ export const router = createBrowserRouter([
       },
       {
         path: "requests",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Requests />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Requests />
+              </Suspense>
+            ),
+          },
+          {
+            path: "add_request",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <AddRequest />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <RequestDetails />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "services",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Services />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Services />
+              </Suspense>
+            ),
+          },
+          {
+            path: "add_service",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <AddService />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ServiceDetails />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "rules",
@@ -123,22 +168,6 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <PrivacyPolicy />
-          </Suspense>
-        ),
-      },
-      {
-        path: "requests/:id",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <RequestDetails />
-          </Suspense>
-        ),
-      },
-      {
-        path: "services/:id",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <ServiceDetails />
           </Suspense>
         ),
       },
@@ -160,19 +189,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "clients",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Clients />
-          </Suspense>
-        ),
-      },
-      {
-        path: "clients/:id",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <ClientDetails />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Clients />
+              </Suspense>
+            ),
+          },
+          {
+            path: ":id",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <ClientDetails />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "specialists/:id",
