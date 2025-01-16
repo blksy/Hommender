@@ -3,8 +3,8 @@ import Logo from "../assets/Logo.png";
 import Bg from "../assets/Home.bg.jpg";
 
 const linkItems = [
-  { to: "/", label: "Post a Service" },
-  { to: "/", label: "Post a Request" },
+  { to: "/app", label: "Post a Service" },
+  { to: "/app", label: "Post a Request" },
   { to: "/app/specialists", label: "Contact Specialists" },
 ];
 

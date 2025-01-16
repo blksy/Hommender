@@ -1,34 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import Bg from "../assets/Requests.bg.jpg";
 import RequestCard from "../components/RequestCard";
-
-const requests = [
-  {
-    id: 1,
-    type: "Repair",
-    location: "New York, NY",
-    contact: "repair@example.com",
-  },
-  {
-    id: 2,
-    type: "Delivery",
-    location: "San Francisco, CA",
-    contact: "delivery@example.com",
-  },
-  {
-    id: 3,
-    type: "Installation",
-    location: "Seattle, WA",
-    contact: "install@example.com",
-  },
-  {
-    id: 4,
-    type: "Consultation",
-    location: "Chicago, IL",
-    contact: "consult@example.com",
-  },
-];
+import { fetchAllOrders } from "../api/ordersRequests";
 
 const Requests = () => {
+  const {
+    data: requests,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["requests"],
+    queryFn: fetchAllOrders,
+  });
+
+  if (error) {
+    return <p>Cannot get requests</p>;
+  }
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div
       className="page-container bg-cover bg-center text-white py-8"

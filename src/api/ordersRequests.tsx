@@ -43,10 +43,9 @@ export const deleteServiceById = async (id: string) => {
     .eq("id", id)
     .select();
 
-    if (error) {
-      console.error("Failed to delete request", error);
-      throw error;
-    }
-    return data;
-  };
+  if (error) {
+    console.error("Failed to delete request", error);
+    throw error;
+  }
+  return data;
 };

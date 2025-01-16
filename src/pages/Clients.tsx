@@ -8,7 +8,10 @@ const Clients = () => {
     data: clients,
     isLoading,
     error,
-  } = useQuery({ queryKey: ["clients"], queryFn: fetchAllClients });
+  } = useQuery({
+    queryKey: ["clients"],
+    queryFn: fetchAllClients,
+  });
 
   if (error) {
     return <p>Cannot get clients</p>;

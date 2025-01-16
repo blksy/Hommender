@@ -28,6 +28,7 @@ const Register = () => {
     onSubmit: async (values) => {
       console.log("Form submitted with values:", values);
       console.log("Formik Errors:", formik.errors);
+
       const additionalInfo = {
         address: values.address,
         phone: values.phone,
@@ -35,7 +36,9 @@ const Register = () => {
           values.role === "specialist" ? values.description : undefined,
         services:
           values.role === "specialist"
-            ? values.servicesc.map((service) => service.trim())
+            ? typeof values.services === "string"
+              ? values.services.split(",").map((service) => service.trim())
+              : values.services
             : undefined,
       };
 
@@ -57,6 +60,7 @@ const Register = () => {
       }
     },
   });
+
   return (
     <FormLayout title="Create an Account" onSubmit={formik.handleSubmit}>
       <Toaster position="top-center" reverseOrder={false} />
