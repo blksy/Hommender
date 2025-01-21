@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import Bg from "../assets/Home.bg.jpg";
+import { useUser } from "../context/UserContext";
 
 const linkItems = [
   { to: "/app/services/add_service", label: "Post a Service" },
@@ -9,6 +10,8 @@ const linkItems = [
 ];
 
 const Home = () => {
+  const { user } = useUser();
+  console.log(user);
   return (
     <div
       className="page-container-col flex flex-col items-center p-6"

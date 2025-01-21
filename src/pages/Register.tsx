@@ -22,7 +22,7 @@ const Register = () => {
       phone: "",
       address: "",
       description: "",
-      services: [],
+      services: undefined,
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
