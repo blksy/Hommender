@@ -11,7 +11,9 @@ const linkItems = [
 
 const Home = () => {
   const { user } = useUser();
-  console.log(user);
+  console.log(user?.role);
+  console.log("User:", user);
+
   return (
     <div
       className="page-container-col flex flex-col items-center p-6"

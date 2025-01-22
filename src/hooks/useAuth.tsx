@@ -6,6 +6,7 @@ import {
   ClientInsert,
   SpecialistInsert,
 } from "../../types/types";
+import { useUser } from "../context/UserContext";
 
 const handleSupabaseError: HandleSupabaseError = (error) => {
   console.error("Supabase Error Details:", error);
@@ -18,6 +19,7 @@ const handleSupabaseError: HandleSupabaseError = (error) => {
 };
 
 export const useAuth = () => {
+  const { fetchUserData } = useUser();
   const signUp = async (
     name: string,
     email: string,
@@ -103,6 +105,7 @@ export const useAuth = () => {
         password,
       });
       if (error) handleSupabaseError(error);
+      await fetchUserData();
     } catch (error) {
       handleSupabaseError(error);
     }

@@ -119,6 +119,17 @@ export interface User {
   role: string;
 }
 
+export interface Admin {
+  id: string;
+  address: string | null;
+  description: string | null;
+  full_name: string;
+  phone: string | null;
+  role: string;
+  services: string[] | null;
+  orders: string[] | null;
+}
+
 export interface Specialist {
   address: string | null;
   description: string | null;
