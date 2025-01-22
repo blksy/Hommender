@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Admin, Client, Specialist, User } from "../../types/types";
 import { supabase } from "../database/supabase";
+import { getUserById } from "../api/usersRequests";
 
 interface UserContextType {
   user: User | Client | Specialist | Admin | null;
@@ -28,15 +29,13 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
       const { data: session } = await supabase.auth.getSession();
       if (session?.user) {
         const userId = session.user.id;
-        const { data: userData, error: userError } = await supabase
-          .from("users")
-          .select("role")
-          .eq("id", userId)
-          .single();
 
-        if (userError) throw userError;
+        const userData = await getUserById(userId);
+        if (!userData) throw new Error("User not found");
 
         const role = userData.role;
+
+        let detailedUserData = null;
 
         if (role === "client") {
           const { data: clientData, error: clientError } = await supabase
@@ -45,7 +44,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
             .eq("id", userId)
             .single();
           if (clientError) throw clientError;
-          setUser(clientData);
+          detailedUserData = clientData;
         } else if (role === "specialist") {
           const { data: specialistData, error: specialistError } =
             await supabase
@@ -54,10 +53,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
               .eq("id", userId)
               .single();
           if (specialistError) throw specialistError;
-          setUser(specialistData);
+          detailedUserData = specialistData;
         } else {
-          setUser({ id: userId, role, created_at: session.user.created_at });
+          detailedUserData = {
+            id: userId,
+            role,
+            created_at: session.user.created_at,
+          };
         }
+
+        setUser(detailedUserData);
       } else {
         setUser(null);
       }
@@ -66,7 +71,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
       setUser(null);
     }
   };
-
   useEffect(() => {
     fetchUserData();
   }, []);
