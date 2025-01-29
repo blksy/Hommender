@@ -19,7 +19,7 @@ export const getUserById = async (id: string) => {
   try {
     const { data, error } = await supabase
       .from("users")
-      .select("id, name, username, email")
+      .select("id, role, created_at")
       .eq("id", id)
       .single();
 
