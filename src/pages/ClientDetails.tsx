@@ -62,13 +62,6 @@ const ClientDetails = () => {
                 <strong>Address:</strong> {address}
               </p>
             </div>
-
-            {/* Contact Me */}
-            <div className="mt-4">
-              <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all">
-                Contact Me
-              </button>
-            </div>
           </div>
 
           {/* Requests Section */}
@@ -79,7 +72,7 @@ const ClientDetails = () => {
             {clientRequests.length > 0 ? (
               <div className="bg-gray-100 p-6 rounded-lg shadow-md text-black">
                 <h3 className="text-2xl font-bold mb-4">
-                  Requests made by Client
+                  Requests made by {full_name}
                 </h3>
                 <ul className="space-y-4">
                   {clientRequests.map(
@@ -122,7 +115,14 @@ const ClientDetails = () => {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex gap-4">
+        <Link
+          to="/app/contact_form"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+        >
+          {" "}
+          Contact Me
+        </Link>
         <Link
           to="/app/clients"
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all"

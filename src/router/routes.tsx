@@ -20,6 +20,7 @@ import RequestDetails from "../pages/RequestDetails";
 import ServiceDetails from "../pages/ServiceDetails";
 import AddRequest from "../pages/AddRequest";
 import AddService from "../pages/AddService";
+import ContactForm from "../components/ContactForm";
 
 // Path Constants
 export const ROUTES = {
@@ -42,6 +43,7 @@ export const ROUTES = {
   SPECIALISTS: "/app/specialists",
   SPECIALIST_DETAILS: (id: string) => `/app/specialists/${id}`,
   CONTACT: "/app/contact",
+  CONTACT_FORM: "/app/contact_form",
 };
 
 // Fallback loader for lazy-loaded components
@@ -221,6 +223,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loader />}>
             <Contact />
+          </Suspense>
+        ),
+      },
+      {
+        path: "contact_form",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <ContactForm />
           </Suspense>
         ),
       },
