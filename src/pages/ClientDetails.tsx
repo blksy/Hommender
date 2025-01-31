@@ -13,7 +13,7 @@ const ClientDetails = () => {
     error: clientError,
   } = useQuery({
     queryKey: ["client", id],
-    queryFn: () => getClientById(id),
+    queryFn: () => getClientById(id!),
     enabled: !!id,
   });
 

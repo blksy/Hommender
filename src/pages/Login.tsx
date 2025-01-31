@@ -6,11 +6,12 @@ import { LoginFormValues } from "../../types/types";
 import FormLayout from "../components/FormLayout";
 import { ROUTES } from "../router/routes";
 import toast, { Toaster } from "react-hot-toast";
-import { useUser } from "../context/UserContext";
+import { logIn } from "../api/usersRequests";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logIn } = useUser();
+  const [isPending, setIsPending] = useState(false);
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
@@ -20,11 +21,14 @@ const Login = () => {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       try {
+        setIsPending(true);
         await logIn(values.email, values.password);
         toast.success("Login successful! Redirecting to the main page...");
         navigate(ROUTES.APP);
       } catch (err) {
         toast.error("Error logging in: " + (err as Error).message);
+      } finally {
+        setIsPending(false);
       }
     },
   });
@@ -38,7 +42,7 @@ const Login = () => {
       <FormInput formik={formik} accessor="email" label="Email" />
       <FormInput formik={formik} accessor="password" label="Password" />
       <div className="flex flex-col gap-4 mt-4 items-center">
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="btn-primary" disabled={isPending}>
           Login
         </button>
         <Link to={"/"}>

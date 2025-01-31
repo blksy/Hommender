@@ -4,9 +4,15 @@ import { router } from "./router/routes";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserContext";
 
-function App() {
-  const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+    },
+  },
+});
 
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>

@@ -6,9 +6,6 @@ export type HandleSupabaseError = (error: any) => void;
 
 export interface UserContextType {
   user: User | Client | Specialist | Admin | null;
-  logIn: (email: string, password: string) => Promise<boolean>;
-  logOut: () => void;
-  fetchUserData: () => Promise<void>;
 }
 
 export type BasicInsert = {

@@ -7,7 +7,7 @@ export const fetchAllSpecialists = async () => {
     .select("*");
   if (error) {
     console.error("Failed to fetch specialists data", error);
-    throw error;
+    // throw error;
   }
 
   return specialists;

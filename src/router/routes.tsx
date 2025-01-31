@@ -21,6 +21,7 @@ import ServiceDetails from "../pages/ServiceDetails";
 import AddRequest from "../pages/AddRequest";
 import AddService from "../pages/AddService";
 import ContactForm from "../components/ContactForm";
+import AddReview from "../pages/AddReview";
 
 // Path Constants
 export const ROUTES = {
@@ -31,6 +32,7 @@ export const ROUTES = {
   ABOUT: "/app/about",
   REQUESTS: "/app/requests",
   REQUESTS_ADD: "/app/requests/add_request",
+  REVIEW_ADD: "app/specialists/add_review",
   SERVICES_ADD: "/app/services/add_service",
   REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
   SERVICES: "/app/services",
@@ -144,6 +146,14 @@ export const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loader />}>
                 <AddService />
+              </Suspense>
+            ),
+          },
+          {
+            path: "add_review",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <AddReview />
               </Suspense>
             ),
           },

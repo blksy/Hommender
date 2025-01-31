@@ -52,3 +52,65 @@ export const updateUserById = async (
 
   return data;
 };
+
+export const fetchUserData = async () => {
+  try {
+    const { data: sessionData, error: sessionError } =
+      await supabase.auth.getUser();
+    if (sessionError) throw sessionError;
+
+    const sessionUser = sessionData?.user;
+    if (!sessionUser) {
+      return null;
+    }
+
+    const userId = sessionUser.id;
+    const userData = await getUserById(userId);
+    console.log("t", userData);
+    if (!userData) throw new Error("User not found");
+
+    let detailedUserData = null;
+    if (userData.role === "client") {
+      const { data: clientData } = await supabase
+        .from("clients")
+        .select("*")
+        .eq("id", userId)
+        .single();
+      detailedUserData = clientData;
+    } else if (userData.role === "specialist") {
+      const { data: specialistData } = await supabase
+        .from("specialists")
+        .select("*")
+        .eq("id", userId)
+        .single();
+      console.log("spec", specialistData);
+      detailedUserData = specialistData;
+    } else {
+      detailedUserData = {
+        id: userId,
+        role: userData.role,
+        created_at: sessionUser.created_at,
+      };
+    }
+
+    return detailedUserData;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
+};
+
+export const logOut = async () => {
+  await supabase.auth.signOut();
+};
+
+export const logIn = async (email: string, password: string) => {
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.error("Error logging in:", error);
+  }
+};

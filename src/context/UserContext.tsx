@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   Admin,
   Client,
@@ -7,7 +13,7 @@ import {
   UserContextType,
 } from "../../types/types";
 import { supabase } from "../database/supabase";
-import { getUserById } from "../api/usersRequests";
+import { fetchUserData } from "../api/usersRequests";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -18,105 +24,60 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     null
   );
 
-  const fetchUserData = async () => {
-    try {
-      const { data: sessionData, error: sessionError } =
-        await supabase.auth.getUser();
-      if (sessionError) throw sessionError;
+  //const { data: { user } } = await supabase.auth.getUser()
 
-      const sessionUser = sessionData?.user;
-      if (!sessionUser) {
-        setUser(null);
-        return;
-      }
-
-      const userId = sessionUser.id;
-      const userData = await getUserById(userId);
-      if (!userData) throw new Error("User not found");
-
-      let detailedUserData = null;
-      if (userData.role === "client") {
-        const { data: clientData } = await supabase
-          .from("clients")
-          .select("*")
-          .eq("id", userId)
-          .single();
-        detailedUserData = clientData;
-      } else if (userData.role === "specialist") {
-        const { data: specialistData } = await supabase
-          .from("specialists")
-          .select("*")
-          .eq("id", userId)
-          .single();
-        detailedUserData = specialistData;
-      } else {
-        detailedUserData = {
-          id: userId,
-          role: userData.role,
-          created_at: sessionUser.created_at,
-        };
-      }
-
-      setUser(detailedUserData);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setUser(null);
-    }
-  };
-
-  supabase.auth.onAuthStateChange(async (event) => {
-    setTimeout(async () => {
-      try {
-        const { data: sessionData, error } = await supabase.auth.getSession();
-        if (error) throw error;
-
-        const session = sessionData?.session;
-
-        if (
-          session?.user &&
-          (event === "SIGNED_IN" ||
-            event === "USER_UPDATED" ||
-            event === "TOKEN_REFRESHED")
-        ) {
-          await fetchUserData();
-        } else if (event === "SIGNED_OUT") {
+  useEffect(() => {
+    supabase.auth.getSession().then(() => {
+      fetchUserData()
+        .then((data) => {
+          console.log("userData", data);
+          setUser(data);
+        })
+        .catch(() => {
           setUser(null);
-        }
-      } catch (error) {
-        console.error("Error fetching session in auth state change:", error);
-        setUser(null);
-      }
-    }, 0);
-  });
-
-  const logIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+        });
     });
 
-    if (error) {
-      console.error("Error logging in:", error);
-      return false;
-    }
+    supabase.auth.onAuthStateChange(async () => {
+      fetchUserData()
+        .then((data) => {
+          console.log("userData", data);
+          setUser(data);
+        })
+        .catch(() => {
+          setUser(null);
+        });
+    });
+  }, []);
 
-    if (data?.user) {
-      await fetchUserData();
-      return true;
-    }
+  // supabase.auth.onAuthStateChange(async (event) => {
+  //   try {
+  //     console.log("onAuthStateChange");
+  //     const { data: sessionData, error } = await supabase.auth.getSession();
+  //     console.log("sessionData", sessionData);
+  //     if (error) throw error;
 
-    return false;
-  };
+  //     const session = sessionData?.session;
 
-  const logOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-  };
+  //     if (
+  //       session?.user &&
+  //       (event === "SIGNED_IN" ||
+  //         event === "USER_UPDATED" ||
+  //         event === "TOKEN_REFRESHED")
+  //     ) {
+  //       const userData = await fetchUserData();
+  //       setUser(userData);
+  //     } else if (event === "SIGNED_OUT") {
+  //       setUser(null);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching session in auth state change:", error);
+  //     setUser(null);
+  //   }
+  // });
 
   return (
-    <UserContext.Provider value={{ user, logIn, logOut, fetchUserData }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
   );
 };
 

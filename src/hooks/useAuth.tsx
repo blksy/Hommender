@@ -48,7 +48,7 @@ export const useAuth = () => {
 
         if (role === "client") {
           const clientData: ClientInsert = {
-            id: userId,
+            user_id: userId,
             full_name: name,
             address: additionalInfo.address,
             phone: additionalInfo.phone,
@@ -64,7 +64,7 @@ export const useAuth = () => {
           }
         } else if (role === "specialist") {
           const specialistData: SpecialistInsert = {
-            id: userId,
+            user_id: userId,
             full_name: name,
             address: additionalInfo.address,
             phone: additionalInfo.phone,
