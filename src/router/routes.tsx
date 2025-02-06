@@ -22,6 +22,7 @@ import AddRequest from "../pages/AddRequest";
 import AddService from "../pages/AddService";
 import ContactForm from "../components/ContactForm";
 import AddReview from "../pages/AddReview";
+import EditProfile from "../pages/EditProfile";
 
 // Path Constants
 export const ROUTES = {
@@ -40,6 +41,7 @@ export const ROUTES = {
   RULES: "/app/rules",
   PRIVACY_POLICY: "/app/privacy_policy",
   PROFILE: "/app/profile",
+  PROFILE_EDITION: "/app/profile/edit",
   CLIENTS: "/app/clients",
   CLIENT_DETAILS: (id: string) => `/app/clients/${id}`,
   SPECIALISTS: "/app/specialists",
@@ -185,11 +187,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <UserProfile />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <UserProfile />
+              </Suspense>
+            ),
+          },
+          {
+            path: "edit",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <EditProfile />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "specialists",
