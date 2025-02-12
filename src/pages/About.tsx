@@ -12,10 +12,10 @@ const About = () => {
       }}
     >
       <div className="flex-1 flex justify-center mb-6 lg:mb-0">
-        <img src={Logo} alt="Logo" className="w-40 h-40 lg:w-60 lg:h-60" />
+        <img src={Logo} alt="Logo" className="w-52 h-52 lg:w-72 lg:h-72" />
       </div>
       <div className="flex-1 max-w-xl lg:max-w-2xl">
-        <p className="text-lg lg:text-xl text-black bg-white bg-opacity-70 p-6 font-bold">
+        <p className="text-lg lg:text-xl text-black bg-white bg-opacity-80 p-8 font-bold rounded-2xl shadow-lg">
           Our app is your ultimate portal for home services, connecting skilled
           specialists with clients in need of quality solutions. Whether you're
           looking to book a professional for cleaning, renovation, repairs, or
