@@ -8,10 +8,12 @@ export const FormInput = ({
   formik,
   accessor,
   label,
+  multiline = false,
 }: {
   formik: FormikProps<FormValues>;
   accessor: keyof FormValues;
   label: string;
+  multiline?: boolean;
 }) => {
   return (
     <TextField
@@ -25,6 +27,8 @@ export const FormInput = ({
       label={label}
       name={accessor}
       type="text"
+      multiline={multiline}
+      minRows={multiline ? 4 : undefined}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       value={formik.values[accessor]}

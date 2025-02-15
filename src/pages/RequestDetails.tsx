@@ -3,12 +3,18 @@ import { getOrderById } from "../api/ordersRequests";
 import Bg from "../assets/RequestDetails.bg.jpg";
 import { useQuery } from "@tanstack/react-query";
 import emailjs from "emailjs-com";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ROUTES } from "../router/routes";
+import toast, { Toaster } from "react-hot-toast";
+import { FormInput } from "../components/FormInput";
 
 const RequestDetails = () => {
   const { id } = useParams();
-  const formRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState({
+    message: "",
+    to_email: "",
+    request_id: "",
+  });
   const [isSending, setIsSending] = useState(false);
 
   const {
@@ -19,6 +25,13 @@ const RequestDetails = () => {
     queryKey: ["request", id],
     queryFn: () => getOrderById(id!),
     enabled: !!id,
+    onSuccess: (data) => {
+      setFormData({
+        ...formData,
+        to_email: data.contact,
+        request_id: data.id,
+      });
+    },
   });
 
   if (requestLoading) return <p>Loading request details...</p>;
@@ -35,25 +48,42 @@ const RequestDetails = () => {
     type_of_request,
   } = request;
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const handleSendResponse = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
 
+    const emailData = {
+      to_email: formData.to_email,
+      request_id: formData.request_id,
+      message: formData.message,
+    };
+
     emailjs
-      .sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current!,
-        "YOUR_PUBLIC_KEY"
+      .send(
+        "service_oxyaz2r",
+        "template_1gcuelr",
+        emailData,
+        "2Blz82Tt3FQt7WT0F"
       )
       .then(
-        (result) => {
-          alert("Message sent successfully!");
-          formRef.current?.reset();
+        (response) => {
+          console.log("Email successfully sent!", response);
+          toast.success("Your response has been sent!");
+          setFormData({ ...formData, message: "" });
         },
         (error) => {
-          alert("Failed to send message. Please try again.");
-          console.error(error.text);
+          console.error("Error sending email:", error);
+          toast.error("Failed to send response. Please try again later.");
         }
       )
       .finally(() => {
@@ -66,6 +96,7 @@ const RequestDetails = () => {
       className="page-container bg-cover bg-center text-white py-8 min-h-screen flex flex-col items-center"
       style={{ backgroundImage: `url(${Bg})` }}
     >
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-black text-3xl font-bold text-center mb-6">
           Request Details - ID: {requestId}
@@ -104,15 +135,19 @@ const RequestDetails = () => {
 
         <div className="mt-6">
           <h3 className="text-xl font-bold text-black">Respond to Request</h3>
-          <form ref={formRef} onSubmit={handleSendResponse} className="mt-4">
-            <input type="hidden" name="to_email" value={contact} />
-            <input type="hidden" name="request_id" value={requestId} />
-            <textarea
-              name="message"
-              className="w-full p-2 rounded-xl border border-gray-300 resize-none h-40 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Write your response here..."
-              required
-            ></textarea>
+          <form onSubmit={handleSendResponse} className="mt-4 space-y-4">
+            <FormInput
+              formik={{
+                values: formData,
+                handleChange: handleChange,
+                handleBlur: () => {},
+                touched: {},
+                errors: {},
+              }}
+              accessor="message"
+              label="Your Response"
+              multiline={true}
+            />
             <button
               type="submit"
               disabled={isSending}
