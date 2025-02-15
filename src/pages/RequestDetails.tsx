@@ -48,6 +48,10 @@ const RequestDetails = () => {
     type_of_request,
   } = request;
 
+  const googleMapsLink = location
+    ? `https://www.google.com/maps?q=${encodeURIComponent(location)}`
+    : null;
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -124,8 +128,19 @@ const RequestDetails = () => {
             {additional_info || "No additional info provided."}
           </p>
           <p className="text-lg">
-            <strong>Location: </strong>
-            {location}
+            <strong>Location: {location} - </strong>
+            {googleMapsLink ? (
+              <a
+                href={googleMapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                View on Google Maps
+              </a>
+            ) : (
+              "Location not provided."
+            )}
           </p>
           <p className="text-lg">
             <strong>Contact: </strong>
