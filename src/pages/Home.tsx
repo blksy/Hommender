@@ -3,12 +3,6 @@ import Logo from "../assets/Logo.png";
 import Bg from "../assets/Home.bg.jpg";
 import { useUser } from "../context/UserContext";
 
-const linkItems = [
-  { to: "/app/services/add_service", label: "Post a Service" },
-  { to: "/app/requests/add_request", label: "Post a Request" },
-  { to: "/app/specialists", label: "Contact Specialists" },
-];
-
 const Home = () => {
   const { user } = useUser();
 
