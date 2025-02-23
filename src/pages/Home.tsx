@@ -11,8 +11,6 @@ const linkItems = [
 
 const Home = () => {
   const { user } = useUser();
-  console.log(user?.role);
-  console.log("User:", user);
 
   return (
     <div
@@ -39,17 +37,36 @@ const Home = () => {
         manage your home service needs all in one place.
       </p>
 
-      <div className="flex flex-col items-center space-y-4">
-        {linkItems.map((item) => (
+      {user && (
+        <div className="flex flex-col items-center space-y-4">
+          {user.role === "client" && (
+            <Link
+              to="/app/requests/add_request"
+              className="btn-primary w-full max-w-xs text-center"
+            >
+              Post a Request
+            </Link>
+          )}
+          {user.role === "specialist" && (
+            <Link
+              to="/app/services/add_service"
+              className="btn-primary w-full max-w-xs text-center"
+            >
+              Post a Request
+            </Link>
+          )}
           <Link
-            key={item.label}
-            to={item.to}
+            to={
+              user.role === "specialist" ? "/app/clients" : "/app/specialists"
+            }
             className="btn-primary w-full max-w-xs text-center"
           >
-            {item.label}
+            {user.role === "specialist"
+              ? "Contact Clients"
+              : "Contact Specialists"}
           </Link>
-        ))}
-      </div>
+        </div>
+      )}
 
       <div className="mt-8 lg:mt-12 text-center">
         <p className="text-sm lg:text-lg font-bold text-black">
@@ -59,4 +76,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;

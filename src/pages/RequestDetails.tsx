@@ -3,7 +3,7 @@ import { getOrderById } from "../api/ordersRequests";
 import Bg from "../assets/RequestDetails.bg.jpg";
 import { useQuery } from "@tanstack/react-query";
 import emailjs from "emailjs-com";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ROUTES } from "../router/routes";
 import toast, { Toaster } from "react-hot-toast";
 import { FormInput } from "../components/FormInput";
@@ -25,14 +25,17 @@ const RequestDetails = () => {
     queryKey: ["request", id],
     queryFn: () => getOrderById(id!),
     enabled: !!id,
-    onSuccess: (data) => {
-      setFormData({
-        ...formData,
-        to_email: data.contact,
-        request_id: data.id,
-      });
-    },
   });
+
+  useEffect(() => {
+    if (request) {
+      setFormData((prev) => ({
+        ...prev,
+        to_email: request.contact,
+        request_id: request.id,
+      }));
+    }
+  }, [request]);
 
   if (requestLoading) return <p>Loading request details...</p>;
   if (requestError) return <p>Error loading request details...</p>;
@@ -66,6 +69,14 @@ const RequestDetails = () => {
     e.preventDefault();
     setIsSending(true);
 
+    if (!formData.to_email) {
+      toast.error("Client email is missing. Unable to send response.");
+      setIsSending(false);
+      return;
+    }
+
+    console.log("Sending email to:", formData.to_email);
+
     const emailData = {
       to_email: formData.to_email,
       request_id: formData.request_id,
@@ -83,7 +94,7 @@ const RequestDetails = () => {
         (response) => {
           console.log("Email successfully sent!", response);
           toast.success("Your response has been sent!");
-          setFormData({ ...formData, message: "" });
+          setFormData((prev) => ({ ...prev, message: "" }));
         },
         (error) => {
           console.error("Error sending email:", error);

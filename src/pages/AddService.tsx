@@ -18,7 +18,7 @@ const AddService = () => {
     location: "",
     price: "",
     specialist_id: user?.id || "",
-    specialist_name: user?.name || "",
+    specialist_name: user?.full_name || "",
     type_of_service: "",
   });
 

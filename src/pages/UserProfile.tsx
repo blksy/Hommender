@@ -118,7 +118,7 @@ const UserProfile: React.FC = () => {
                   </li>
                 ))
               ) : (
-                <p className="text-gray-500">No reviews available</p>
+                <p className="mb-4 text-gray-500">No reviews available</p>
               )}
             </ul>
             <Link
