@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useUser } from "../context/UserContext";
 import { addService } from "../api/serviceRequests";
 import { Service } from "../../types/types";
@@ -21,12 +21,6 @@ const AddService = () => {
     specialist_name: user?.full_name || "",
     type_of_service: "",
   });
-
-  useEffect(() => {
-    if (!user || user.role !== "specialist") {
-      navigate(ROUTES.START);
-    }
-  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

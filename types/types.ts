@@ -159,6 +159,7 @@ export interface Request {
   contact: string;
   description: string;
   id: string;
+  client_name: string | null;
   location: string;
   type_of_request: string;
 }

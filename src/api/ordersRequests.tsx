@@ -6,6 +6,7 @@ export const addOrder = async (newRequest: Request) => {
     .from("requests")
     .insert([newRequest])
     .select();
+
   if (error) {
     console.error("Failed to add new request", error);
     throw error;
