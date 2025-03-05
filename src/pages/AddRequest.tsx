@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { useState } from "react";
 import { addOrder } from "../api/ordersRequests";
-import { Request } from "../../types/types";
+import { ClientRequest } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { ROUTES } from "../router/routes";
 import FormLayout from "../components/FormLayout";
@@ -11,12 +11,11 @@ import { FormInput } from "../components/FormInput";
 const AddRequest = () => {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [requestData, setRequestData] = useState<Partial<Request>>({
+  const [requestData, setRequestData] = useState<Partial<ClientRequest>>({
     additional_info: "",
-    contact: "",
     description: "",
     location: "",
-    client_id: user?.id || "",
+    contact: "",
     client_name: user?.full_name || "",
     type_of_request: "",
   });
@@ -24,9 +23,9 @@ const AddRequest = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await addOrder(requestData as Request);
+      await addOrder(requestData as ClientRequest);
       toast.success("Request added successfully!");
-      navigate(ROUTES.SERVICES);
+      navigate(ROUTES.REQUESTS);
     } catch (error) {
       console.error("Failed to add request:", error);
       toast.error("Failed to add request. Please try again.");

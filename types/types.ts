@@ -59,7 +59,7 @@ export interface RequestCardProps {
     id: string;
     type_of_request: string;
     location: string;
-    contact: string;
+    description: string;
   };
 }
 
@@ -153,9 +153,8 @@ export interface Client {
   role: string;
 }
 
-export interface Request {
+export interface ClientRequest {
   additional_info: string | null;
-  client_id: string;
   contact: string;
   description: string;
   id: string;

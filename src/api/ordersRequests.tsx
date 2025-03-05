@@ -1,7 +1,7 @@
-import { Request } from "../../types/types";
+import { ClientRequest } from "../../types/types";
 import { supabase } from "../database/supabase";
 
-export const addOrder = async (newRequest: Request) => {
+export const addOrder = async (newRequest: ClientRequest) => {
   const { data, error } = await supabase
     .from("requests")
     .insert([newRequest])
@@ -37,7 +37,7 @@ export const getOrderById = async (id: string) => {
   return request;
 };
 
-export const deleteServiceById = async (id: string) => {
+export const deleteOrderById = async (id: string) => {
   const { data, error } = await supabase
     .from("requests")
     .delete()

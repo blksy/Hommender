@@ -10,7 +10,7 @@ const RequestCard: React.FC<RequestCardProps> = ({ request }) => {
           Type: {request.type_of_request}
         </h3>
         <p className="text-gray-600 mb-2">Location: {request.location}</p>
-        <p className="text-gray-600 mb-4">Contact: {request.contact}</p>
+        <p className="text-gray-600 mb-4">Description {request.description}</p>
         <Link
           to={ROUTES.REQUEST_DETAILS(request.id)}
           className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"

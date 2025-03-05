@@ -15,7 +15,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
           {service.specialist_name}
         </h3>
         <p className="text-gray-600 mb-2">Location: {service.location}</p>
-        <p className="text-gray-600 mb-2">Price: {service.price}</p>
+        <p className="text-gray-600 mb-2">Price: {service.price} $</p>
         <p className="text-gray-600 mb-4">Contact: {service.contact}</p>
         <Link
           to={ROUTES.SERVICE_DETAILS(service.id)}

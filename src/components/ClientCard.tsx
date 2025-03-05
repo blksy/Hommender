@@ -5,7 +5,7 @@ import { ROUTES } from "../router/routes";
 
 const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
   return (
-    <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex items-center space-x-4">
+    <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex items-center space-x-4 max-w-sm">
       <div className="flex-shrink-0">
         <img
           src={DefPic}
