@@ -142,6 +142,7 @@ export interface Specialist {
   phone: string | null;
   role: string;
   services: string[] | null;
+  reviews: string[] | null;
 }
 
 export interface Client {

@@ -33,7 +33,7 @@ export const ROUTES = {
   ABOUT: "/app/about",
   REQUESTS: "/app/requests",
   REQUESTS_ADD: "/app/requests/add_request",
-  REVIEW_ADD: "app/specialists/add_review",
+  REVIEW_ADD: (id: string) => `/app/specialists/${id}/add_review`,
   SERVICES_ADD: "/app/services/add_service",
   REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
   SERVICES: "/app/services",
@@ -152,14 +152,6 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: "add_review",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <AddReview />
-              </Suspense>
-            ),
-          },
-          {
             path: ":id",
             element: (
               <Suspense fallback={<Loader />}>
@@ -208,11 +200,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "specialists",
-        element: (
-          <Suspense fallback={<Loader />}>
-            <Specialists />
-          </Suspense>
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Specialists />
+              </Suspense>
+            ),
+          },
+          {
+            path: "specialists/:id/add_review",
+            element: (
+              <Suspense fallback={<Loader />}>
+                <AddReview />
+              </Suspense>
+            ),
+          },
+        ],
       },
       {
         path: "clients",

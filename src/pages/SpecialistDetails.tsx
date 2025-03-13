@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Bg from "../assets/SpecialistDetails.bg.jpg";
 import { getSpecialistById } from "../api/specialistsRequests";
 import { fetchAllServices } from "../api/serviceRequests";
+import { ROUTES } from "../router/routes";
 
 const SpecialistDetails = () => {
   const { id } = useParams();
@@ -114,30 +115,29 @@ const SpecialistDetails = () => {
           </div>
         </div>
       </div>
-      {/* Reviews Section
-        <div className="mt-8 w-full bg-gray-100 p-6 rounded-lg shadow-md text-black">
-          <h3 className="text-2xl font-bold mb-4">Reviews</h3>
-          {reviews.length > 0 ? (
-            <ul className="space-y-4">
-              {reviews.map(({ id, reviewer, rating, comment }) => (
-                <li key={id} className="p-4 bg-white shadow-md rounded-lg">
-                  <p>
-                    <strong>Reviewer:</strong> {reviewer}
-                  </p>
-                  <p>
-                    <strong>Rating:</strong> {rating} ⭐
-                  </p>
-                  <p>
-                    <strong>Comment:</strong> {comment}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No reviews available for this specialist.</p>
-          )}
-        </div>
-      </div> */}
+      {/* Reviews Section */}
+      <div className="mt-8 w-full bg-gray-100 p-6 rounded-lg shadow-md text-black">
+        <h3 className="text-2xl font-bold mb-4">Reviews</h3>
+        {reviews.length > 0 ? (
+          <ul className="space-y-4">
+            {reviews.map(({ id, reviewer, rating, comment }) => (
+              <li key={id} className="p-4 bg-white shadow-md rounded-lg">
+                <p>
+                  <strong>Reviewer:</strong> {reviewer}
+                </p>
+                <p>
+                  <strong>Rating:</strong> {rating} ⭐
+                </p>
+                <p>
+                  <strong>Comment:</strong> {comment}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No reviews available for this specialist.</p>
+        )}
+      </div>
       <div className="mt-6 flex gap-4">
         <Link
           to="/app/contact_form"
@@ -146,13 +146,13 @@ const SpecialistDetails = () => {
           Contact Me
         </Link>
         <Link
-          to="/app/specialists/add_review"
+          to={ROUTES.REVIEW_ADD(specialistId)}
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
         >
           Write a review
         </Link>
         <Link
-          to="/app/specialists"
+          to={ROUTES.SPECIALISTS}
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
         >
           Back to Specialists
