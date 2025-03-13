@@ -118,9 +118,9 @@ const SpecialistDetails = () => {
       {/* Reviews Section */}
       <div className="mt-8 w-full bg-gray-100 p-6 rounded-lg shadow-md text-black">
         <h3 className="text-2xl font-bold mb-4">Reviews</h3>
-        {reviews.length > 0 ? (
+        {specialist?.reviews && specialist.reviews.length > 0 ? (
           <ul className="space-y-4">
-            {reviews.map(({ id, reviewer, rating, comment }) => (
+            {specialist.reviews.map(({ id, reviewer, rating, comment }) => (
               <li key={id} className="p-4 bg-white shadow-md rounded-lg">
                 <p>
                   <strong>Reviewer:</strong> {reviewer}
