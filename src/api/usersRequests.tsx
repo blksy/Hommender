@@ -66,7 +66,6 @@ export const fetchUserData = async () => {
 
     const userId = sessionUser.id;
     const userData = await getUserById(userId);
-    console.log("t", userData);
     if (!userData) throw new Error("User not found");
 
     let detailedUserData = null;
