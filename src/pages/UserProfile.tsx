@@ -107,6 +107,12 @@ const UserProfile: React.FC = () => {
             <li>
               <strong>Phone:</strong> {user.phone || "N/A"}
             </li>
+            {user.role === "specialist" && (
+              <li>
+                <strong>Description:</strong>{" "}
+                {user.description || "No description provided"}
+              </li>
+            )}
           </ul>
         </div>
 
