@@ -162,7 +162,7 @@ const UserProfile: React.FC = () => {
                     className="p-3 border rounded shadow-sm bg-gray-100 flex justify-between items-center"
                   >
                     <Link
-                      to={`${ROUTES.SERVICE_DETAILS}/${service.id}`}
+                      to={ROUTES.SERVICE_DETAILS(service.id)}
                       className="text-blue-600 hover:underline"
                     >
                       {service.type_of_service} - {service.location}
