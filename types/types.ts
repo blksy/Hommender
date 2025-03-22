@@ -180,7 +180,7 @@ export interface Review {
   client_id: string;
   comment: string;
   created_at: string;
-  id: number;
+  id: string;
   rating: number | null;
   specialist_id: string;
 }

@@ -203,19 +203,11 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: (
-              <Suspense fallback={<Loader />}>
-                <Specialists />
-              </Suspense>
-            ),
+            element: <Specialists />,
           },
           {
-            path: "specialists/:id/add_review",
-            element: (
-              <Suspense fallback={<Loader />}>
-                <AddReview />
-              </Suspense>
-            ),
+            path: ":id/add_review",
+            element: <AddReview />,
           },
         ],
       },
