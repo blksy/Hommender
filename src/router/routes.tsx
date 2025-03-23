@@ -23,6 +23,7 @@ import AddService from "../pages/AddService";
 import ContactForm from "../components/ContactForm";
 import AddReview from "../pages/AddReview";
 import EditProfile from "../pages/EditProfile";
+import ProtectedWrapper from "../components/ProtectedWrapper";
 
 // Path Constants
 export const ROUTES = {
@@ -82,25 +83,31 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.APP,
     element: (
-      <Suspense fallback={<Loader />}>
-        <HomeLayout />
-      </Suspense>
+      <ProtectedWrapper>
+        <Suspense fallback={<Loader />}>
+          <HomeLayout />
+        </Suspense>
+      </ProtectedWrapper>
     ),
     children: [
       {
         index: true,
         element: (
-          <Suspense fallback={<Loader />}>
-            <Home />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <Home />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
         path: "about",
         element: (
-          <Suspense fallback={<Loader />}>
-            <About />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <About />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
@@ -109,25 +116,31 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<Loader />}>
-                <Requests />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <Requests />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: "add_request",
             element: (
-              <Suspense fallback={<Loader />}>
-                <AddRequest />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <AddRequest />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: ":id",
             element: (
-              <Suspense fallback={<Loader />}>
-                <RequestDetails />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <RequestDetails />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
         ],
@@ -138,25 +151,31 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<Loader />}>
-                <Services />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <Services />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: "add_service",
             element: (
-              <Suspense fallback={<Loader />}>
-                <AddService />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <AddService />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: ":id",
             element: (
-              <Suspense fallback={<Loader />}>
-                <ServiceDetails />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <ServiceDetails />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
         ],
@@ -164,17 +183,21 @@ export const router = createBrowserRouter([
       {
         path: "rules",
         element: (
-          <Suspense fallback={<Loader />}>
-            <RulesAndRegulations />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <RulesAndRegulations />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
         path: "privacy_policy",
         element: (
-          <Suspense fallback={<Loader />}>
-            <PrivacyPolicy />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <PrivacyPolicy />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
@@ -183,17 +206,21 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<Loader />}>
-                <UserProfile />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <UserProfile />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: "edit",
             element: (
-              <Suspense fallback={<Loader />}>
-                <EditProfile />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <EditProfile />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
         ],
@@ -203,11 +230,23 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Specialists />,
+            element: (
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <Specialists />
+                </Suspense>{" "}
+              </ProtectedWrapper>
+            ),
           },
           {
             path: ":id/add_review",
-            element: <AddReview />,
+            element: (
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <AddReview />{" "}
+                </Suspense>{" "}
+              </ProtectedWrapper>
+            ),
           },
         ],
       },
@@ -217,17 +256,21 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<Loader />}>
-                <Clients />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <Clients />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
           {
             path: ":id",
             element: (
-              <Suspense fallback={<Loader />}>
-                <ClientDetails />
-              </Suspense>
+              <ProtectedWrapper>
+                <Suspense fallback={<Loader />}>
+                  <ClientDetails />
+                </Suspense>
+              </ProtectedWrapper>
             ),
           },
         ],
@@ -235,25 +278,31 @@ export const router = createBrowserRouter([
       {
         path: "specialists/:id",
         element: (
-          <Suspense fallback={<Loader />}>
-            <SpecialistDetails />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <SpecialistDetails />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
         path: "contact",
         element: (
-          <Suspense fallback={<Loader />}>
-            <Contact />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <Contact />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
       {
         path: "contact_form",
         element: (
-          <Suspense fallback={<Loader />}>
-            <ContactForm />
-          </Suspense>
+          <ProtectedWrapper>
+            <Suspense fallback={<Loader />}>
+              <ContactForm />
+            </Suspense>
+          </ProtectedWrapper>
         ),
       },
     ],
