@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { IconType } from "react-icons";
 
 export type Role = "client" | "specialist";
@@ -41,6 +42,10 @@ export interface SpecialistCardProps {
     services: string;
     phone: string;
   };
+}
+
+export interface ProtectedWrapperProps {
+  children: ReactNode;
 }
 
 export interface ServiceCardProps {

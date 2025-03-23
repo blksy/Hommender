@@ -5,15 +5,25 @@ import { toast } from "react-hot-toast";
 import Bg from "../assets/Profile.bg.jpg";
 import { updateClientById } from "../api/clientsRequests";
 import { updateSpecialistById } from "../api/specialistsRequests";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../router/routes";
+import { Client, Specialist } from "../../types/types";
 
 export default function EditProfile() {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const specialistMutation = useMutation({
-    mutationFn: (values) => updateSpecialistById(values, user.id),
-    onSuccess: () => {
+    mutationFn: (values: Partial<Specialist>) =>
+      updateSpecialistById(values, user.id),
+    onSuccess: (data) => {
+      if (!data) {
+        console.error("No data returned after updating specialist.");
+        return;
+      }
       console.log("Specialist updated successfully:", data);
       toast.success("Specialist updated successfully");
+      navigate(ROUTES.PROFILE); // Redirect after success
     },
     onError: (error) => {
       toast.error("Failed to update specialist data");
@@ -22,13 +32,18 @@ export default function EditProfile() {
   });
 
   const clientMutation = useMutation({
-    mutationFn: async (values) => {
+    mutationFn: async (values: Partial<Client>) => {
       console.log("Updating client with values:", values, "User ID:", user.id);
       return updateClientById(values, user.id);
     },
     onSuccess: (data) => {
+      if (!data) {
+        console.error("No data returned after updating client.");
+        return;
+      }
       console.log("Client updated successfully:", data);
       toast.success("Client updated successfully");
+      navigate(ROUTES.PROFILE); // Redirect after success
     },
     onError: (error) => {
       toast.error("Failed to update client data");

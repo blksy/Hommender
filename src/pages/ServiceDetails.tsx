@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import Bg from "../assets/RequestDetails.bg.jpg";
+import Bg from "../assets/ServiceRequest.bg.jpg";
 import { useQuery } from "@tanstack/react-query";
 import { getServiceById } from "../api/serviceRequests";
 import { ROUTES } from "../router/routes";

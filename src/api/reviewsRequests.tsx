@@ -1,7 +1,7 @@
 import { Review } from "../../types/types";
 import { supabase } from "../database/supabase";
 
-export const addOrder = async (newRequest: Review) => {
+export const addReview = async (newRequest: Review) => {
   const { data, error } = await supabase
     .from("reviews")
     .insert([newRequest])
