@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOrderById } from "../api/ordersRequests";
 import Bg from "../assets/RequestDetails.bg.jpg";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import { FormInput } from "../components/FormInput";
 
 const RequestDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     message: "",
     to_email: "",
@@ -104,6 +105,7 @@ const RequestDetails = () => {
       .finally(() => {
         setIsSending(false);
       });
+    setTimeout(() => navigate(ROUTES.APP), 2000);
   };
 
   return (
