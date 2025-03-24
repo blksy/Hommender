@@ -46,7 +46,7 @@ const Home = () => {
               to="/app/services/add_service"
               className="btn-primary w-full max-w-xs text-center"
             >
-              Post a Request
+              Post a Service
             </Link>
           )}
           <Link

@@ -2,8 +2,11 @@ import { useState } from "react";
 import emailjs from "emailjs-com";
 import Bg from "../assets/Contact.bg.jpg";
 import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../router/routes";
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -45,6 +48,7 @@ const Contact = () => {
           toast.error("Failed to send message. Please try again later.");
         }
       );
+    setTimeout(() => navigate(ROUTES.APP), 2000);
   };
   return (
     <div

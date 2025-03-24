@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
+import Bg from "../assets/ServiceRequest.bg.jpg";
+import { ROUTES } from "../router/routes";
+import { useNavigate } from "react-router-dom";
 
 const ContactForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -10,111 +14,146 @@ const ContactForm = () => {
     attachments: null,
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      attachments: e.target.files[0],
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.success("Your message has been sent!");
+    console.log("Form Data Submitted:", formData);
+    setTimeout(() => navigate(ROUTES.APP), 2000);
   };
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-bl from-blue-300 via-blue-500 to-blue-400 p-6"
+      style={{
+        backgroundImage: `url(${Bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <Toaster position="top-center" reverseOrder={false} />
-      <h2 className="text-lg lg:text-2xl font-bold mb-4 text-center">
+      <h2 className="text-lg lg:text-3xl font-bold mb-4 text-center text-white">
         If you have any additional questions, feel free to ask, I'll respond as
         soon as possible.
       </h2>
 
-      <div className="mb-4">
-        <label
-          htmlFor="fullName"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          required
-          className="contact-label w-full"
-          placeholder="Enter your full name"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label
-          htmlFor="phoneNumber"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Phone Number
-        </label>
-        <input
-          type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          required
-          className="contact-label w-full"
-          placeholder="Enter your phone number"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label
-          htmlFor="subject"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Subject
-        </label>
-        <input
-          type="text"
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          required
-          className="contact-label w-full"
-          placeholder="Enter the subject of your message"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label
-          htmlFor="message"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          required
-          className="contact-label w-full"
-          placeholder="Write your message here..."
-          rows="4"
-        ></textarea>
-      </div>
-
-      <div className="mb-4">
-        <label
-          htmlFor="attachments"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Attachments (Optional)
-        </label>
-        <input
-          type="file"
-          id="attachments"
-          name="attachments"
-          className="contact-label w-full"
-        />
-      </div>
-
-      <button
-        type="submit"
-        onClick={handleSubmit}
-        className="btn-primary w-full"
+      <form
+        className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+        onSubmit={handleSubmit}
       >
-        Send Message
-      </button>
+        <div className="mb-4">
+          <label
+            htmlFor="fullName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="phoneNumber"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Enter your phone number"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="subject"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Subject
+          </label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Enter the subject of your message"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            placeholder="Write your message here..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="attachments"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Attachments (Optional)
+          </label>
+          <input
+            type="file"
+            id="attachments"
+            name="attachments"
+            onChange={handleFileChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        >
+          Send Message
+        </button>
+      </form>
     </div>
   );
 };
