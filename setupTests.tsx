@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import { render, RenderOptions, cleanup } from "@testing-library/react";
 import { afterEach } from "vitest";
-import { AllTheProviders } from "./AllTheProviders";
+import { AllTheProviders } from "./src/components/AllTheProviders";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,

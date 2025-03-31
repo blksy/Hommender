@@ -23,5 +23,5 @@
     "noUncheckedSideEffectImports": true,
     "types": ["vitest"]
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "setupTests.tsx"]
 }
