@@ -7,7 +7,7 @@ const ProtectedWrapper: React.FC<ProtectedWrapperProps> = ({ children }) => {
   const { user } = useUser();
 
   if (!user) {
-    return <Navigate to={ROUTES.LOGIN} />;
+    return <Navigate to={ROUTES.START} />;
   }
 
   return children;
