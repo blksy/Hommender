@@ -37,6 +37,7 @@ export const updateSpecialistById = async (
     .update(updateSpecialistData)
     .eq("id", id)
     .select();
+  console.log("updated data", data);
   if (error) {
     console.error("Failed to update specialist data", error);
     throw error;

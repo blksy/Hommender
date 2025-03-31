@@ -13,6 +13,8 @@ export default function EditProfile() {
   const { user } = useUser();
   const navigate = useNavigate();
 
+  const isSpecialist = user?.role === "specialist";
+
   const specialistMutation = useMutation({
     mutationFn: (values: Partial<Specialist>) =>
       updateSpecialistById(values, user.id),
@@ -56,15 +58,17 @@ export default function EditProfile() {
       full_name: user?.full_name || "",
       phone: user?.phone || "",
       address: user?.address || "",
-      ...(user?.isSpecialist && { description: user?.description || "" }),
+      ...(isSpecialist && {
+        description: user?.description || "",
+      }),
     },
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const payload = user?.isSpecialist
+      const payload = isSpecialist
         ? values
         : { ...values, description: undefined };
 
-      if (user?.isSpecialist) {
+      if (isSpecialist) {
         specialistMutation.mutate(payload);
       } else {
         clientMutation.mutate(payload);
@@ -113,7 +117,7 @@ export default function EditProfile() {
             onChange={formik.handleChange}
             className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {user.isSpecialist && (
+          {isSpecialist && (
             <textarea
               name="description"
               placeholder="Specialist Description"
