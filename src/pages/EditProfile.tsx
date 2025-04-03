@@ -25,7 +25,7 @@ export default function EditProfile() {
       }
       console.log("Specialist updated successfully:", data);
       toast.success("Specialist updated successfully");
-      navigate(ROUTES.PROFILE); // Redirect after success
+      navigate(ROUTES.APP); // Redirect after success
     },
     onError: (error) => {
       toast.error("Failed to update specialist data");
@@ -45,7 +45,7 @@ export default function EditProfile() {
       }
       console.log("Client updated successfully:", data);
       toast.success("Client updated successfully");
-      navigate(ROUTES.PROFILE); // Redirect after success
+      navigate(ROUTES.APP); // Redirect after success
     },
     onError: (error) => {
       toast.error("Failed to update client data");

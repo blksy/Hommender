@@ -33,7 +33,7 @@ vi.mock("../../database/supabase", () => ({
       delete: vi.fn(() => ({
         eq: vi.fn(() =>
           Promise.resolve({
-            data: [{ id: "797ce684-aa0d-419c-8c4e-9f0fc8248ff3" }],
+            data: [{ id: "54dea75c-0808-43d2-98ff-e9142ae99882" }],
             error: null,
           })
         ),
@@ -183,27 +183,26 @@ describe("specialistsRequests.tsx API calls", () => {
     }));
 
     const result = await fetchAllSpecialists();
+    console.log(result);
     expect(result).toEqual(mockData);
   });
 
   test("getSpecialistById should return specialist data", async () => {
-    const mockData = [
-      {
-        id: "54dea75c-0808-43d2-98ff-e9142ae99882",
-        full_name: "Ivy Adams",
-        address: "111 Hill St",
-        description: "Plumbing services expert",
-        phone: "1122334455",
-        role: "specialist",
-        services: [
-          "Repairing Leaks",
-          "Pipe Installation",
-          "24/7 Emergency Repairs",
-        ],
-        user_id: null,
-        reviews: null,
-      },
-    ];
+    const mockData = {
+      id: "54dea75c-0808-43d2-98ff-e9142ae99882",
+      full_name: "Ivy Adams",
+      address: "111 Hill St",
+      description: "Plumbing services expert",
+      phone: "1122334455",
+      role: "specialist",
+      services: [
+        "Repairing Leaks",
+        "Pipe Installation",
+        "24/7 Emergency Repairs",
+      ],
+      user_id: null,
+      reviews: null,
+    };
 
     (supabase.from as unknown as vi.Mock).mockImplementation(() => ({
       select: vi.fn().mockImplementation(() => ({
@@ -213,38 +212,42 @@ describe("specialistsRequests.tsx API calls", () => {
       })),
     }));
 
-    const result = await getSpecialistById("1");
+    const result = await getSpecialistById(
+      "54dea75c-0808-43d2-98ff-e9142ae99882"
+    );
+    console.log(result);
     expect(result).toEqual(mockData);
   });
 
   test("updateSpecialistById should return updated specialist data", async () => {
-    const mockUpdatedData: Partial<Specialist> = { full_name: "Ivy Updated" };
+    const mockUpdatedData = { full_name: "Ivy Updated" };
 
-    (supabase.from as unknown as vi.Mock).mockImplementation(() => ({
-      update: vi.fn().mockImplementation(() => ({
+    (supabase.from as unknown as vi.Mock).mockReturnValue({
+      update: vi.fn().mockReturnValue({
         eq: vi.fn().mockResolvedValue({ data: [mockUpdatedData], error: null }),
-      })),
-    }));
-
+      }),
+    });
     const result = await updateSpecialistById(
       mockUpdatedData,
       "54dea75c-0808-43d2-98ff-e9142ae99882"
     );
+    console.log(result);
     expect(result).toEqual([mockUpdatedData]);
   });
 
   test("deleteSpecialistById should return deleted specialist data", async () => {
     const mockDeletedData = { id: "54dea75c-0808-43d2-98ff-e9142ae99882" };
 
-    (supabase.from as unknown as vi.Mock).mockImplementation(() => ({
-      delete: vi.fn().mockImplementation(() => ({
+    (supabase.from as unknown as vi.Mock).mockReturnValue({
+      delete: vi.fn().mockReturnValue({
         eq: vi.fn().mockResolvedValue({ data: [mockDeletedData], error: null }),
-      })),
-    }));
+      }),
+    });
 
     const result = await deleteSpecialistById(
       "54dea75c-0808-43d2-98ff-e9142ae99882"
     );
+    console.log(result);
     expect(result).toEqual([mockDeletedData]);
   });
 });
