@@ -185,7 +185,7 @@ export interface Review {
   client_id: string;
   comment: string;
   created_at: string;
-  id: string;
+  id?: string;
   rating: number | null;
   specialist_id: string;
 }

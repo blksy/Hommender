@@ -2,6 +2,7 @@ import { FaStar } from "react-icons/fa6";
 import Bg from "../assets/ServiceDetails.bg.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Review } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { addReview } from "../api/reviewsRequests";
@@ -19,7 +20,13 @@ const AddReview = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newReview: Review = {
+    if (rating === 0) {
+      toast.error("Please select a rating.");
+      return;
+    }
+
+    const newReview: Partial<Review> = {
+      id: uuidv4(),
       rating,
       comment,
       specialist_id: specialistId!,
@@ -28,7 +35,7 @@ const AddReview = () => {
     };
 
     try {
-      await addReview(newReview);
+      await addReview(newReview as Review);
       toast.success("Review submitted successfully!");
       navigate(`/app/specialists/${specialistId}`);
     } catch (error) {
@@ -36,7 +43,6 @@ const AddReview = () => {
       toast.error("Failed to submit review. Please try again.");
     }
   };
-
   return (
     <div
       className="w-full h-screen flex items-center justify-center bg-cover bg-center"

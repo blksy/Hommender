@@ -47,30 +47,31 @@ const SpecialistDetails = () => {
 
   return (
     <div
-      className="page-container bg-cover bg-center text-white py-8 min-h-screen flex flex-col items-center"
+      className="page-container bg-cover bg-center text-white py-6 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col items-center"
       style={{ backgroundImage: `url(${Bg})` }}
     >
-      <div className="max-w-7xl w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-black text-3xl font-bold text-center mb-6">
-          Details of Specialist No: {specialistId}
-        </h1>
-        <div className="flex flex-col md:flex-row gap-8">
+      <h1 className="text-white text-2xl sm:text-3xl font-bold text-center mb-4">
+        Details of Specialist No: {specialistId}
+      </h1>
+
+      <div className="w-full max-w-5xl bg-white shadow-lg rounded-lg p-4 sm:p-6 overflow-auto max-h-[65vh] mb-6">
+        <div className="flex flex-col md:flex-row gap-6">
           {/* Details Section */}
-          <div className="flex-1 text-black bg-gray-100 p-6 rounded-lg shadow-md">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <p className="text-lg text-black">
+          <div className="flex-1 bg-gray-100 p-4 rounded-lg shadow text-black text-sm sm:text-base">
+            <div className="bg-white p-4 rounded-lg shadow space-y-3">
+              <p>
                 <strong>Full name:</strong> {full_name}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Role:</strong> {role}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Phone:</strong> {phone}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Address:</strong> {address}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Description:</strong> {description}
               </p>
             </div>
@@ -80,19 +81,15 @@ const SpecialistDetails = () => {
           <div className="flex-1">
             {servicesLoading && <p>Loading services...</p>}
             {servicesError && <p>Error loading services</p>}
-
             {specialistServices.length > 0 ? (
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md text-black">
-                <h3 className="text-2xl font-bold mb-4">
-                  Services provided by {full_name}
+              <div className="bg-gray-100 p-4 rounded-lg shadow text-black text-sm sm:text-base">
+                <h3 className="text-xl font-bold mb-4">
+                  Services by {full_name}
                 </h3>
                 <ul className="space-y-4">
                   {specialistServices.map(
                     ({ id, type_of_service, description, price }) => (
-                      <li
-                        key={id}
-                        className="p-4 bg-white shadow-md rounded-lg"
-                      >
+                      <li key={id} className="p-4 bg-white shadow rounded-lg">
                         <p>
                           <strong>Type:</strong> {type_of_service}
                         </p>
@@ -108,16 +105,17 @@ const SpecialistDetails = () => {
                 </ul>
               </div>
             ) : (
-              <p className="text-black text-lg">
+              <p className="text-black">
                 No services found for this specialist.
               </p>
             )}
           </div>
         </div>
       </div>
+
       {/* Reviews Section */}
-      <div className="mt-8 w-full bg-gray-100 p-6 rounded-lg shadow-md text-black">
-        <h3 className="text-2xl font-bold mb-4">Reviews</h3>
+      <div className="w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow text-black mb-6 overflow-auto max-h-[30vh]">
+        <h3 className="text-xl font-bold mb-4">Reviews</h3>
         {specialist?.reviews && specialist.reviews.length > 0 ? (
           <ul className="space-y-4">
             {specialist.reviews.map(({ id, reviewer, rating, comment }) => (
@@ -138,22 +136,22 @@ const SpecialistDetails = () => {
           <p>No reviews available for this specialist.</p>
         )}
       </div>
-      <div className="mt-6 flex gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         <Link
           to="/app/contact_form"
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition"
         >
           Contact Me
         </Link>
         <Link
           to={ROUTES.REVIEW_ADD(specialistId)}
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition"
         >
           Write a review
         </Link>
         <Link
           to={ROUTES.SPECIALISTS}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition"
         >
           Back to Specialists
         </Link>
