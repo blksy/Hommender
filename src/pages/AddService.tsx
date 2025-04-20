@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 import { addService } from "../api/serviceRequests";
 import { Service } from "../../types/types";
@@ -11,16 +11,27 @@ import { useNavigate } from "react-router-dom";
 const AddService = () => {
   const { user } = useUser();
   const navigate = useNavigate();
+
   const [serviceData, setServiceData] = useState<Partial<Service>>({
     additional_info: "",
     contact: "",
     description: "",
     location: "",
     price: "",
-    specialist_id: user?.id || "",
-    specialist_name: user?.full_name || "",
+    specialist_id: "",
+    specialist_name: "",
     type_of_service: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setServiceData((prevData) => ({
+        ...prevData,
+        specialist_id: user.id,
+        specialist_name: user.full_name,
+      }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

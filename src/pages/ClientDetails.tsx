@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Bg from "../assets/SpecialistDetails.bg.jpg";
 import { getClientById } from "../api/clientsRequests";
 import { fetchAllOrders } from "../api/ordersRequests";
+import { ROUTES } from "../router/routes";
 
 const ClientDetails = () => {
   const { id } = useParams();
@@ -36,6 +37,10 @@ const ClientDetails = () => {
     (request) => request.client_id === clientId || request.contact === phone
   );
 
+  const googleMapsLink = address
+    ? `https://www.google.com/maps?q=${encodeURIComponent(address)}`
+    : null;
+
   return (
     <div
       className="page-container bg-cover bg-center text-white py-8 min-h-screen flex flex-col items-center"
@@ -60,6 +65,18 @@ const ClientDetails = () => {
               </p>
               <p className="text-lg text-black">
                 <strong>Address:</strong> {address}
+                {googleMapsLink ? (
+                  <a
+                    href={googleMapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    View on Google Maps
+                  </a>
+                ) : (
+                  "Location not provided."
+                )}
               </p>
             </div>
           </div>
@@ -87,20 +104,26 @@ const ClientDetails = () => {
                         key={id}
                         className="p-4 bg-white shadow-md rounded-lg"
                       >
-                        <p>
-                          <strong>Type:</strong> {type_of_request}
-                        </p>
-                        <p>
-                          <strong>Description:</strong> {description}
-                        </p>
-                        <p>
-                          <strong>Location:</strong> {location}
-                        </p>
-                        {additional_info && (
+                        <Link
+                          to={ROUTES.REQUEST_DETAILS(id)}
+                          className="block transition transform hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-700 rounded-lg p-4"
+                        >
                           <p>
-                            <strong>Additional Info:</strong> {additional_info}
+                            <strong>Type:</strong> {type_of_request}
                           </p>
-                        )}
+                          <p>
+                            <strong>Description:</strong> {description}
+                          </p>
+                          <p>
+                            <strong>Location:</strong> {location}
+                          </p>
+                          {additional_info && (
+                            <p>
+                              <strong>Additional Info:</strong>{" "}
+                              {additional_info}
+                            </p>
+                          )}
+                        </Link>
                       </li>
                     )
                   )}

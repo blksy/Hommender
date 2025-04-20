@@ -4,6 +4,7 @@ import Bg from "../assets/SpecialistDetails.bg.jpg";
 import { getSpecialistById } from "../api/specialistsRequests";
 import { fetchAllServices } from "../api/serviceRequests";
 import { ROUTES } from "../router/routes";
+import { getReviewsBySpecialistId } from "../api/reviewsRequests";
 
 const SpecialistDetails = () => {
   const { id } = useParams();
@@ -27,6 +28,16 @@ const SpecialistDetails = () => {
     queryFn: fetchAllServices,
   });
 
+  const {
+    data: reviews = [],
+    isLoading: reviewsLoading,
+    error: reviewsError,
+  } = useQuery({
+    queryKey: ["reviews", id],
+    queryFn: () => getReviewsBySpecialistId(id!),
+    enabled: !!id,
+  });
+
   if (specialistLoading) return <p>Loading specialist details...</p>;
   if (specialistError) return <p>Error loading specialist details</p>;
   if (!specialist) return <p>No specialist data available.</p>;
@@ -38,12 +49,15 @@ const SpecialistDetails = () => {
     description,
     address,
     id: specialistId,
-    reviews = [],
   } = specialist;
 
   const specialistServices = services.filter(
     (service) => service.specialist_id === specialistId
   );
+
+  const googleMapsLink = address
+    ? `https://www.google.com/maps?q=${encodeURIComponent(address)}`
+    : null;
 
   return (
     <div
@@ -70,6 +84,18 @@ const SpecialistDetails = () => {
               </p>
               <p>
                 <strong>Address:</strong> {address}
+                {googleMapsLink ? (
+                  <a
+                    href={googleMapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    View on Google Maps
+                  </a>
+                ) : (
+                  "Location not provided."
+                )}
               </p>
               <p>
                 <strong>Description:</strong> {description}
@@ -89,16 +115,24 @@ const SpecialistDetails = () => {
                 <ul className="space-y-4">
                   {specialistServices.map(
                     ({ id, type_of_service, description, price }) => (
-                      <li key={id} className="p-4 bg-white shadow rounded-lg">
-                        <p>
-                          <strong>Type:</strong> {type_of_service}
-                        </p>
-                        <p>
-                          <strong>Description:</strong> {description}
-                        </p>
-                        <p>
-                          <strong>Price:</strong> ${price}
-                        </p>
+                      <li
+                        key={id}
+                        className="p-0 bg-white shadow rounded-lg overflow-hidden"
+                      >
+                        <Link
+                          to={ROUTES.SERVICE_DETAILS(id)}
+                          className="block transition transform hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-700 rounded-lg p-4"
+                        >
+                          <p>
+                            <strong>Type:</strong> {type_of_service}
+                          </p>
+                          <p>
+                            <strong>Description:</strong> {description}
+                          </p>
+                          <p>
+                            <strong>Price:</strong> ${price}
+                          </p>
+                        </Link>
                       </li>
                     )
                   )}
@@ -116,12 +150,22 @@ const SpecialistDetails = () => {
       {/* Reviews Section */}
       <div className="w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow text-black mb-6 overflow-auto max-h-[30vh]">
         <h3 className="text-xl font-bold mb-4">Reviews</h3>
-        {specialist?.reviews && specialist.reviews.length > 0 ? (
+        {reviewsLoading ? (
+          <p>Loading reviews...</p>
+        ) : reviewsError ? (
+          <p>Error loading reviews</p>
+        ) : reviews.length > 0 ? (
           <ul className="space-y-4">
-            {specialist.reviews.map(({ id, reviewer, rating, comment }) => (
+            {reviews.map(({ id, client_id, rating, comment }) => (
               <li key={id} className="p-4 bg-white shadow-md rounded-lg">
                 <p>
-                  <strong>Reviewer:</strong> {reviewer}
+                  <strong>Reviewer:</strong>{" "}
+                  <Link
+                    to={ROUTES.CLIENT_DETAILS(client_id)}
+                    className="text-blue-600 hover:underline"
+                  >
+                    {client_id}
+                  </Link>
                 </p>
                 <p>
                   <strong>Rating:</strong> {rating} ⭐
@@ -136,6 +180,7 @@ const SpecialistDetails = () => {
           <p>No reviews available for this specialist.</p>
         )}
       </div>
+
       <div className="flex flex-wrap justify-center gap-4">
         <Link
           to="/app/contact_form"

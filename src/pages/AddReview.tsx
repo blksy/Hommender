@@ -2,7 +2,6 @@ import { FaStar } from "react-icons/fa6";
 import Bg from "../assets/ServiceDetails.bg.jpg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import { Review } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { addReview } from "../api/reviewsRequests";
@@ -26,7 +25,6 @@ const AddReview = () => {
     }
 
     const newReview: Partial<Review> = {
-      id: uuidv4(),
       rating,
       comment,
       specialist_id: specialistId!,
