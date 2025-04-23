@@ -1,13 +1,17 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Bg from "../assets/SpecialistDetails.bg.jpg";
 import { getSpecialistById } from "../api/specialistsRequests";
 import { fetchAllServices } from "../api/serviceRequests";
 import { ROUTES } from "../router/routes";
 import { getReviewsBySpecialistId } from "../api/reviewsRequests";
+import { useUser } from "../context/UserContext";
+import { toast } from "react-hot-toast";
 
 const SpecialistDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useUser();
 
   const {
     data: specialist,
@@ -58,6 +62,20 @@ const SpecialistDetails = () => {
   const googleMapsLink = address
     ? `https://www.google.com/maps?q=${encodeURIComponent(address)}`
     : null;
+
+  const handleAddReview = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    if (user.role === "client" || user.role === "admin") {
+      navigate(ROUTES.REVIEW_ADD(specialistId));
+    } else {
+      toast.error(
+        "Sorry! In order to support healthy competition you must be registered as client to add a review :)"
+      );
+    }
+  };
 
   return (
     <div
@@ -190,6 +208,7 @@ const SpecialistDetails = () => {
         </Link>
         <Link
           to={ROUTES.REVIEW_ADD(specialistId)}
+          onClick={handleAddReview}
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition"
         >
           Write a review
