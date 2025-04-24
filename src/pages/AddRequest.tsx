@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addOrder } from "../api/ordersRequests";
 import { ClientRequest } from "../../types/types";
 import { toast } from "react-hot-toast";
@@ -16,9 +16,20 @@ const AddRequest = () => {
     description: "",
     location: "",
     contact: "",
+    client_id: "",
     client_name: user?.full_name || "",
     type_of_request: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setRequestData((prevData) => ({
+        ...prevData,
+        client_id: user.id,
+        client_name: user.full_name,
+      }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

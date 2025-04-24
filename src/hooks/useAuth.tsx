@@ -32,69 +32,65 @@ export const useAuth = () => {
       services?: string[];
     }
   ) => {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      console.log("Supabase signUp response:", { data, error });
-      if (error) {
-        handleSupabaseError(error);
-      }
-
-      if (data?.user) {
-        const userId = data.user.id;
-        const createdAt = new Date().toISOString();
-
-        if (role === "client") {
-          const clientData: ClientInsert = {
-            user_id: userId,
-            full_name: name,
-            address: additionalInfo.address,
-            phone: additionalInfo.phone,
-            role: "client",
-          };
-          console.log("Inserting client data:", clientData);
-          const { error: clientError } = await supabase
-            .from("clients")
-            .insert(clientData);
-          if (clientError) {
-            console.error("Client insertion error:", clientError);
-            handleSupabaseError(clientError);
-          }
-        } else if (role === "specialist") {
-          const specialistData: SpecialistInsert = {
-            user_id: userId,
-            full_name: name,
-            address: additionalInfo.address,
-            phone: additionalInfo.phone,
-            role: "specialist",
-            description: additionalInfo.description || null,
-            services: additionalInfo.services || null,
-          };
-
-          const { error: specialistError } = await supabase
-            .from("specialists")
-            .insert(specialistData);
-
-          if (specialistError) {
-            handleSupabaseError(specialistError);
-          }
-        }
-
-        const { error: userError } = await supabase.from("users").insert({
-          id: userId,
-          created_at: createdAt,
-          role,
-        });
-
-        if (userError) {
-          console.error("User insertion error:", userError);
-          handleSupabaseError(userError);
-        }
-      }
-    } catch (error) {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    console.log("Supabase signUp response:", { data, error });
+    if (error) {
       handleSupabaseError(error);
+    }
+
+    if (data?.user) {
+      const userId = data.user.id;
+      const createdAt = new Date().toISOString();
+      console.log("USER ID : ", userId);
+      const { error: userError } = await supabase.from("users").insert({
+        id: userId,
+        created_at: createdAt,
+        role,
+      });
+
+      if (userError) {
+        console.error("User insertion error:", userError);
+        handleSupabaseError(userError);
+      }
+
+      if (role === "client") {
+        const clientData: ClientInsert = {
+          user_id: userId,
+          full_name: name,
+          address: additionalInfo.address,
+          phone: additionalInfo.phone,
+          role: "client",
+        };
+        console.log("Inserting client data:", clientData);
+        const { error: clientError } = await supabase
+          .from("clients")
+          .insert(clientData);
+        if (clientError) {
+          console.error("Client insertion error:", clientError);
+          handleSupabaseError(clientError);
+        }
+      } else if (role === "specialist") {
+        const specialistData: SpecialistInsert = {
+          user_id: userId,
+          full_name: name,
+          address: additionalInfo.address,
+          phone: additionalInfo.phone,
+          role: "specialist",
+          description: additionalInfo.description || null,
+          services: additionalInfo.services || null,
+        };
+
+        const { error: specialistError } = await supabase
+          .from("specialists")
+          .insert(specialistData);
+
+        if (specialistError) {
+          handleSupabaseError(specialistError);
+        }
+      }
     }
   };
 

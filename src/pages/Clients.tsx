@@ -26,7 +26,7 @@ const Clients = () => {
       style={{ backgroundImage: `url(${Bg})` }}
     >
       <div className="max-h-screen overflow-y-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-6">
           {clients.map((client) => (
             <ClientCard key={client.id} client={client} />
           ))}

@@ -73,14 +73,14 @@ export const fetchUserData = async () => {
       const { data: clientData } = await supabase
         .from("clients")
         .select("*")
-        .eq("id", userId)
+        .eq("user_id", userId)
         .single();
       detailedUserData = clientData;
     } else if (userData.role === "specialist") {
       const { data: specialistData } = await supabase
         .from("specialists")
         .select("*")
-        .eq("id", userId)
+        .eq("user_id", userId)
         .single();
       console.log("spec", specialistData);
       detailedUserData = specialistData;

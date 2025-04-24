@@ -165,6 +165,7 @@ export interface ClientRequest {
   description: string;
   id: string;
   client_name: string | null;
+  client_id: string;
   location: string;
   type_of_request: string;
 }
