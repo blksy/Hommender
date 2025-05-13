@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 //Enum for Role
 const roles = ["client", "specialist", "admin"] as const;
-type Role = (typeof roles)[number];
 
 // User Schema
 export const userSchema = yup.object({
