@@ -5,13 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  Admin,
-  Client,
-  Specialist,
-  User,
-  UserContextType,
-} from "../../types/types";
+import { Client, Specialist, User, UserContextType } from "../../types/types";
 import { supabase } from "../database/supabase";
 import { fetchUserData } from "../api/usersRequests";
 
@@ -20,9 +14,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | Client | Specialist | Admin | null>(
-    null
-  );
+  const [user, setUser] = useState<User | Client | Specialist | null>(null);
 
   //const { data: { user } } = await supabase.auth.getUser()
 
