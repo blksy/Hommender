@@ -68,7 +68,7 @@ const SpecialistDetails = () => {
   ) => {
     e.preventDefault();
 
-    if (user.role === "client" || user.role === "admin") {
+    if (user && (user.role === "client" || user.role === "admin")) {
       navigate(ROUTES.REVIEW_ADD(specialistId));
     } else {
       toast.error(
