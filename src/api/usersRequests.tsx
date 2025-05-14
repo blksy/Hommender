@@ -37,7 +37,7 @@ export const getUserById = async (id: string) => {
 
 export const updateUserById = async (
   updateUserData: Partial<User>,
-  id: string | number
+  id: string
 ) => {
   const { data, error } = await supabase
     .from("users")
