@@ -5,9 +5,10 @@ export type Role = "client" | "specialist";
 
 export type HandleSupabaseError = (error: any) => void;
 
-export interface UserContextType {
-  user: User | Client | Specialist | Admin | null;
-}
+export type UserContextType = {
+  user: User | Client | Specialist | null;
+  fetchUserData: () => Promise<User | Client | Specialist | null>;
+};
 
 export type BasicInsert = {
   id?: string;
@@ -28,8 +29,14 @@ export type SpecialistSpecific = BasicInsert & {
   services?: string[] | null;
 };
 
-export type ClientInsert = BasicInsert & ClientSpecific & { role: "client" };
-export type SpecialistInsert = BasicInsert &
+export type ClientInsert = {
+  user_id: string;
+} & BasicInsert &
+  ClientSpecific & { role: "client" };
+
+export type SpecialistInsert = {
+  user_id: string;
+} & BasicInsert &
   SpecialistSpecific & { role: "specialist" };
 
 export type UserInsert = ClientInsert | SpecialistInsert;

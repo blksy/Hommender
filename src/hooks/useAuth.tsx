@@ -20,6 +20,7 @@ const handleSupabaseError: HandleSupabaseError = (error) => {
 
 export const useAuth = () => {
   const { fetchUserData } = useUser();
+
   const signUp = async (
     name: string,
     email: string,
@@ -32,65 +33,47 @@ export const useAuth = () => {
       services?: string[];
     }
   ) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) handleSupabaseError(error);
+
+    const userId = data?.user?.id;
+    if (!userId) return;
+
+    const createdAt = new Date().toISOString();
+    const { error: userError } = await supabase.from("users").insert({
+      id: userId,
+      created_at: createdAt,
+      role,
     });
-    console.log("Supabase signUp response:", { data, error });
-    if (error) {
-      handleSupabaseError(error);
-    }
 
-    if (data?.user) {
-      const userId = data.user.id;
-      const createdAt = new Date().toISOString();
-      console.log("USER ID : ", userId);
-      const { error: userError } = await supabase.from("users").insert({
-        id: userId,
-        created_at: createdAt,
-        role,
-      });
+    if (userError) handleSupabaseError(userError);
 
-      if (userError) {
-        console.error("User insertion error:", userError);
-        handleSupabaseError(userError);
-      }
-
-      if (role === "client") {
-        const clientData: ClientInsert = {
-          user_id: userId,
-          full_name: name,
-          address: additionalInfo.address,
-          phone: additionalInfo.phone,
-          role: "client",
-        };
-        console.log("Inserting client data:", clientData);
-        const { error: clientError } = await supabase
-          .from("clients")
-          .insert(clientData);
-        if (clientError) {
-          console.error("Client insertion error:", clientError);
-          handleSupabaseError(clientError);
-        }
-      } else if (role === "specialist") {
-        const specialistData: SpecialistInsert = {
-          user_id: userId,
-          full_name: name,
-          address: additionalInfo.address,
-          phone: additionalInfo.phone,
-          role: "specialist",
-          description: additionalInfo.description || null,
-          services: additionalInfo.services || null,
-        };
-
-        const { error: specialistError } = await supabase
-          .from("specialists")
-          .insert(specialistData);
-
-        if (specialistError) {
-          handleSupabaseError(specialistError);
-        }
-      }
+    if (role === "client") {
+      const clientData: ClientInsert = {
+        user_id: userId,
+        full_name: name,
+        address: additionalInfo.address,
+        phone: additionalInfo.phone,
+        role: "client",
+      };
+      const { error: clientError } = await supabase
+        .from("clients")
+        .insert(clientData);
+      if (clientError) handleSupabaseError(clientError);
+    } else if (role === "specialist") {
+      const specialistData: SpecialistInsert = {
+        user_id: userId,
+        full_name: name,
+        address: additionalInfo.address,
+        phone: additionalInfo.phone,
+        role: "specialist",
+        description: additionalInfo.description || null,
+        services: additionalInfo.services || null,
+      };
+      const { error: specialistError } = await supabase
+        .from("specialists")
+        .insert(specialistData);
+      if (specialistError) handleSupabaseError(specialistError);
     }
   };
 
@@ -123,12 +106,8 @@ export const useAuth = () => {
   } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      try {
-        const { data: session } = await supabase.auth.getSession();
-        return session?.user ?? null;
-      } catch (error) {
-        handleSupabaseError(error);
-      }
+      const { data } = await supabase.auth.getSession();
+      return data.session?.user ?? null;
     },
   });
 
