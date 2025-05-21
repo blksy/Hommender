@@ -44,10 +44,10 @@ export type UserInsert = ClientInsert | SpecialistInsert;
 export interface SpecialistCardProps {
   specialist: {
     id: string;
-    full_name: string;
+    full_name: string | null;
     profilePic?: string | null;
-    services: string[];
-    phone: string;
+    services: string[] | null;
+    phone: string | null;
   };
 }
 

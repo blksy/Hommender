@@ -32,7 +32,7 @@ const RequestDetails = () => {
     if (request) {
       setFormData((prev) => ({
         ...prev,
-        to_email: request.contact,
+        to_email: request.contact ?? "",
         request_id: request.id,
       }));
     }
@@ -165,13 +165,11 @@ const RequestDetails = () => {
           <h3 className="text-xl font-bold text-black">Respond to Request</h3>
           <form onSubmit={handleSendResponse} className="mt-4 space-y-4">
             <FormInput
-              formik={{
-                values: formData,
-                handleChange: handleChange,
-                handleBlur: () => {},
-                touched: {},
-                errors: {},
-              }}
+              values={formData}
+              handleChange={handleChange}
+              handleBlur={() => {}}
+              touched={{}}
+              errors={{}}
               accessor="message"
               label="Your Response"
               multiline={true}
