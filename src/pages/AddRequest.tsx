@@ -55,58 +55,48 @@ const AddRequest = () => {
   return (
     <FormLayout title="Add a New Request" onSubmit={handleSubmit}>
       <FormInput
-        formik={{
-          values: requestData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={requestData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="type_of_request"
         label="Type of Request"
       />
       <FormInput
-        formik={{
-          values: requestData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={requestData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="description"
         label="Description"
         multiline
       />
       <FormInput
-        formik={{
-          values: requestData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={requestData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="contact"
         label="Contact"
       />
       <FormInput
-        formik={{
-          values: requestData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={requestData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="location"
         label="Location"
       />
       <FormInput
-        formik={{
-          values: requestData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={requestData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="additional_info"
         label="Additional Info"
         multiline

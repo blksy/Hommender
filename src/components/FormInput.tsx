@@ -1,37 +1,43 @@
-import { FormikProps } from "formik";
 import TextField from "@mui/material/TextField";
 
-type FormInputProps<T> = {
-  formik: FormikProps<T>;
+type FormInputProps<T extends Record<string, string | null>> = {
+  values: T;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleBlur: (e: React.FocusEvent<unknown>) => void;
+  touched: Partial<Record<keyof T, boolean>>;
+  errors: Partial<Record<keyof T, string>>;
   accessor: keyof T;
   label: string;
   multiline?: boolean;
 };
 
-export const FormInput = <T extends Record<string, string>>({
-  formik,
+export const FormInput = <T extends Record<string, string | null>>({
+  values,
+  handleChange,
+  handleBlur,
+  touched,
+  errors,
   accessor,
   label,
   multiline = false,
 }: FormInputProps<T>) => {
-  const error =
-    formik.touched[accessor] && typeof formik.errors[accessor] === "string"
-      ? formik.errors[accessor]
-      : null;
-
   return (
     <TextField
-      error={!!error}
-      helperText={error}
-      id={String(accessor)}
+      error={Boolean(touched[accessor] && errors[accessor])}
+      helperText={
+        touched[accessor] && errors[accessor] ? errors[accessor] : null
+      }
+      id={accessor as string}
       label={label}
-      name={String(accessor)}
+      name={accessor as string}
       type="text"
       multiline={multiline}
       minRows={multiline ? 4 : undefined}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values[accessor]}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      value={values[accessor] ?? ""}
       className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   );

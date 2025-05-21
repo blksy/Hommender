@@ -58,69 +58,57 @@ const AddService = () => {
   return (
     <FormLayout title="Add a New Service" onSubmit={handleSubmit}>
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="type_of_service"
         label="Type of Service"
       />
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="description"
         label="Description"
         multiline
       />
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="price"
         label="Price"
       />
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="location"
         label="Location"
       />
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="contact"
         label="Contact"
       />
       <FormInput
-        formik={{
-          values: serviceData,
-          handleChange,
-          handleBlur: () => {},
-          touched: {},
-          errors: {},
-        }}
+        values={serviceData}
+        handleChange={handleChange}
+        handleBlur={() => {}}
+        touched={{}}
+        errors={{}}
         accessor="additional_info"
         label="Additional Info"
         multiline

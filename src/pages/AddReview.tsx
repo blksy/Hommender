@@ -16,6 +16,16 @@ const AddReview = () => {
   const [hover, setHover] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
 
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-xl text-red-600">
+          You must be logged in to submit a review.
+        </p>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
