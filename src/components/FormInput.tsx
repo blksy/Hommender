@@ -1,31 +1,31 @@
 import { FormikProps } from "formik";
-import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 
-type FormValues = yup.InferType<typeof yupSchema>;
+type FormInputProps<T> = {
+  formik: FormikProps<T>;
+  accessor: keyof T;
+  label: string;
+  multiline?: boolean;
+};
 
-export const FormInput = ({
+export const FormInput = <T extends Record<string, string>>({
   formik,
   accessor,
   label,
   multiline = false,
-}: {
-  formik: FormikProps<FormValues>;
-  accessor: keyof FormValues;
-  label: string;
-  multiline?: boolean;
-}) => {
+}: FormInputProps<T>) => {
+  const error =
+    formik.touched[accessor] && typeof formik.errors[accessor] === "string"
+      ? formik.errors[accessor]
+      : null;
+
   return (
     <TextField
-      error={Boolean(formik.touched[accessor] && formik.errors[accessor])}
-      helperText={
-        formik.touched[accessor] && formik.errors[accessor]
-          ? formik.errors[accessor]
-          : null
-      }
-      id={accessor}
+      error={!!error}
+      helperText={error}
+      id={String(accessor)}
       label={label}
-      name={accessor}
+      name={String(accessor)}
       type="text"
       multiline={multiline}
       minRows={multiline ? 4 : undefined}
