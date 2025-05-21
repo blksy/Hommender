@@ -29,7 +29,7 @@ const Services = () => {
     >
       <div className="max-h-screen overflow-y-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-4">
-          {services.map((service) => (
+          {(services ?? []).map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>

@@ -29,7 +29,7 @@ const Requests = () => {
     >
       <div className="max-h-screen overflow-y-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
-          {requests.map((request) => (
+          {requests?.map((request) => (
             <RequestCard key={request.id} request={request} />
           ))}
         </div>

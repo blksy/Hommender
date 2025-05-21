@@ -13,7 +13,9 @@ const Contact = () => {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -21,7 +23,7 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const emailData = {
@@ -121,7 +123,7 @@ const Contact = () => {
             required
             className="contact-label w-full"
             placeholder="Write your message here..."
-            rows="4"
+            rows={4}
           ></textarea>
         </div>
 

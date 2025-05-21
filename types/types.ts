@@ -58,11 +58,11 @@ export interface ProtectedWrapperProps {
 export interface ServiceCardProps {
   service: {
     id: string;
-    type_of_service: string;
-    specialist_name: string;
-    location: string;
-    price: string;
-    contact: string;
+    type_of_service: string | null;
+    specialist_name: string | null;
+    location: string | null;
+    price: string | null;
+    contact: string | null;
   };
 }
 

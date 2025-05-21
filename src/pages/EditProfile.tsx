@@ -17,7 +17,7 @@ export default function EditProfile() {
 
   const specialistMutation = useMutation({
     mutationFn: (values: Partial<Specialist>) =>
-      updateSpecialistById(values, user.id),
+      updateSpecialistById(values, user!.id),
     onSuccess: (data) => {
       if (!data) {
         console.error("No data returned after updating specialist.");
@@ -35,8 +35,8 @@ export default function EditProfile() {
 
   const clientMutation = useMutation({
     mutationFn: async (values: Partial<Client>) => {
-      console.log("Updating client with values:", values, "User ID:", user.id);
-      return updateClientById(values, user.id);
+      console.log("Updating client with values:", values, "User ID:", user!.id);
+      return updateClientById(values, user!.id);
     },
     onSuccess: (data) => {
       if (!data) {
@@ -129,9 +129,9 @@ export default function EditProfile() {
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
-            disabled={specialistMutation.isLoading || clientMutation.isLoading}
+            disabled={specialistMutation.isPending || clientMutation.isPending}
           >
-            {specialistMutation.isLoading || clientMutation.isLoading
+            {specialistMutation.isPending || clientMutation.isPending
               ? "Updating..."
               : "Update Profile"}
           </button>
