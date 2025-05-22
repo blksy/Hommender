@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getOrderById } from "../api/ordersRequests";
 import Bg from "../assets/RequestDetails.bg.jpg";
 import { useQuery } from "@tanstack/react-query";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useEffect, useState } from "react";
 import { ROUTES } from "../router/routes";
 import toast, { Toaster } from "react-hot-toast";
