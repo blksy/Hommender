@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import Bg from "../assets/Contact.bg.jpg";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
