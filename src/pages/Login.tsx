@@ -39,8 +39,24 @@ const Login = () => {
       onSubmit={formik.handleSubmit}
     >
       <Toaster position="top-center" reverseOrder={false} />
-      <FormInput formik={formik} accessor="email" label="Email" />
-      <FormInput formik={formik} accessor="password" label="Password" />
+      <FormInput
+        values={formik.values}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        touched={formik.touched}
+        errors={formik.errors}
+        accessor="email"
+        label="Email"
+      />
+      <FormInput
+        values={formik.values}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        touched={formik.touched}
+        errors={formik.errors}
+        accessor="password"
+        label="Password"
+      />
       <div className="flex flex-col gap-4 mt-4 items-center">
         <button type="submit" className="btn-primary" disabled={isPending}>
           Login

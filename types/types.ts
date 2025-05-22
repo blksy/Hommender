@@ -103,7 +103,7 @@ export type RegisterFormValues = {
   phone: string;
   address: string;
   description?: string; // Description for specialists
-  services?: string[]; // Services for specialists
+  services?: string; // Services for specialists
 };
 
 export type LoginFormValues = {

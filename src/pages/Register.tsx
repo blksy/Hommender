@@ -37,7 +37,9 @@ const Register = () => {
         services:
           values.role === "specialist"
             ? typeof values.services === "string"
-              ? values.services.split(",").map((service) => service.trim())
+              ? values.services
+                  .split(",")
+                  .map((service: string) => service.trim())
               : values.services
             : undefined,
       };
@@ -64,9 +66,33 @@ const Register = () => {
   return (
     <FormLayout title="Create an Account" onSubmit={formik.handleSubmit}>
       <Toaster position="top-center" reverseOrder={false} />
-      <FormInput formik={formik} accessor="full_name" label="Full Name" />
-      <FormInput formik={formik} accessor="email" label="Email" />
-      <FormInput formik={formik} accessor="password" label="Password" />
+      <FormInput
+        values={formik.values}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        touched={formik.touched}
+        errors={formik.errors}
+        accessor="full_name"
+        label="Full Name"
+      />
+      <FormInput
+        values={formik.values}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        touched={formik.touched}
+        errors={formik.errors}
+        accessor="email"
+        label="Email"
+      />
+      <FormInput
+        values={formik.values}
+        handleChange={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        touched={formik.touched}
+        errors={formik.errors}
+        accessor="password"
+        label="Password"
+      />
 
       <div className="mb-4">
         <RadioGroup
@@ -88,15 +114,39 @@ const Register = () => {
       {/* Conditional Fields Based on Role */}
       {formik.values.role === "specialist" && (
         <>
-          <FormInput formik={formik} accessor="address" label="Address" />
-          <FormInput formik={formik} accessor="phone" label="Phone" />
           <FormInput
-            formik={formik}
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            accessor="address"
+            label="Address"
+          />
+          <FormInput
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            accessor="phone"
+            label="Phone"
+          />
+          <FormInput
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
             accessor="description"
             label="Description"
           />
           <FormInput
-            formik={formik}
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
             accessor="services"
             label="Enter services (comma separated)"
           />
@@ -105,8 +155,24 @@ const Register = () => {
 
       {formik.values.role === "client" && (
         <>
-          <FormInput formik={formik} accessor="address" label="Address" />
-          <FormInput formik={formik} accessor="phone" label="Phone" />
+          <FormInput
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            accessor="address"
+            label="Address"
+          />
+          <FormInput
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            accessor="phone"
+            label="Phone"
+          />
         </>
       )}
 
