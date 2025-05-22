@@ -5,6 +5,10 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   esbuild: {
+    loader: "tsx",
     jsx: "automatic",
+  },
+  optimizeDeps: {
+    exclude: ["@swc/core"],
   },
 });
