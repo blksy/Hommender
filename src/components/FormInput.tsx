@@ -11,6 +11,7 @@ type FormInputProps<T extends Record<string, string | null>> = {
   accessor: keyof T;
   label: string;
   multiline?: boolean;
+  type?: string;
 };
 
 export const FormInput = <T extends Record<string, string | null>>({
@@ -22,6 +23,7 @@ export const FormInput = <T extends Record<string, string | null>>({
   accessor,
   label,
   multiline = false,
+  type = "text",
 }: FormInputProps<T>) => {
   return (
     <TextField
@@ -32,7 +34,7 @@ export const FormInput = <T extends Record<string, string | null>>({
       id={accessor as string}
       label={label}
       name={accessor as string}
-      type="text"
+      type={type || "text"}
       multiline={multiline}
       minRows={multiline ? 4 : undefined}
       onChange={handleChange}

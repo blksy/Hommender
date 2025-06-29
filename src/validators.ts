@@ -81,7 +81,7 @@ export const loginSchema = yup.object({
   email: yup
     .string()
     .email("Invalid email format")
-    .required("Please provide an username for existing account"),
+    .required("Please provide an email for existing account"),
   password: yup.string().required("Please provide a password for your account"),
 });
 
@@ -100,8 +100,11 @@ export const registerSchema = yup.object({
     .min(2, "Full name must be at least 2 characters long"),
   phone: yup
     .string()
-    .required("Phone number is required")
-    .matches(/^\+?[0-9]{7,15}$/, "Phone number must be valid"),
+    .required("Phone number is required, must be in format +48 123-456-789")
+    .matches(
+      /^\+48 \d{3}-\d{3}-\d{3}$/,
+      "Phone must be in format +48 123-456-789"
+    ),
   address: yup.string().required("Address is required"),
   description: yup
     .string()

@@ -92,6 +92,7 @@ const Register = () => {
         errors={formik.errors}
         accessor="password"
         label="Password"
+        type="password"
       />
 
       <div className="mb-4">
