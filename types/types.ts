@@ -1,9 +1,13 @@
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
 
+export type SupabaseError = {
+  message: string;
+  status?: number | null;
+};
 export type Role = "client" | "specialist";
 
-export type HandleSupabaseError = (error: any) => void;
+export type HandleSupabaseError = (error: SupabaseError | null) => void;
 
 export type UserContextType = {
   user: User | Client | Specialist | null;
@@ -112,6 +116,10 @@ export type LoginFormValues = {
 };
 
 export interface NavbarProps {
+  sideNavToggle: boolean;
+  setSideNavToggle: (toggle: boolean) => void;
+}
+export interface SideNavProps {
   sideNavToggle: boolean;
   setSideNavToggle: (toggle: boolean) => void;
 }

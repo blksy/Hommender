@@ -8,10 +8,7 @@ import { FaHome, FaPhoneSquare, FaUserCircle } from "react-icons/fa";
 import SideNavItem from "./SideNavItem";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
-
-interface SideNavProps {
-  sideNavToggle: boolean;
-}
+import { SideNavProps } from "../../types/types";
 
 const navItems = [
   { to: "/app", icon: FaHome, label: "Home" },
@@ -25,7 +22,10 @@ const navItems = [
   { to: "/", icon: GrLogout, label: "Logout" },
 ];
 
-const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
+const SideNav: React.FC<SideNavProps> = ({
+  sideNavToggle,
+  setSideNavToggle,
+}) => {
   const { logout } = useAuth();
 
   const handleLogout = async () => {
@@ -39,6 +39,7 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
 
   return (
     <div
+      onMouseLeave={() => setSideNavToggle(false)}
       className={`fixed h-full bg-blue-700 px-4 py-2 transition-transform duration-500 z-10 ${
         sideNavToggle ? "translate-x-0" : "-translate-x-full"
       }`}
@@ -55,7 +56,10 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
             to={item.to}
             icon={item.icon}
             label={item.label}
-            onClick={item.label === "Logout" ? handleLogout : undefined}
+            onClick={() => {
+              if (item.label === "Logout") handleLogout();
+              setSideNavToggle(false);
+            }}
           />
         ))}
       </ul>

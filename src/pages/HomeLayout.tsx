@@ -10,7 +10,12 @@ const HomeLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
-        {sideNavToggle && <SideNav sideNavToggle={sideNavToggle} />}
+        {sideNavToggle && (
+          <SideNav
+            sideNavToggle={sideNavToggle}
+            setSideNavToggle={setSideNavToggle}
+          />
+        )}
         <div className="flex-1">
           <Navbar
             sideNavToggle={sideNavToggle}

@@ -11,7 +11,7 @@ const Navbar: React.FC<NavbarProps> = ({ sideNavToggle, setSideNavToggle }) => {
       <div className="flex items-center text-x1">
         <FaBars
           className="text-white me-4 cursor-pointer"
-          onClick={() => setSideNavToggle(!sideNavToggle)}
+          onMouseEnter={() => setSideNavToggle(true)}
         />
         <span className="text-white font-bold text-3xl">Hommender</span>
       </div>

@@ -76,6 +76,12 @@ const RequestDetails = () => {
       return;
     }
 
+    if (!formData.message.trim()) {
+      toast.error("Response message cannot be empty.");
+      setIsSending(false);
+      return;
+    }
+
     console.log("Sending email to:", formData.to_email);
 
     const emailData = {
@@ -105,6 +111,7 @@ const RequestDetails = () => {
       .finally(() => {
         setIsSending(false);
       });
+
     setTimeout(() => navigate(ROUTES.APP), 2000);
   };
 
