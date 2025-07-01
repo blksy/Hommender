@@ -86,7 +86,7 @@ export const useAuth = () => {
       if (error) handleSupabaseError(error);
       await fetchUserData();
     } catch (error) {
-      handleSupabaseError(error);
+      handleSupabaseError(error as Error);
     }
   };
 
@@ -95,7 +95,7 @@ export const useAuth = () => {
       const { error } = await supabase.auth.signOut();
       if (error) handleSupabaseError(error);
     } catch (error) {
-      handleSupabaseError(error);
+      handleSupabaseError(error as Error);
     }
   };
 
