@@ -6,7 +6,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
     <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
       <div className="flex-shrink-0">
-        <div className="w-20 h-20 sm:w-28 sm:h-28 flex items-center justify-center bg-blue-500 text-white text-sm sm:text-xl font-bold rounded-full">
+        <div className="w-20 h-20 sm:w-28 sm:h-28 flex items-center justify-center bg-blue-500 text-white text-xs sm:text-sm font-bold rounded-full text-center leading-tight">
           {service.type_of_service}
         </div>
       </div>

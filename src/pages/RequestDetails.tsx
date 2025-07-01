@@ -45,6 +45,7 @@ const RequestDetails = () => {
   const {
     additional_info,
     client_id,
+    client_name,
     contact,
     description,
     location,
@@ -132,7 +133,7 @@ const RequestDetails = () => {
               to={`/app/clients/${client_id}`}
               className="text-blue-600 hover:underline"
             >
-              {client_id}
+              {client_name}
             </Link>
           </p>
           <p className="text-lg">
