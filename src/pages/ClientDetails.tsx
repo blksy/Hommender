@@ -43,28 +43,28 @@ const ClientDetails = () => {
 
   return (
     <div
-      className="page-container bg-cover bg-center text-white py-8 min-h-screen flex flex-col items-center"
+      className="page-container bg-cover bg-center text-white py-6 min-h-screen flex flex-col items-center overflow-y-auto"
       style={{ backgroundImage: `url(${Bg})` }}
     >
-      <div className="max-w-7xl w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-black text-3xl font-bold text-center mb-6">
+      <div className="w-full max-w-7xl bg-white shadow-lg rounded-lg p-4 sm:p-6 md:p-8 mx-2">
+        <h1 className="text-black text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
           Details of Client No: {clientId}
         </h1>
-        <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-8">
           {/* Details Section */}
-          <div className="flex-1 text-black bg-gray-100 p-6 rounded-lg shadow-md">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <p className="text-lg text-black">
+          <div className="flex-1 text-black bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md">
+            <div className="bg-white p-4 rounded-lg shadow space-y-3 text-sm sm:text-base">
+              <p>
                 <strong>Full name:</strong> {full_name}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Role:</strong> {role}
               </p>
-              <p className="text-lg text-black">
+              <p>
                 <strong>Phone:</strong> {phone}
               </p>
-              <p className="text-lg text-black">
-                <strong>Address:</strong> {address}
+              <p>
+                <strong>Address:</strong> {address}{" "}
                 {googleMapsLink ? (
                   <a
                     href={googleMapsLink}
@@ -87,8 +87,8 @@ const ClientDetails = () => {
             {requestsError && <p>Error loading requests</p>}
 
             {clientRequests.length > 0 ? (
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md text-black">
-                <h3 className="text-2xl font-bold mb-4">
+              <div className="bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md text-black">
+                <h3 className="text-xl sm:text-2xl font-bold mb-4">
                   Requests made by {full_name}
                 </h3>
                 <ul className="space-y-4">
@@ -102,11 +102,11 @@ const ClientDetails = () => {
                     }) => (
                       <li
                         key={id}
-                        className="p-4 bg-white shadow-md rounded-lg"
+                        className="bg-white shadow-md rounded-lg transition hover:scale-[1.01]"
                       >
                         <Link
                           to={ROUTES.REQUEST_DETAILS(id)}
-                          className="block transition transform hover:scale-[1.02] hover:bg-blue-50 hover:text-blue-700 rounded-lg p-4"
+                          className="block rounded-lg p-4 hover:bg-blue-50 hover:text-blue-700"
                         >
                           <p>
                             <strong>Type:</strong> {type_of_request}
@@ -138,17 +138,17 @@ const ClientDetails = () => {
         </div>
       </div>
 
-      <div className="mt-6 flex gap-4">
+      {/* Buttons */}
+      <div className="mt-6 flex flex-col sm:flex-row gap-4 w-full max-w-7xl px-4">
         <Link
           to="/app/contact_form"
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg text-center"
         >
-          {" "}
           Contact Me
         </Link>
         <Link
           to="/app/clients"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg text-center"
         >
           Back to Clients
         </Link>

@@ -56,14 +56,19 @@ export const requestSchema = yup.object({
 // Service Schema
 export const serviceSchema = yup.object({
   additional_info: yup.string().nullable(),
-  contact: yup.string().required(),
-  description: yup.string().required(),
-  id: yup.string().required(),
-  location: yup.string().nullable(),
-  price: yup.string().nullable(),
-  specialist_name: yup.string().required(),
-  specialistId: yup.string().required(),
-  type_of_service: yup.string().required(),
+  contact: yup
+    .string()
+    .required("Contact is required")
+    .matches(/^\+?\d{7,15}$/, "Contact must be a valid phone number"),
+  description: yup.string().required("Description is required"),
+  location: yup.string().required("Location is required"),
+  price: yup
+    .string()
+    .required("Price is required")
+    .matches(/^\d+(\.\d{1,2})?$/, "Price must be a valid number"),
+  specialist_name: yup.string().required("Specialist name is required"),
+  specialist_id: yup.string().required("Specialist ID is required"),
+  type_of_service: yup.string().required("Type of service is required"),
 });
 
 // Review Schema

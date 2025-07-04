@@ -57,68 +57,70 @@ const AddService = () => {
 
   return (
     <FormLayout title="Add a New Service" onSubmit={handleSubmit}>
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="type_of_service"
-        label="Type of Service"
-      />
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="description"
-        label="Description"
-        multiline
-      />
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="price"
-        label="Price"
-      />
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="location"
-        label="Location"
-      />
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="contact"
-        label="Contact"
-      />
-      <FormInput
-        values={serviceData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="additional_info"
-        label="Additional Info"
-        multiline
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white rounded-lg px-4 py-2 w-full"
-      >
-        Add Service
-      </button>
+      <div className="w-full max-w-xl mx-auto px-4 sm:px-6 md:px-0 space-y-4">
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="type_of_service"
+          label="Type of Service"
+        />
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="description"
+          label="Description"
+          multiline
+        />
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="price"
+          label="Price"
+        />
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="location"
+          label="Location"
+        />
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="contact"
+          label="Contact"
+        />
+        <FormInput
+          values={serviceData}
+          handleChange={handleChange}
+          handleBlur={() => {}}
+          touched={{}}
+          errors={{}}
+          accessor="additional_info"
+          label="Additional Info"
+          multiline
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 w-full transition-all"
+        >
+          Add Service
+        </button>
+      </div>
     </FormLayout>
   );
 };

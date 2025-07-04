@@ -5,32 +5,39 @@ import { ROUTES } from "../router/routes";
 
 const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
   return (
-    <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
-      <div className="flex-shrink-0">
+    <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-lg flex flex-col items-center space-y-4 w-full max-w-md mx-auto">
+      {/* Profile Image at Top */}
+      <div className="w-28 h-28">
         <img
           src={specialist.profilePic ?? DefPic}
           alt="profile"
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover"
+          className="w-full h-full rounded-full object-cover"
         />
       </div>
-      <div className="flex-1 text-center sm:text-left">
-        <h3 className="text-lg sm:text-xl text-black font-semibold mb-2">
+
+      {/* Text Content */}
+      <div className="text-center w-full">
+        <h3 className="text-xl font-semibold text-black mb-2 truncate">
           {specialist.full_name}
         </h3>
-        <p className="text-gray-600 mb-2">
-          Services:{" "}
+        <p className="text-gray-600 mb-2 break-words">
+          <strong>Services:</strong>{" "}
           {specialist.services && specialist.services.length > 0
             ? specialist.services.join(", ")
             : "None"}
         </p>
-        <p className="text-gray-600 mb-4">Phone: {specialist.phone}</p>
-        <Link
-          to={ROUTES.SPECIALIST_DETAILS(specialist.id)}
-          className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 text-center"
-        >
-          View Specialist Details
-        </Link>
+        <p className="text-gray-600 mb-4 break-words">
+          <strong>Phone:</strong> {specialist.phone}
+        </p>
       </div>
+
+      {/* Button at Bottom */}
+      <Link
+        to={ROUTES.SPECIALIST_DETAILS(specialist.id)}
+        className="w-full text-center px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
+      >
+        View Specialist Details
+      </Link>
     </div>
   );
 };

@@ -174,7 +174,7 @@ const SpecialistDetails = () => {
           <p>Error loading reviews</p>
         ) : reviews.length > 0 ? (
           <ul className="space-y-4">
-            {reviews.map(({ id, client_id, rating, comment }) => (
+            {reviews.map(({ id, clients_name, client_id, rating, comment }) => (
               <li key={id} className="p-4 bg-white shadow-md rounded-lg">
                 <p>
                   <strong>Reviewer:</strong>{" "}
@@ -182,7 +182,7 @@ const SpecialistDetails = () => {
                     to={ROUTES.CLIENT_DETAILS(client_id)}
                     className="text-blue-600 hover:underline"
                   >
-                    {client_id}
+                    {clients_name}
                   </Link>
                 </p>
                 <p>

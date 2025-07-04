@@ -8,33 +8,18 @@ const FormLayout: React.FC<FormLayoutProps> = ({
 }) => {
   return (
     <div
-      className="page-container-col"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-4 sm:px-6"
       style={{
         backgroundImage: `url(${Bg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
       }}
     >
       <form
         onSubmit={onSubmit}
-        className="p-6 rounded-lg space-y-4 "
-        style={{
-          backgroundColor: "#ffffff",
-          borderRadius: "10px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          maxWidth: "400px",
-          width: "50%",
-          padding: "30px",
-          opacity: "0.9",
-        }}
+        className="w-full max-w-md sm:max-w-lg bg-white bg-opacity-90 rounded-lg shadow-lg p-6 sm:p-8 space-y-6"
       >
-        <h2 className="font-bold text-4xl text-center mb-6">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800">
+          {title}
+        </h2>
         {children}
       </form>
     </div>

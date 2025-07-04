@@ -177,15 +177,18 @@ const Register = () => {
         </>
       )}
 
-      <div
-        className="flex flex-col gap-4 mt-4"
-        style={{ alignItems: "center" }}
-      >
-        <button type="submit" className="btn-primary">
+      <div className="flex flex-col gap-4 mt-4 w-full">
+        <button
+          type="submit"
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-md px-4 py-2 w-full transition-all"
+        >
           Register
         </button>
-        <Link to={"/"}>
-          <button type="button" className="btn-secondary">
+        <Link to="/">
+          <button
+            type="button"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md px-4 py-2 w-full transition-all"
+          >
             Back
           </button>
         </Link>

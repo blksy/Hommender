@@ -118,37 +118,38 @@ const RequestDetails = () => {
 
   return (
     <div
-      className="page-container bg-cover bg-center text-white py-8 min-h-screen flex flex-col items-center"
+      className="page-container bg-cover bg-center text-white py-8 px-4 sm:px-6 min-h-screen flex flex-col items-center"
       style={{ backgroundImage: `url(${Bg})` }}
     >
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-black text-3xl font-bold text-center mb-6">
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-4 sm:p-6">
+        <h1 className="text-black text-2xl sm:text-3xl font-bold text-center mb-6 break-words">
           Request Details - ID: {requestId}
         </h1>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md text-black">
-          <p className="text-lg">
+
+        <div className="bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md text-black space-y-3">
+          <p className="text-base sm:text-lg">
             <strong>Posted by Client: </strong>
             <Link
               to={`/app/clients/${client_id}`}
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 hover:underline break-words"
             >
               {client_name}
             </Link>
           </p>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg">
             <strong>Type of Request: </strong>
             {type_of_request}
           </p>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg break-words">
             <strong>Description: </strong>
             {description}
           </p>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg break-words">
             <strong>Additional Info: </strong>
             {additional_info || "No additional info provided."}
           </p>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg break-words">
             <strong>Location: {location} - </strong>
             {googleMapsLink ? (
               <a
@@ -163,14 +164,16 @@ const RequestDetails = () => {
               "Location not provided."
             )}
           </p>
-          <p className="text-lg">
+          <p className="text-base sm:text-lg break-words">
             <strong>Contact: </strong>
             {contact}
           </p>
         </div>
 
         <div className="mt-6">
-          <h3 className="text-xl font-bold text-black">Respond to Request</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-black">
+            Respond to Request
+          </h3>
           <form onSubmit={handleSendResponse} className="mt-4 space-y-4">
             <FormInput
               values={formData}
@@ -185,7 +188,7 @@ const RequestDetails = () => {
             <button
               type="submit"
               disabled={isSending}
-              className="px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:bg-gray-400"
+              className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 disabled:bg-gray-400"
             >
               {isSending ? "Sending..." : "Send Response"}
             </button>
@@ -193,7 +196,7 @@ const RequestDetails = () => {
         </div>
       </div>
 
-      <div className="mt-6 flex gap-4">
+      <div className="mt-6 w-full flex justify-center">
         <Link
           to={ROUTES.REQUESTS}
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all"
