@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiPlus, FiTrash, FiUpload } from "react-icons/fi";
+import { FiEdit, FiPlus, FiTrash, FiUpload } from "react-icons/fi";
 import Bg from "../assets/Profile.bg.jpg";
 import DefPic from "../assets/Profile.def.jpg";
 import { ClientRequest, Service } from "../../types/types";
@@ -167,12 +167,17 @@ const UserProfile: React.FC = () => {
                     >
                       {service.type_of_service} - {service.location}
                     </Link>
-                    <button
-                      onClick={() => handleDeleteService(service.id)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <FiTrash />
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <button className="text-red-600 hover:text-red-800">
+                        <FiEdit />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteService(service.id)}
+                        className="text-red-600 hover:text-red-800"
+                      >
+                        <FiTrash />
+                      </button>
+                    </div>
                   </li>
                 ))
               ) : (

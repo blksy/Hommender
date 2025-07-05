@@ -141,3 +141,39 @@ export const registerSchema = yup.object({
       otherwise: (schema) => schema.notRequired(),
     }),
 });
+// Add Service Schema
+export const addServiceSchema = yup.object({
+  type_of_service: yup.string().required("Type of service is required"),
+  description: yup.string().required("Description is required"),
+  price: yup
+    .string()
+    .required("Price is required")
+    .matches(/^\d+(\.\d{1,2})?$/, "Price must be a valid number"),
+  location: yup.string().required("Location is required"),
+  contact: yup
+    .string()
+    .required("Contact phone is required")
+    .matches(
+      /^\+?\d{9,15}$/,
+      "Contact must be 9–15 digits, optional leading +"
+    ),
+  additional_info: yup.string().nullable(),
+  specialist_id: yup.string().required(),
+  specialist_name: yup.string().required(),
+});
+// Add Request Schema
+export const addRequestSchema = yup.object({
+  type_of_request: yup.string().required("Request type is required"),
+  description: yup.string().required("Description is required"),
+  contact: yup
+    .string()
+    .required("Contact phone is required")
+    .matches(
+      /^\+?\d{9,15}$/,
+      "Contact must be 9–15 digits, optional leading +"
+    ),
+  location: yup.string().required("Location is required"),
+  additional_info: yup.string().nullable(),
+  client_id: yup.string().required(),
+  client_name: yup.string().required(),
+});

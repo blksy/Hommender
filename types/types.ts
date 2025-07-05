@@ -22,6 +22,21 @@ export type BasicInsert = {
   role: Role;
 };
 
+export type RequestFieldName =
+  | "type_of_request"
+  | "description"
+  | "contact"
+  | "location"
+  | "additional_info";
+
+export type FieldName =
+  | "type_of_service"
+  | "description"
+  | "price"
+  | "location"
+  | "contact"
+  | "additional_info";
+
 export type ClientSpecific = BasicInsert & {
   role: "client";
   orders?: string[] | null;

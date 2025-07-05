@@ -1,122 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { useUser } from "../context/UserContext";
 import { addService } from "../api/serviceRequests";
-import { Service } from "../../types/types";
+import { FieldName, Service } from "../../types/types";
 import { ROUTES } from "../router/routes";
 import FormLayout from "../components/FormLayout";
 import { FormInput } from "../components/FormInput";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { addServiceSchema } from "../validators";
+import { useUser } from "../context/UserContext";
 
 const AddService = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const [serviceData, setServiceData] = useState<Partial<Service>>({
-    additional_info: "",
-    contact: "",
-    description: "",
-    location: "",
-    price: "",
-    specialist_id: "",
-    specialist_name: "",
-    type_of_service: "",
+  const formik = useFormik({
+    initialValues: {
+      type_of_service: "",
+      description: "",
+      price: "",
+      location: "",
+      contact: user?.phone || "",
+      additional_info: "",
+      specialist_id: user?.id || "",
+      specialist_name: user?.full_name || "",
+    },
+    validationSchema: addServiceSchema,
+    onSubmit: async (values) => {
+      try {
+        await addService(values as Service);
+        toast.success("Service added!");
+        navigate(ROUTES.SERVICES);
+      } catch {
+        toast.error("Failed to add service");
+      }
+    },
   });
 
-  useEffect(() => {
-    if (user) {
-      setServiceData((prevData) => ({
-        ...prevData,
-        specialist_id: user.id,
-        specialist_name: user.full_name,
-      }));
-    }
-  }, [user]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await addService(serviceData as Service);
-      toast.success("Service added successfully!");
-      navigate(ROUTES.SERVICES);
-    } catch (error) {
-      console.error("Failed to add service:", error);
-      toast.error("Failed to add service. Please try again.");
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setServiceData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   return (
-    <FormLayout title="Add a New Service" onSubmit={handleSubmit}>
-      <div className="w-full max-w-xl mx-auto px-4 sm:px-6 md:px-0 space-y-4">
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="type_of_service"
-          label="Type of Service"
-        />
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="description"
-          label="Description"
-          multiline
-        />
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="price"
-          label="Price"
-        />
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="location"
-          label="Location"
-        />
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="contact"
-          label="Contact"
-        />
-        <FormInput
-          values={serviceData}
-          handleChange={handleChange}
-          handleBlur={() => {}}
-          touched={{}}
-          errors={{}}
-          accessor="additional_info"
-          label="Additional Info"
-          multiline
-        />
+    <FormLayout title="Add a New Service" onSubmit={formik.handleSubmit}>
+      <div className="space-y-4 w-full max-w-xl mx-auto">
+        {(
+          [
+            "type_of_service",
+            "description",
+            "price",
+            "location",
+            "contact",
+            "additional_info",
+          ] as FieldName[]
+        ).map((field) => (
+          <FormInput
+            key={field}
+            accessor={field}
+            label={field
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase())}
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            multiline={field === "description" || field === "additional_info"}
+          />
+        ))}
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 w-full transition-all"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg"
         >
           Add Service
         </button>

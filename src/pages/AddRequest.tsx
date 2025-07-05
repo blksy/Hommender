@@ -1,112 +1,75 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import { addOrder } from "../api/ordersRequests";
-import { ClientRequest } from "../../types/types";
+import { ClientRequest, RequestFieldName } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { ROUTES } from "../router/routes";
 import FormLayout from "../components/FormLayout";
 import { FormInput } from "../components/FormInput";
+import { addRequestSchema } from "../validators";
 
 const AddRequest = () => {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [requestData, setRequestData] = useState<Partial<ClientRequest>>({
-    additional_info: "",
-    description: "",
-    location: "",
-    contact: "",
-    client_id: "",
-    client_name: user?.full_name || "",
-    type_of_request: "",
+
+  const formik = useFormik({
+    initialValues: {
+      type_of_request: "",
+      description: "",
+      contact: user?.phone || "",
+      location: "",
+      additional_info: "",
+      client_id: user?.id || "",
+      client_name: user?.full_name || "",
+    },
+    validationSchema: addRequestSchema,
+    enableReinitialize: true,
+    onSubmit: async (values) => {
+      try {
+        await addOrder(values as ClientRequest);
+        toast.success("Request added successfully!");
+        navigate(ROUTES.REQUESTS);
+      } catch (error) {
+        console.error("Failed to add request:", error);
+        toast.error("Failed to add request. Please try again.");
+      }
+    },
   });
 
-  useEffect(() => {
-    if (user) {
-      setRequestData((prevData) => ({
-        ...prevData,
-        client_id: user.id,
-        client_name: user.full_name,
-      }));
-    }
-  }, [user]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await addOrder(requestData as ClientRequest);
-      toast.success("Request added successfully!");
-      navigate(ROUTES.REQUESTS);
-    } catch (error) {
-      console.error("Failed to add request:", error);
-      toast.error("Failed to add request. Please try again.");
-    }
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setRequestData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
   return (
-    <FormLayout title="Add a New Request" onSubmit={handleSubmit}>
-      <FormInput
-        values={requestData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="type_of_request"
-        label="Type of Request"
-      />
-      <FormInput
-        values={requestData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="description"
-        label="Description"
-        multiline
-      />
-      <FormInput
-        values={requestData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="contact"
-        label="Contact"
-      />
-      <FormInput
-        values={requestData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="location"
-        label="Location"
-      />
-      <FormInput
-        values={requestData}
-        handleChange={handleChange}
-        handleBlur={() => {}}
-        touched={{}}
-        errors={{}}
-        accessor="additional_info"
-        label="Additional Info"
-        multiline
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white rounded-lg px-4 py-2 w-full"
-      >
-        Add Request
-      </button>
+    <FormLayout title="Add a New Request" onSubmit={formik.handleSubmit}>
+      <div className="space-y-4 w-full max-w-xl mx-auto">
+        {(
+          [
+            "type_of_request",
+            "description",
+            "contact",
+            "location",
+            "additional_info",
+          ] as RequestFieldName[]
+        ).map((field) => (
+          <FormInput
+            key={field}
+            accessor={field}
+            label={field
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase())}
+            values={formik.values}
+            handleChange={formik.handleChange}
+            handleBlur={formik.handleBlur}
+            touched={formik.touched}
+            errors={formik.errors}
+            multiline={field === "description" || field === "additional_info"}
+          />
+        ))}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg"
+        >
+          Add Request
+        </button>
+      </div>
     </FormLayout>
   );
 };
