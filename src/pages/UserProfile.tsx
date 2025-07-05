@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiTrash, FiUpload } from "react-icons/fi";
+import { FiPlus, FiTrash, FiUpload } from "react-icons/fi";
 import Bg from "../assets/Profile.bg.jpg";
 import DefPic from "../assets/Profile.def.jpg";
 import { ClientRequest, Service } from "../../types/types";
@@ -109,7 +109,7 @@ const UserProfile: React.FC = () => {
             </li>
             {user.role === "specialist" && (
               <li>
-                <strong>Description:</strong>{" "}
+                <strong>About me:</strong>{" "}
                 {user.description || "No description provided"}
               </li>
             )}
@@ -182,7 +182,23 @@ const UserProfile: React.FC = () => {
           </div>
         )}
       </div>
-
+      <div className="flex justify-center mt-6">
+        {user.role === "client" ? (
+          <Link
+            to={ROUTES.REQUESTS_ADD}
+            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+          >
+            <FiPlus className="mr-2" /> Add Request
+          </Link>
+        ) : (
+          <Link
+            to={ROUTES.SERVICES_ADD}
+            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+          >
+            <FiPlus className="mr-2" /> Add Service
+          </Link>
+        )}
+      </div>
       <div className="text-center mt-6">
         <Link
           to={ROUTES.PROFILE_EDITION}

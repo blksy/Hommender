@@ -116,7 +116,7 @@ const SpecialistDetails = () => {
                 )}
               </p>
               <p>
-                <strong>Description:</strong> {description}
+                <strong>About me:</strong> {description}
               </p>
             </div>
           </div>

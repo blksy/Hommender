@@ -85,7 +85,7 @@ export default function EditProfile() {
       className="w-full h-screen flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${Bg})` }}
     >
-      <div className="bg-white bg-opacity-80 p-8 rounded-2xl shadow-lg w-96 flex flex-col items-center">
+      <div className="bg-white bg-opacity-80 p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           Profile Edition
         </h1>
@@ -120,7 +120,7 @@ export default function EditProfile() {
           {isSpecialist && (
             <textarea
               name="description"
-              placeholder="Specialist Description"
+              placeholder="About me"
               value={formik.values.description}
               onChange={formik.handleChange}
               className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -136,6 +136,14 @@ export default function EditProfile() {
               : "Update Profile"}
           </button>
         </form>
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => navigate(ROUTES.PROFILE)}
+            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+          >
+            ← Back to Profile
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -40,11 +40,13 @@ export const getServiceById = async (id: string) => {
 };
 
 export const deleteServiceById = async (id: string) => {
+  console.log("Calling deleteServiceById for", id);
   const { data, error } = await supabase
     .from("service")
     .delete()
     .eq("id", id)
     .select();
+  console.log("supabase delete response:", { data, error });
   if (error) {
     console.error("Failed to delete service", error);
     throw error;
