@@ -1,11 +1,12 @@
 import { FaStar } from "react-icons/fa6";
 import Bg from "../assets/ServiceDetails.bg.jpg";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Review } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { addReview } from "../api/reviewsRequests";
 import { useUser } from "../context/UserContext";
+import { getClientById } from "../api/clientsRequests";
 
 const AddReview = () => {
   const { id: specialistId } = useParams();
@@ -15,6 +16,20 @@ const AddReview = () => {
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+
+  useEffect(() => {
+    const fetchClientName = async () => {
+      if (!user?.id) return;
+
+      const client = await getClientById(user.id);
+      if (client?.full_name) {
+        setFullName(client.full_name);
+      }
+    };
+
+    fetchClientName();
+  }, [user?.id]);
 
   if (!user) {
     return (
@@ -37,14 +52,16 @@ const AddReview = () => {
     const newReview: Partial<Review> = {
       rating,
       comment,
-      specialist_id: specialistId!,
+      specialist_id: specialistId,
       client_id: user.id,
+      clients_name: fullName,
       created_at: new Date().toISOString(),
     };
 
     try {
       await addReview(newReview as Review);
       toast.success("Review submitted successfully!");
+      console.log("fullName before submitting review:", fullName);
       navigate(`/app/specialists/${specialistId}`);
     } catch (error) {
       console.error("Error submitting review:", error);

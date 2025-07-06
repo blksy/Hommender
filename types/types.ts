@@ -230,6 +230,7 @@ export interface Service {
 
 export interface Review {
   client_id: string;
+  clients_name: string;
   comment: string;
   created_at: string;
   id?: string;
