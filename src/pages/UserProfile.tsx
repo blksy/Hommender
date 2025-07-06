@@ -60,19 +60,19 @@ const UserProfile: React.FC = () => {
 
   return (
     <div
-      className="p-5 w-full h-screen mx-auto"
+      className="p-4 sm:p-5 w-full min-h-screen overflow-auto mx-auto"
       style={{
         backgroundImage: `url(${Bg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="flex items-center mb-6 px-8">
+      <div className="flex flex-col sm:flex-row items-center mb-6 px-4 sm:px-8 gap-4 sm:gap-6">
         <div className="relative">
           <img
             src={user.profilePic || DefPic}
             alt="Profile"
-            className="w-36 h-36 rounded-full object-cover border-2 border-gray-300"
+            className="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover border-2 border-gray-300"
           />
           <label
             htmlFor="upload-profile-picture"
@@ -87,20 +87,20 @@ const UserProfile: React.FC = () => {
             className="hidden"
           />
         </div>
-        <div className="ml-6">
-          <h2 className="text-2xl font-semibold text-white">
+        <div className="text-center sm:text-left">
+          <h2 className="text-xl sm:text-2xl font-semibold text-white">
             {user.full_name}
           </h2>
           <p className="text-white">Role: {user.role}</p>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6 px-8">
-        <div className="flex-1 bg-white p-6 rounded-lg shadow-md opacity-90">
-          <h3 className="text-lg font-medium mb-3 text-gray-800">
+      <div className="flex flex-col md:flex-row gap-4 sm:gap-6 px-4 sm:px-8">
+        <div className="flex-1 bg-white p-4 sm:p-6 rounded-lg shadow-md opacity-90">
+          <h3 className="text-base sm:text-lg font-medium mb-3 text-gray-800">
             Profile Details
           </h3>
-          <ul className="list-none space-y-2 text-gray-700">
+          <ul className="list-none space-y-2 text-gray-700 text-sm sm:text-base">
             <li>
               <strong>Address:</strong> {user.address || "N/A"}
             </li>
@@ -116,17 +116,18 @@ const UserProfile: React.FC = () => {
           </ul>
         </div>
 
+        {/* Conditional sections for requests/services */}
         {user.role === "client" && (
-          <div className="flex-1 bg-white p-6 rounded-lg shadow-md opacity-90">
-            <h3 className="text-lg font-medium mb-3 text-gray-800">
+          <div className="flex-1 bg-white p-4 sm:p-6 rounded-lg shadow-md opacity-90">
+            <h3 className="text-base sm:text-lg font-medium mb-3 text-gray-800">
               My Requests
             </h3>
-            <ul className="list-none space-y-2 text-gray-700">
+            <ul className="list-none space-y-2 text-gray-700 text-sm sm:text-base">
               {requests.length > 0 ? (
                 requests.map((request) => (
                   <li
                     key={request.id}
-                    className="p-3 border rounded shadow-sm bg-gray-100 flex justify-between items-center"
+                    className="p-2 sm:p-3 border rounded shadow-sm bg-gray-100 flex justify-between items-center"
                   >
                     <Link
                       to={ROUTES.REQUEST_DETAILS(request.id)}
@@ -150,16 +151,16 @@ const UserProfile: React.FC = () => {
         )}
 
         {user.role === "specialist" && (
-          <div className="flex-1 bg-white p-6 rounded-lg shadow-md opacity-90">
-            <h3 className="text-lg font-medium mb-3 text-gray-800">
+          <div className="flex-1 bg-white p-4 sm:p-6 rounded-lg shadow-md opacity-90">
+            <h3 className="text-base sm:text-lg font-medium mb-3 text-gray-800">
               My Services
             </h3>
-            <ul className="list-none space-y-2 text-gray-700">
+            <ul className="list-none space-y-2 text-gray-700 text-sm sm:text-base">
               {services.length > 0 ? (
                 services.map((service) => (
                   <li
                     key={service.id}
-                    className="p-3 border rounded shadow-sm bg-gray-100 flex justify-between items-center"
+                    className="p-2 sm:p-3 border rounded shadow-sm bg-gray-100 flex justify-between items-center"
                   >
                     <Link
                       to={ROUTES.SERVICE_DETAILS(service.id)}
@@ -167,7 +168,7 @@ const UserProfile: React.FC = () => {
                     >
                       {service.type_of_service} - {service.location}
                     </Link>
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-2 sm:space-x-4">
                       <button className="text-red-600 hover:text-red-800">
                         <FiEdit />
                       </button>
@@ -187,27 +188,29 @@ const UserProfile: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="flex justify-center mt-6">
+
+      <div className="flex justify-center mt-6 px-4">
         {user.role === "client" ? (
           <Link
             to={ROUTES.REQUESTS_ADD}
-            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 text-sm sm:text-base"
           >
             <FiPlus className="mr-2" /> Add Request
           </Link>
         ) : (
           <Link
             to={ROUTES.SERVICES_ADD}
-            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+            className="inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 text-sm sm:text-base"
           >
             <FiPlus className="mr-2" /> Add Service
           </Link>
         )}
       </div>
-      <div className="text-center mt-6">
+
+      <div className="text-center mt-4 sm:mt-6 px-4">
         <Link
           to={ROUTES.PROFILE_EDITION}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 text-sm sm:text-base"
         >
           Edit Profile
         </Link>
