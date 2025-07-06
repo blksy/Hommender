@@ -77,6 +77,14 @@ const SpecialistDetails = () => {
     }
   };
 
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((sum, review) => sum + (review.rating ?? 0), 0) /
+          reviews.length
+        ).toFixed(1)
+      : null;
+
   return (
     <div
       className="page-container bg-cover bg-center text-white py-6 px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col items-center"
@@ -168,6 +176,11 @@ const SpecialistDetails = () => {
       {/* Reviews Section */}
       <div className="w-full max-w-5xl bg-gray-100 p-4 rounded-lg shadow text-black mb-6 overflow-auto max-h-[30vh]">
         <h3 className="text-xl font-bold mb-4">Reviews</h3>
+        {averageRating && (
+          <p className="text-lg font-semibold text-gray-800 mb-2">
+            Overall rating: {averageRating} ⭐
+          </p>
+        )}
         {reviewsLoading ? (
           <p>Loading reviews...</p>
         ) : reviewsError ? (
