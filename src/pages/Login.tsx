@@ -6,12 +6,15 @@ import { LoginFormValues } from "../../types/types";
 import FormLayout from "../components/FormLayout";
 import { ROUTES } from "../router/routes";
 import toast, { Toaster } from "react-hot-toast";
-import { logIn } from "../api/usersRequests";
-import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../context/UserContext";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
+  const { login } = useAuth();
+  const { user } = useUser();
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
@@ -22,16 +25,21 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         setIsPending(true);
-        await logIn(values.email, values.password);
-        toast.success("Login successful! Redirecting to the main page...");
-        navigate(ROUTES.APP);
+        await login(values.email, values.password);
+        toast.success("Login successful! Redirecting...");
       } catch (err) {
-        toast.error("Error logging in: " + (err as Error).message);
+        toast.error("Login failed: " + (err as Error).message);
       } finally {
         setIsPending(false);
       }
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      navigate(ROUTES.APP);
+    }
+  }, [user]);
 
   return (
     <FormLayout

@@ -20,7 +20,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     supabase.auth.getSession().then(() => {
       fetchUserData()
         .then((data) => {
-          // console.log("userData", data);
           setUser(data);
         })
         .catch(() => {
@@ -31,7 +30,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
     supabase.auth.onAuthStateChange(async () => {
       fetchUserData()
         .then((data) => {
-          // console.log("userData", data);
           setUser(data);
         })
         .catch(() => {

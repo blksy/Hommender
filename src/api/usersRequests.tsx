@@ -82,7 +82,6 @@ export const fetchUserData = async () => {
         .select("*")
         .eq("user_id", userId)
         .single();
-      console.log("spec", specialistData);
       detailedUserData = specialistData;
     } else {
       detailedUserData = {
@@ -91,7 +90,6 @@ export const fetchUserData = async () => {
         created_at: sessionUser.created_at,
       };
     }
-
     return detailedUserData;
   } catch (error) {
     console.error("Error fetching user data:", error);
