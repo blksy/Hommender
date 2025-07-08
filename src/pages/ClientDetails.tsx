@@ -139,7 +139,7 @@ const ClientDetails = () => {
       </div>
 
       {/* Buttons */}
-      <div className="mt-6 flex flex-col sm:flex-row gap-4 w-full max-w-7xl px-4">
+      <div className="mt-6 flex flex-col sm:flex-row gap-4 w-full max-w-7xl px-4 justify-center items-center">
         <Link
           to="/app/contact_form"
           className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg text-center"

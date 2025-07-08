@@ -85,8 +85,11 @@ export const reviewSchema = yup.object({
 export const loginSchema = yup.object({
   email: yup
     .string()
-    .email("Invalid email format")
-    .required("Please provide an email for existing account"),
+    .required("Please provide an email for existing account")
+    .matches(
+      /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
+      "Please enter a valid email address"
+    ),
   password: yup.string().required("Please provide a password for your account"),
 });
 
@@ -103,12 +106,27 @@ export const registerSchema = yup.object({
     .string()
     .required("Full name is required")
     .min(2, "Full name must be at least 2 characters long"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(
+      /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i,
+      "Please provide a valid email address"
+    ),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters")
+    .matches(
+      /^(?=.*[A-Z])(?=.*\d).+$/,
+      "Password must contain at least one uppercase letter and one number"
+    ),
   phone: yup
     .string()
-    .required("Phone number is required, must be in format +48 123-456-789")
+    .required("Phone number is required")
     .matches(
-      /^\+48 \d{3}-\d{3}-\d{3}$/,
-      "Phone must be in format +48 123-456-789"
+      /^\+48[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/,
+      "Phone must be in format +48 123 456 789 or +48-123-456-789"
     ),
   address: yup.string().required("Address is required"),
   description: yup
@@ -141,6 +159,7 @@ export const registerSchema = yup.object({
       otherwise: (schema) => schema.notRequired(),
     }),
 });
+
 // Add Service Schema
 export const addServiceSchema = yup.object({
   type_of_service: yup.string().required("Type of service is required"),

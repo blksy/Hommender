@@ -6,10 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { RegisterFormValues } from "../../types/types";
 import FormLayout from "../components/FormLayout";
 import { ROUTES } from "../router/routes";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { signUp } = useAuth();
 
@@ -84,17 +87,25 @@ const Register = () => {
         accessor="email"
         label="Email"
       />
-      <FormInput
-        values={formik.values}
-        handleChange={formik.handleChange}
-        handleBlur={formik.handleBlur}
-        touched={formik.touched}
-        errors={formik.errors}
-        accessor="password"
-        label="Password"
-        type="password"
-      />
-
+      <div className="relative">
+        <FormInput
+          values={formik.values}
+          handleChange={formik.handleChange}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched}
+          errors={formik.errors}
+          accessor="password"
+          label="Password"
+          type={showPassword ? "text" : "password"}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 text-xl"
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
       <div className="mb-4">
         <RadioGroup
           aria-label="role"

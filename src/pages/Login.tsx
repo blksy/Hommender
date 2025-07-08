@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { loginSchema } from "../validators";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FormInput } from "../components/FormInput";
 import { LoginFormValues } from "../../types/types";
 import FormLayout from "../components/FormLayout";
@@ -13,6 +14,7 @@ import { useEffect, useState } from "react";
 const Login = () => {
   const navigate = useNavigate();
   const [isPending, setIsPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const { user } = useUser();
 
@@ -56,16 +58,25 @@ const Login = () => {
         accessor="email"
         label="Email"
       />
-      <FormInput
-        values={formik.values}
-        handleChange={formik.handleChange}
-        handleBlur={formik.handleBlur}
-        touched={formik.touched}
-        errors={formik.errors}
-        accessor="password"
-        label="Password"
-        type="password"
-      />
+      <div className="relative">
+        <FormInput
+          values={formik.values}
+          handleChange={formik.handleChange}
+          handleBlur={formik.handleBlur}
+          touched={formik.touched}
+          errors={formik.errors}
+          accessor="password"
+          label="Password"
+          type={showPassword ? "text" : "password"}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 text-xl"
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
       <div className="flex flex-col gap-4 mt-4 items-center">
         <button type="submit" className="btn-primary" disabled={isPending}>
           Login
