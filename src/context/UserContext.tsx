@@ -21,63 +21,98 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | Client | Specialist | Admin | null>(
-    null
+    null,
   );
+
+  const [loading, setLoading] = useState(true);
 
   //const { data: { user } } = await supabase.auth.getUser()
 
   useEffect(() => {
-    supabase.auth.getSession().then(() => {
-      fetchUserData()
-        .then((data) => {
-          console.log("userData", data);
-          setUser(data);
-        })
-        .catch(() => {
+    let isMounted = true;
+
+    const loadUser = async () => {
+      try {
+        const userData = await fetchUserData();
+
+        if (isMounted) {
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error("Error loading user:", error);
+
+        if (isMounted) {
           setUser(null);
-        });
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    const initializeUser = async () => {
+      try {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
+        if (error) {
+          throw error;
+        }
+
+        if (!session) {
+          if (isMounted) {
+            setUser(null);
+          }
+          return;
+        }
+
+        await loadUser();
+      } catch (error) {
+        console.error("Error initializing user:", error);
+
+        if (isMounted) {
+          setUser(null);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    void initializeUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+
+      if (event === "SIGNED_IN") {
+        setLoading(true);
+
+        setTimeout(() => {
+          void loadUser();
+        }, 0);
+      }
     });
 
-    supabase.auth.onAuthStateChange(async () => {
-      fetchUserData()
-        .then((data) => {
-          console.log("userData", data);
-          setUser(data);
-        })
-        .catch(() => {
-          setUser(null);
-        });
-    });
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
-  // supabase.auth.onAuthStateChange(async (event) => {
-  //   try {
-  //     console.log("onAuthStateChange");
-  //     const { data: sessionData, error } = await supabase.auth.getSession();
-  //     console.log("sessionData", sessionData);
-  //     if (error) throw error;
-
-  //     const session = sessionData?.session;
-
-  //     if (
-  //       session?.user &&
-  //       (event === "SIGNED_IN" ||
-  //         event === "USER_UPDATED" ||
-  //         event === "TOKEN_REFRESHED")
-  //     ) {
-  //       const userData = await fetchUserData();
-  //       setUser(userData);
-  //     } else if (event === "SIGNED_OUT") {
-  //       setUser(null);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching session in auth state change:", error);
-  //     setUser(null);
-  //   }
-  // });
-
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, loading }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

@@ -1,19 +1,20 @@
-import { FormikProps } from "formik";
-import * as yup from "yup";
+import { FormikProps, FormikValues } from "formik";
 import TextField from "@mui/material/TextField";
 
 type FormValues = yup.InferType<typeof yupSchema>;
 
-export const FormInput = ({
+export const FormInput = <T extends FormikValues>({
   formik,
   accessor,
   label,
   multiline = false,
+  type = "text",
 }: {
-  formik: FormikProps<FormValues>;
-  accessor: keyof FormValues;
+  formik: FormikProps<T>;
+  accessor: keyof T & string;
   label: string;
   multiline?: boolean;
+  type?: React.HTMLInputTypeAttribute;
 }) => {
   return (
     <TextField

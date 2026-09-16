@@ -7,6 +7,7 @@ export type HandleSupabaseError = (error: any) => void;
 
 export interface UserContextType {
   user: User | Client | Specialist | Admin | null;
+  loading: boolean;
 }
 
 export type BasicInsert = {

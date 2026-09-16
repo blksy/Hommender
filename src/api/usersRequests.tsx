@@ -37,7 +37,7 @@ export const getUserById = async (id: string) => {
 
 export const updateUserById = async (
   updateUserData: Partial<User>,
-  id: string | number
+  id: string | number,
 ) => {
   const { data, error } = await supabase
     .from("users")
@@ -104,12 +104,15 @@ export const logOut = async () => {
 };
 
 export const logIn = async (email: string, password: string) => {
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
     console.error("Error logging in:", error);
+    throw error;
   }
+
+  return data;
 };
