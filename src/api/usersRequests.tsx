@@ -37,7 +37,7 @@ export const getUserById = async (id: string) => {
 
 export const updateUserById = async (
   updateUserData: Partial<User>,
-  id: string | number,
+  id: string,
 ) => {
   const { data, error } = await supabase
     .from("users")
@@ -46,7 +46,7 @@ export const updateUserById = async (
     .select();
 
   if (error) {
-    console.error("Failed to update client data", error);
+    console.error("Failed to update user data", error);
     throw error;
   }
 

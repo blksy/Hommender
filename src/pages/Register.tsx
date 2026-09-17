@@ -18,11 +18,11 @@ const Register = () => {
       email: "",
       password: "",
       full_name: "",
-      role: "client", //default
+      role: "client",
       phone: "",
       address: "",
       description: "",
-      services: undefined,
+      services: "",
     },
     validationSchema: registerSchema,
     onSubmit: async (values) => {
@@ -36,9 +36,10 @@ const Register = () => {
           values.role === "specialist" ? values.description : undefined,
         services:
           values.role === "specialist"
-            ? typeof values.services === "string"
-              ? values.services.split(",").map((service) => service.trim())
-              : values.services
+            ? values.services
+                .split(",")
+                .map((service) => service.trim())
+                .filter(Boolean)
             : undefined,
       };
 
@@ -48,10 +49,10 @@ const Register = () => {
           values.email.trim(),
           values.password,
           values.role,
-          additionalInfo
+          additionalInfo,
         );
         toast.success(
-          "Registration successful! Please check your email for confirmation."
+          "Registration successful! Please check your email for confirmation.",
         );
         console.log("Navigating to:", ROUTES.APP);
         navigate(ROUTES.APP);

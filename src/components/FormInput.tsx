@@ -1,8 +1,6 @@
 import { FormikProps, FormikValues } from "formik";
 import TextField from "@mui/material/TextField";
 
-type FormValues = yup.InferType<typeof yupSchema>;
-
 export const FormInput = <T extends FormikValues>({
   formik,
   accessor,
@@ -18,22 +16,22 @@ export const FormInput = <T extends FormikValues>({
 }) => {
   return (
     <TextField
-      error={Boolean(formik.touched[accessor] && formik.errors[accessor])}
-      helperText={
-        formik.touched[accessor] && formik.errors[accessor]
-          ? formik.errors[accessor]
-          : null
-      }
+      fullWidth
+      margin="normal"
       id={accessor}
-      label={label}
       name={accessor}
-      type="text"
+      label={label}
+      type={type}
       multiline={multiline}
-      minRows={multiline ? 4 : undefined}
+      value={formik.values[accessor]}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
-      value={formik.values[accessor]}
-      className="w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      error={formik.touched[accessor] && Boolean(formik.errors[accessor])}
+      helperText={
+        formik.touched[accessor] && formik.errors[accessor]
+          ? String(formik.errors[accessor])
+          : ""
+      }
     />
   );
 };

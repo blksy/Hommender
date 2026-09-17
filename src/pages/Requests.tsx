@@ -5,7 +5,7 @@ import { fetchAllOrders } from "../api/ordersRequests";
 
 const Requests = () => {
   const {
-    data: requests,
+    data: requests = [],
     isLoading,
     error,
   } = useQuery({

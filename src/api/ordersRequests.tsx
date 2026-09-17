@@ -1,16 +1,16 @@
-import { ClientRequest } from "../../types/types";
+import { ClientRequestInsert } from "../../types/types";
 import { supabase } from "../database/supabase";
 
-export const addOrder = async (newRequest: ClientRequest) => {
+export const addOrder = async (request: ClientRequestInsert) => {
   const { data, error } = await supabase
     .from("requests")
-    .insert([newRequest])
+    .insert(request)
     .select();
 
   if (error) {
-    console.error("Failed to add new request", error);
     throw error;
   }
+
   return data;
 };
 

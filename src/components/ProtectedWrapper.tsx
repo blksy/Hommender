@@ -1,13 +1,14 @@
 import { Navigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 import { ROUTES } from "../router/routes";
 import { ProtectedWrapperProps } from "../../types/types";
+import Loader from "./Loader";
 
 const ProtectedWrapper: React.FC<ProtectedWrapperProps> = ({ children }) => {
   const { user, loading } = useUser();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!user) {

@@ -1,60 +1,69 @@
-import { createBrowserRouter } from "react-router-dom";
-import HomeLayout from "../pages/HomeLayout";
-import About from "../pages/About";
-import Requests from "../pages/Requests";
-import Services from "../pages/Services";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import Specialists from "../pages/Specialists";
-import ClientDetails from "../pages/ClientDetails";
-import Clients from "../pages/Clients";
-import SpecialistDetails from "../pages/SpecialistDetails";
-import Contact from "../pages/Contact";
-import UserProfile from "../pages/UserProfile";
-import Home from "../pages/Home";
-import Start from "../pages/Start";
-import RulesAndRegulations from "../pages/RulesAndRegulations";
-import PrivacyPolicy from "../pages/PrivacyPolicy";
 import { Suspense } from "react";
-import RequestDetails from "../pages/RequestDetails";
-import ServiceDetails from "../pages/ServiceDetails";
-import AddRequest from "../pages/AddRequest";
-import AddService from "../pages/AddService";
-import ContactForm from "../components/ContactForm";
-import AddReview from "../pages/AddReview";
-import EditProfile from "../pages/EditProfile";
+import { createBrowserRouter } from "react-router-dom";
 import ProtectedWrapper from "../components/ProtectedWrapper";
+import Loader from "../components/Loader";
 
-// Path Constants
+// Lazy-loaded pages
+import {
+  Start,
+  Login,
+  Register,
+  HomeLayout,
+  Home,
+  About,
+  Requests,
+  RequestDetails,
+  AddRequest,
+  Services,
+  ServiceDetails,
+  AddService,
+  Specialists,
+  SpecialistDetails,
+  AddReview,
+  Clients,
+  ClientDetails,
+  UserProfile,
+  EditProfile,
+  Contact,
+  ContactForm,
+  RulesAndRegulations,
+  PrivacyPolicy,
+} from "./lazyPages";
+
+// Path constants
 export const ROUTES = {
   START: "/",
   LOGIN: "/login",
   REGISTER: "/register",
+
   APP: "/app",
   ABOUT: "/app/about",
+
   REQUESTS: "/app/requests",
   REQUESTS_ADD: "/app/requests/add_request",
-  REVIEW_ADD: (id: string) => `/app/specialists/${id}/add_review`,
-  SERVICES_ADD: "/app/services/add_service",
   REQUEST_DETAILS: (id: string) => `/app/requests/${id}`,
+
   SERVICES: "/app/services",
+  SERVICES_ADD: "/app/services/add_service",
   SERVICE_DETAILS: (id: string) => `/app/services/${id}`,
-  RULES: "/app/rules",
-  PRIVACY_POLICY: "/app/privacy_policy",
-  PROFILE: "/app/profile",
-  PROFILE_EDITION: "/app/profile/edit",
-  CLIENTS: "/app/clients",
-  CLIENT_DETAILS: (id: string) => `/app/clients/${id}`,
+
   SPECIALISTS: "/app/specialists",
   SPECIALIST_DETAILS: (id: string) => `/app/specialists/${id}`,
+  REVIEW_ADD: (id: string) => `/app/specialists/${id}/add_review`,
+
+  CLIENTS: "/app/clients",
+  CLIENT_DETAILS: (id: string) => `/app/clients/${id}`,
+
+  PROFILE: "/app/profile",
+  PROFILE_EDITION: "/app/profile/edit",
+
+  RULES: "/app/rules",
+  PRIVACY_POLICY: "/app/privacy_policy",
+
   CONTACT: "/app/contact",
   CONTACT_FORM: "/app/contact_form",
 };
 
-// Fallback loader for lazy-loaded components
-const Loader = () => <div>Loading...</div>;
-
-// Router
 export const router = createBrowserRouter([
   {
     path: ROUTES.START,
@@ -80,6 +89,8 @@ export const router = createBrowserRouter([
       </Suspense>
     ),
   },
+
+  // All routes below /app are protected by this single wrapper
   {
     path: ROUTES.APP,
     element: (
@@ -89,221 +100,119 @@ export const router = createBrowserRouter([
         </Suspense>
       </ProtectedWrapper>
     ),
+
     children: [
       {
         index: true,
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <Home />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
+        element: <Home />,
       },
       {
         path: "about",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <About />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
+        element: <About />,
       },
+
+      // Requests
       {
         path: "requests",
         children: [
           {
             index: true,
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <Requests />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <Requests />,
           },
           {
             path: "add_request",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <AddRequest />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <AddRequest />,
           },
           {
             path: ":id",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <RequestDetails />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <RequestDetails />,
           },
         ],
       },
+
+      // Services
       {
         path: "services",
         children: [
           {
             index: true,
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <Services />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <Services />,
           },
           {
             path: "add_service",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <AddService />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <AddService />,
           },
           {
             path: ":id",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <ServiceDetails />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <ServiceDetails />,
           },
         ],
       },
-      {
-        path: "rules",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <RulesAndRegulations />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
-      },
-      {
-        path: "privacy_policy",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <PrivacyPolicy />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
-      },
+
+      // Profile
       {
         path: "profile",
         children: [
           {
             index: true,
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <UserProfile />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <UserProfile />,
           },
           {
             path: "edit",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <EditProfile />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <EditProfile />,
           },
         ],
       },
+
+      // Specialists
       {
         path: "specialists",
         children: [
           {
             index: true,
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <Specialists />
-                </Suspense>{" "}
-              </ProtectedWrapper>
-            ),
+            element: <Specialists />,
+          },
+          {
+            path: ":id",
+            element: <SpecialistDetails />,
           },
           {
             path: ":id/add_review",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <AddReview />{" "}
-                </Suspense>{" "}
-              </ProtectedWrapper>
-            ),
+            element: <AddReview />,
           },
         ],
       },
+
+      // Clients
       {
         path: "clients",
         children: [
           {
             index: true,
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <Clients />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <Clients />,
           },
           {
             path: ":id",
-            element: (
-              <ProtectedWrapper>
-                <Suspense fallback={<Loader />}>
-                  <ClientDetails />
-                </Suspense>
-              </ProtectedWrapper>
-            ),
+            element: <ClientDetails />,
           },
         ],
       },
+
       {
-        path: "specialists/:id",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <SpecialistDetails />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
+        path: "rules",
+        element: <RulesAndRegulations />,
+      },
+      {
+        path: "privacy_policy",
+        element: <PrivacyPolicy />,
       },
       {
         path: "contact",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <Contact />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
+        element: <Contact />,
       },
       {
         path: "contact_form",
-        element: (
-          <ProtectedWrapper>
-            <Suspense fallback={<Loader />}>
-              <ContactForm />
-            </Suspense>
-          </ProtectedWrapper>
-        ),
+        element: <ContactForm />,
       },
     ],
   },

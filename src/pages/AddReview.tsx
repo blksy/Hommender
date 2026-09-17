@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Review } from "../../types/types";
 import { toast } from "react-hot-toast";
 import { addReview } from "../api/reviewsRequests";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 
 const AddReview = () => {
   const { id: specialistId } = useParams();
@@ -19,6 +19,16 @@ const AddReview = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!user) {
+      toast.error("You must be logged in to add a review.");
+      return;
+    }
+
+    if (!specialistId) {
+      toast.error("Specialist not found.");
+      return;
+    }
+
     if (rating === 0) {
       toast.error("Please select a rating.");
       return;
@@ -27,7 +37,7 @@ const AddReview = () => {
     const newReview: Partial<Review> = {
       rating,
       comment,
-      specialist_id: specialistId!,
+      specialist_id: specialistId,
       client_id: user.id,
       created_at: new Date().toISOString(),
     };
