@@ -8,9 +8,9 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({ specialist }) => {
     <div className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg flex flex-col sm:flex-row items-center sm:space-x-4 space-y-4 sm:space-y-0">
       <div className="flex-shrink-0">
         <img
-          src={DefPic || specialist.profilePic}
-          alt="profile"
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover"
+          src={DefPic}
+          alt={specialist.full_name}
+          className="w-28 h-28 rounded-full object-cover"
         />
       </div>
       <div className="flex-1 text-center sm:text-left">

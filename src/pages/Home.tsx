@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import Bg from "../assets/Home.bg.jpg";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 
 const Home = () => {
   const { user } = useUser();

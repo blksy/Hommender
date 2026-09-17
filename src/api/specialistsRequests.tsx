@@ -7,10 +7,10 @@ export const fetchAllSpecialists = async () => {
     .select("*");
   if (error) {
     console.error("Failed to fetch specialists data", error);
-    // throw error;
+    throw error;
   }
 
-  return specialists;
+  return specialists ?? [];
 };
 
 export const getSpecialistById = async (id: string) => {
@@ -30,7 +30,7 @@ export const getSpecialistById = async (id: string) => {
 
 export const updateSpecialistById = async (
   updateSpecialistData: Partial<Specialist>,
-  id: string
+  id: string,
 ) => {
   const { data, error } = await supabase
     .from("specialists")

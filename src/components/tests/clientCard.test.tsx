@@ -6,22 +6,24 @@ import { ROUTES } from "../../router/routes";
 
 describe("ClientCard component", () => {
   const mockClient = {
-    id: "123",
-    profilePic: "",
+    id: "1",
     full_name: "John Doe",
-    address: "123 Main Street",
-    phone: "+48 123 456 789",
+    address: "Poznań",
+    phone: "123456789",
+    orders: null,
+    role: "client",
+    user_id: "user-1",
   };
 
   test("renders client information", () => {
     render(
       <BrowserRouter>
         <ClientCard client={mockClient} />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     expect(screen.getByText(mockClient.full_name)).toBeInTheDocument();
     expect(
-      screen.getByText(`Address: ${mockClient.address}`)
+      screen.getByText(`Address: ${mockClient.address}`),
     ).toBeInTheDocument();
     expect(screen.getByText(`Phone: ${mockClient.phone}`)).toBeInTheDocument();
   });
@@ -30,14 +32,14 @@ describe("ClientCard component", () => {
     render(
       <BrowserRouter>
         <ClientCard client={mockClient} />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const profileImage = screen.getByRole("img");
     expect(profileImage).toBeInTheDocument();
     expect(profileImage).toHaveAttribute(
       "src",
-      expect.stringContaining("Profile.def.jpg")
+      expect.stringContaining("Profile.def.jpg"),
     );
   });
 
@@ -45,7 +47,7 @@ describe("ClientCard component", () => {
     render(
       <BrowserRouter>
         <ClientCard client={mockClient} />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     const link = screen.getByRole("link", { name: /View Profile/i });

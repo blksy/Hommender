@@ -32,7 +32,7 @@ const SideNav: React.FC<SideNavProps> = ({ sideNavToggle }) => {
     try {
       await logout();
       toast.success("Logged out successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Logout failed. Please try again.");
     }
   };

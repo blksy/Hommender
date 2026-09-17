@@ -5,7 +5,7 @@ import { getSpecialistById } from "../api/specialistsRequests";
 import { fetchAllServices } from "../api/serviceRequests";
 import { ROUTES } from "../router/routes";
 import { getReviewsBySpecialistId } from "../api/reviewsRequests";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 import { toast } from "react-hot-toast";
 
 const SpecialistDetails = () => {
@@ -56,7 +56,7 @@ const SpecialistDetails = () => {
   } = specialist;
 
   const specialistServices = services.filter(
-    (service) => service.specialist_id === specialistId
+    (service) => service.specialist_id === specialistId,
   );
 
   const googleMapsLink = address
@@ -64,15 +64,15 @@ const SpecialistDetails = () => {
     : null;
 
   const handleAddReview = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) => {
     e.preventDefault();
 
-    if (user.role === "client" || user.role === "admin") {
+    if (user?.role === "client" || user?.role === "admin") {
       navigate(ROUTES.REVIEW_ADD(specialistId));
     } else {
       toast.error(
-        "Sorry! In order to support healthy competition you must be registered as client to add a review :)"
+        "Sorry! In order to support healthy competition you must be registered as client to add a review :)",
       );
     }
   };
@@ -152,7 +152,7 @@ const SpecialistDetails = () => {
                           </p>
                         </Link>
                       </li>
-                    )
+                    ),
                   )}
                 </ul>
               </div>

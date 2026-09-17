@@ -3,10 +3,11 @@ import { Toaster, toast } from "react-hot-toast";
 import Bg from "../assets/ServiceRequest.bg.jpg";
 import { ROUTES } from "../router/routes";
 import { useNavigate } from "react-router-dom";
+import { ContactFormData } from "../../types/types";
 
 const ContactForm = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
     phoneNumber: "",
     subject: "",
@@ -14,7 +15,9 @@ const ContactForm = () => {
     attachments: null,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -22,14 +25,15 @@ const ContactForm = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+
     setFormData((prevData) => ({
       ...prevData,
-      attachments: e.target.files[0],
+      attachments: file,
     }));
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast.success("Your message has been sent!");
     console.log("Form Data Submitted:", formData);
@@ -127,7 +131,7 @@ const ContactForm = () => {
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
             placeholder="Write your message here..."
-            rows="4"
+            rows={4}
           ></textarea>
         </div>
 

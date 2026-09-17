@@ -5,7 +5,7 @@ import { fetchAllSpecialists } from "../api/specialistsRequests";
 
 const Specialists = () => {
   const {
-    data: specialists,
+    data: specialists = [],
     isLoading,
     error,
   } = useQuery({ queryKey: ["specialists"], queryFn: fetchAllSpecialists });

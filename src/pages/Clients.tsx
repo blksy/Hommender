@@ -5,7 +5,7 @@ import { fetchAllClients } from "../api/clientsRequests";
 
 const Clients = () => {
   const {
-    data: clients,
+    data: clients = [],
     isLoading,
     error,
   } = useQuery({

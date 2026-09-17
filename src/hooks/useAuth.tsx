@@ -6,20 +6,17 @@ import {
   ClientInsert,
   SpecialistInsert,
 } from "../../types/types";
-import { useUser } from "../context/UserContext";
 
 const handleSupabaseError: HandleSupabaseError = (error) => {
-  console.error("Supabase Error Details:", error);
   if (error instanceof Error) {
-    console.error("Network Error:", error.message);
-  } else {
-    console.error("Supabase Error:", error);
+    console.error("Supabase Error:", error.message);
+    throw error;
   }
-  throw new Error(error?.message || "Unknown error occurred");
+  console.error("Unknown Supabase Error:", error);
+  throw new Error("Unknown error occurred");
 };
 
 export const useAuth = () => {
-  const { fetchUserData } = useUser();
   const signUp = async (
     name: string,
     email: string,
@@ -30,7 +27,7 @@ export const useAuth = () => {
       phone: string;
       description?: string;
       services?: string[];
-    }
+    },
   ) => {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -100,8 +97,10 @@ export const useAuth = () => {
         email,
         password,
       });
-      if (error) handleSupabaseError(error);
-      await fetchUserData();
+
+      if (error) {
+        handleSupabaseError(error);
+      }
     } catch (error) {
       handleSupabaseError(error);
     }
@@ -124,7 +123,9 @@ export const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        const { data: session } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         return session?.user ?? null;
       } catch (error) {
         handleSupabaseError(error);

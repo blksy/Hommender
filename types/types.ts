@@ -1,12 +1,26 @@
 import { ReactNode } from "react";
 import { IconType } from "react-icons";
+import { TablesInsert, Tables } from "./supabase";
 
 export type Role = "client" | "specialist";
 
-export type HandleSupabaseError = (error: any) => void;
+export type HandleSupabaseError = (error: unknown) => void;
 
 export interface UserContextType {
   user: User | Client | Specialist | Admin | null;
+  loading: boolean;
+}
+
+export interface ResponseFormValues {
+  message: string;
+}
+
+export interface ContactFormData {
+  fullName: string;
+  phoneNumber: string;
+  subject: string;
+  message: string;
+  attachments: File | null;
 }
 
 export type BasicInsert = {
@@ -28,20 +42,19 @@ export type SpecialistSpecific = BasicInsert & {
   services?: string[] | null;
 };
 
-export type ClientInsert = BasicInsert & ClientSpecific & { role: "client" };
-export type SpecialistInsert = BasicInsert &
-  SpecialistSpecific & { role: "specialist" };
-
+export type ClientInsert = TablesInsert<"clients">;
+export type ClientRequest = Tables<"requests">;
+export type Service = Tables<"service">;
+export type SpecialistInsert = TablesInsert<"specialists">;
+export type ClientRequestInsert = TablesInsert<"requests">;
+export type ServiceInsert = TablesInsert<"service">;
+export type ReviewInsert = TablesInsert<"reviews">;
 export type UserInsert = ClientInsert | SpecialistInsert;
+export type Client = Tables<"clients">;
+export type Specialist = Tables<"specialists">;
 
 export interface SpecialistCardProps {
-  specialist: {
-    id: string;
-    profilePic: string | null;
-    full_name: string;
-    services: string[];
-    phone: string;
-  };
+  specialist: Specialist;
 }
 
 export interface ProtectedWrapperProps {
@@ -49,14 +62,7 @@ export interface ProtectedWrapperProps {
 }
 
 export interface ServiceCardProps {
-  service: {
-    id: string;
-    type_of_service: string;
-    specialist_name: string;
-    location: string;
-    price: string;
-    contact: string;
-  };
+  service: Service;
 }
 
 export interface RequestCardProps {
@@ -69,13 +75,7 @@ export interface RequestCardProps {
 }
 
 export interface ClientCardProps {
-  client: {
-    id: string;
-    profilePic: string;
-    full_name: string;
-    address: string;
-    phone: string;
-  };
+  client: Client;
 }
 
 export interface routerType {
@@ -89,16 +89,16 @@ export interface SideNavItemProps {
   onClick?: () => void;
 }
 
-export type RegisterFormValues = {
+export interface RegisterFormValues {
   email: string;
   password: string;
   full_name: string;
   role: "client" | "specialist";
   phone: string;
   address: string;
-  description?: string; // Description for specialists
-  services?: string[]; // Services for specialists
-};
+  description: string;
+  services: string;
+}
 
 export type LoginFormValues = {
   email: string;
@@ -137,49 +137,6 @@ export interface Admin {
   role: string;
   services: string[] | null;
   orders: string[] | null;
-}
-
-export interface Specialist {
-  address: string | null;
-  description: string | null;
-  full_name: string;
-  id: string;
-  phone: string | null;
-  role: string;
-  services: string[] | null;
-  reviews: string[] | null;
-}
-
-export interface Client {
-  address: string;
-  full_name: string;
-  id: string;
-  orders: string[] | null;
-  phone: string;
-  role: string;
-}
-
-export interface ClientRequest {
-  additional_info: string | null;
-  contact: string;
-  description: string;
-  id: string;
-  client_name: string | null;
-  client_id: string;
-  location: string;
-  type_of_request: string;
-}
-
-export interface Service {
-  additional_info: string | null;
-  contact: string | null;
-  description: string | null;
-  id: string;
-  location: string | null;
-  price: string | null;
-  specialist_id: string;
-  specialist_name: string | null;
-  type_of_service: string | null;
 }
 
 export interface Review {
